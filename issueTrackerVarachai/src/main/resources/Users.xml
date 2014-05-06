@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns="http://java.sun.com/xml/ns/javaee">
+	<user>
+		<username>user1</username>
+		<password>pass1</password>
+		<role>ADMINISTRATOR</role>
+	</user>
+	<user>
+		<username>user2</username>
+		<password>pass2</password>
+		<role>USER</role>
+	</user>
+	<user>
+		<username>user3</username>
+		<password>pass3</password>
+		<role>USER</role>
+	</user>
+	<user>
+		<username>user3</username>
+		<password>pass3</password>
+		<role>GUEST</role>
+	</user>
+</users>
