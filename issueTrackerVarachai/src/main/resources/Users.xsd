@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="users">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="user" type="User" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+		<xs:unique name="username">
+			<xs:selector xpath="user" />
+			<xs:field xpath="username" />
+		</xs:unique>
+	</xs:element>
+	<xs:complexType name="User">
+		<xs:all>
+			<xs:element name="username" type="Username" />
+			<xs:element name="password" type="Password" />
+			<xs:element name="email" type="EmailAddress" />
+			<xs:element name="role" type="Role" />
+		</xs:all>
+		<xs:attribute name="id" type="xs:unsignedLong" use="required" />
+	</xs:complexType>
+
+	<xs:simpleType name="Username">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-zA-Z_0-9]{1,30}" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Password">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-zA-Z0-9]{3,20}" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EmailAddress">
+		<xs:restriction base="xs:string">
+			<xs:pattern value=".+@.+\..+" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Role">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="GUEST" />
+			<xs:enumeration value="USER" />
+			<xs:enumeration value="ADMINISTRATOR" />
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

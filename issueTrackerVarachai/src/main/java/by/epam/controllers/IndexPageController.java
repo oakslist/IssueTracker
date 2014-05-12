@@ -102,7 +102,7 @@ public class IndexPageController extends AbstractBaseController {
 				+ "\" size=\"20\" maxlengh=\"20\">");
 		out.println("</p>");
 
-		out.println("<input type=\"submit\" value=\"log in for project\">");
+		out.println("<input type=\"submit\" value=\"log in\">");
 		
 		
 		// additional ===========================		
