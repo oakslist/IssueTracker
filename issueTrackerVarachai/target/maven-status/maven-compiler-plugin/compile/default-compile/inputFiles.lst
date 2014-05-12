@@ -1,0 +1,16 @@
+H:\issueTrackerVarachai\src\main\java\by\epam\model\impls\XmlUserImpl.java
+H:\issueTrackerVarachai\src\main\java\by\epam\model\impls\DaoException.java
+H:\issueTrackerVarachai\src\main\java\by\epam\model\factories\PrivilegesFactory.java
+H:\issueTrackerVarachai\src\main\java\by\epam\model\beans\UserRole.java
+H:\issueTrackerVarachai\src\main\java\by\epam\filters\LoginDoubleSubmitFilter.java
+H:\issueTrackerVarachai\src\main\java\by\epam\controllers\IndexPageController.java
+H:\issueTrackerVarachai\src\main\java\by\epam\model\beans\User.java
+H:\issueTrackerVarachai\src\main\java\by\epam\model\factories\UserFactory.java
+H:\issueTrackerVarachai\src\main\java\by\epam\ifaces\AbstractBaseController.java
+H:\issueTrackerVarachai\src\main\java\by\epam\controllers\CheckUserController.java
+H:\issueTrackerVarachai\src\main\java\by\epam\ifaces\IUserDAO.java
+H:\issueTrackerVarachai\src\main\java\by\epam\controllers\SignInResultPageController.java
+H:\issueTrackerVarachai\src\main\java\by\epam\model\beans\UserRolePrivileges.java
+H:\issueTrackerVarachai\src\main\java\by\epam\model\impls\XmlPrivilegesImpl.java
+H:\issueTrackerVarachai\src\main\java\by\epam\ifaces\IPrivilegesDAO.java
+H:\issueTrackerVarachai\src\main\java\by\epam\constants\ServletConstants.java

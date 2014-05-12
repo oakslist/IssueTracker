@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <users xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xmlns="http://java.sun.com/xml/ns/javaee">
-	<user>
+	<user id="1">
 		<username>user1</username>
 		<password>pass1</password>
+		<email>email1</email>
 		<role>ADMINISTRATOR</role>
 	</user>
-	<user>
+	<user id="2">
 		<username>user2</username>
 		<password>pass2</password>
+		<email>email2</email>
 		<role>USER</role>
 	</user>
-	<user>
+	<user id="3">
 		<username>user3</username>
 		<password>pass3</password>
+		<email>email3</email>
 		<role>USER</role>
 	</user>
-	<user>
-		<username>user3</username>
-		<password>pass3</password>
+	<user id="4">
+		<username>user4</username>
+		<password>pass4</password>
+		<email>email4</email>
 		<role>GUEST</role>
 	</user>
 </users>

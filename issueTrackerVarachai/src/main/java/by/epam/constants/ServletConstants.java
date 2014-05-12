@@ -8,6 +8,7 @@ public class ServletConstants {
 	
 	public static final String USERNAME = "username";
 	public static final String PASSWORD = "password";
+	public static final String USER = "user";
 	
 	public static final String DEFAULT_GUEST = "guest";
 	public static final String DEFAULT_PASSWORD = "";
@@ -16,6 +17,9 @@ public class ServletConstants {
 	public static final String LOGIN_INVALID = "error: invalid username or password!";
 	
 	public static final String ERROR_NULL_SESSION = "error: session was lost!";
+	public static final String KEY_ERROR_MESSAGE = "errorMessage";
+	
+	public static final String JUMP_INDEX_PAGE = "/IndexPageController";
 	
 	public static final String MESSAGE = "message";	
 
