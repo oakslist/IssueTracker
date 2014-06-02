@@ -3,32 +3,64 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
 	<display-name>issueTrackerVarachai</display-name>
 	<servlet>
-		<servlet-name>IndexPageController</servlet-name>
-		<servlet-class>by.epam.controllers.IndexPageController</servlet-class>
+		<servlet-name>LoginController</servlet-name>
+		<servlet-class>org.training.controllers.LoginController</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>SignInResultPageController</servlet-name>
-		<servlet-class>by.epam.controllers.SignInResultPageController</servlet-class>
+		<servlet-name>SessionController</servlet-name>
+		<servlet-class>org.training.controllers.SessionController</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>CheckUserController</servlet-name>
-		<servlet-class>by.epam.controllers.CheckUserController</servlet-class>
+		<servlet-name>LogoutController</servlet-name>
+		<servlet-class>org.training.controllers.LogoutController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SubmitIssueController</servlet-name>
+		<servlet-class>org.training.controllers.SubmitIssueController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>BeforeSubmitIssueController</servlet-name>
+		<servlet-class>org.training.controllers.BeforeSubmitIssueController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>BeforeEditIssueController</servlet-name>
+		<servlet-class>org.training.controllers.BeforeEditIssueController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>EditIssueController</servlet-name>
+		<servlet-class>org.training.controllers.EditIssueController</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>IndexPageController</servlet-name>
-		<url-pattern>/index.html</url-pattern>
+		<servlet-name>SessionController</servlet-name>
+		<url-pattern>/SessionController</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>SignInResultPageController</servlet-name>
-		<url-pattern>/welcome.html</url-pattern>
+		<servlet-name>LoginController</servlet-name>
+		<url-pattern>/LoginController</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>CheckUserController</servlet-name>
-		<url-pattern>/CheckUserController</url-pattern>
+		<servlet-name>LogoutController</servlet-name>
+		<url-pattern>/LogoutController</url-pattern>
 	</servlet-mapping>
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-	</welcome-file-list>
+	<servlet-mapping>
+		<servlet-name>SubmitIssueController</servlet-name>
+		<url-pattern>/SubmitIssueController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BeforeSubmitIssueController</servlet-name>
+		<url-pattern>/BeforeSubmitIssueController</url-pattern>
+	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>BeforeEditIssueController</servlet-name>
+		<url-pattern>/BeforeEditIssueController</url-pattern>
+	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>EditIssueController</servlet-name>
+		<url-pattern>/EditIssueController</url-pattern>
+	</servlet-mapping>
 </web-app>
