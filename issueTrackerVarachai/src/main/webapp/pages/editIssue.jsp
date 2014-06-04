@@ -35,23 +35,57 @@
 
 		<div class="main">
 
-			<h1>Submit Issue</h1>
+			<h1>Edit Issue</h1>
 			<c:choose>
 				<c:when test="${user.role eq 'GUEST'}">
 					<p><font color=&quot#AABBCC&quot>Your are in IssueTracker now<br>
 					Please login or work as a guest.</font></p>
 				</c:when>
 				<c:when test="${user.role eq 'USER' || user.role eq 'ADMINISTRATOR'}">
-					<div class="add-submit-issue">
-						<form method="POST" action="<c:url value='/SubmitIssueController'/>">
-							<table class="add-issue-table">
+					<div class="add-edit-issue">
+						<form method="POST" action="<c:url value='/EditIssueController'/>">
+							<table class="add-edit-table">
+								<tr>
+									<td>Id:</td>
+									<td><input type="text" class="summary-select" 
+										name=<%= ServletConstants.JSP_ISSUE_ID%> size="15" 
+										value="${issue.id}" readonly></td>
+								</tr>
+								<tr>
+									<td>Create Date:</td>
+									<td><input type="text" class="summary-select" 
+										name=<%= ServletConstants.JSP_CREATE_DATE%> size="15" 
+										value="${issue.createDate}" readonly></td>
+								</tr>
+								<tr>
+									<td>Created By:</td>
+									<td><input type="text" class="summary-select" 
+										name=<%= ServletConstants.JSP_CREATED_BY%> size="15" 
+										value="${issue.createdBy}" readonly></td>
+								</tr>
+								<tr>
+									<td>Modify Date:</td>
+									<td><input type="text" class="summary-select" 
+										name=<%= ServletConstants.JSP_MODIFY_DATE%> size="15" 
+										value="${issue.modifyDate}" readonly></td>
+								</tr>
+								<tr>
+									<td>Modified By:</td>
+									<td><input type="text" class="summary-select" 
+										name=<%= ServletConstants.JSP_MODIFIED_BY%> size="15" 
+										value="${issue.modifiedBy}" readonly></td>
+								</tr>
 								<tr>
 									<td>Summary:</td>
-									<td><input type="text" class="summary-select" name=<%= ServletConstants.JSP_SUMMARY%> size="15"></td>
+									<td><input type="text" class="summary-select" 
+										name=<%= ServletConstants.JSP_SUMMARY%> size="15"
+										value="${issue.summary}"></td>
 								</tr>
 								<tr>
 									<td>Description:</td>
-									<td><input type="text" class="description-select" name=<%= ServletConstants.JSP_DESCRIPTION%> size="15"></td>
+									<td><input type="text" class="description-select" 
+										name=<%= ServletConstants.JSP_DESCRIPTION%> size="15"
+										value="${issue.description}"></td>
 								</tr>
 								<tr>
 									<td>Status:</td>
@@ -62,6 +96,16 @@
     									</c:forEach>
    									</select>
    									</td>
+								</tr>
+								<tr>
+									<td>Resolution:</td>
+									<td>
+									<select class="resolution-select" name=<%= ServletConstants.JSP_RESOLUTION%>>
+										<c:forEach items="${issueResolutions}" var="resolution">
+        									<option value="${resolution.key}">${resolution.value}</option>
+    									</c:forEach>
+   									</select>
+									</td>
 								</tr>
 								<tr>
 									<td>Type:</td>
@@ -114,7 +158,7 @@
    									</td>
 								</tr>
 							</table>
-							<input class="add-btn" type="submit" value="Add Issue">
+							<input class="edit-btn" type="submit" value="Edit Issue">
 						</form>
 					</div>
 				</c:when>

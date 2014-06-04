@@ -96,8 +96,73 @@ public class H2IssueImpl extends AbstractBaseDB implements IIssueDAO {
 
 	@Override
 	public Issue getIssue(int number) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connection = null;
+		PreparedStatement stmt = null;
+		ResultSet resultSet = null;
+		Issue issue = new Issue();
+		try {
+			connection = getConnection();
+			stmt = connection.prepareStatement(ConstantsH2.SELECT_ISSUE);
+			final int ISSUE_ID = 1;
+			stmt.setInt(ISSUE_ID, number);
+			resultSet = stmt.executeQuery();
+			if (resultSet != null && resultSet.next()) {
+				issue.setId(resultSet.getInt("issueId"));
+				issue.setSummary(resultSet.getString("summary"));
+				issue.setDescription(resultSet.getString("description"));
+				issue.setStatus(resultSet.getString("statusName"));
+				issue.setResolution(resultSet.getString("resolutionName"));
+				issue.setType(resultSet.getString("typeName"));
+				issue.setPriority(resultSet.getString("priorityName"));
+				issue.setProject(resultSet.getString("name"));
+				issue.setBuildFound(resultSet.getString("buildNumber"));
+				issue.setAssignee(resultSet.getString("assignee"));
+				issue.setCreateDate(resultSet.getDate("createDate"));
+				issue.setCreatedBy(resultSet.getString("firstName") + resultSet.getString("lastName"));
+				issue.setModifyDate(resultSet.getDate("modifyDate"));
+				issue.setModifiedById(resultSet.getInt("modifiedBy"));
+			}
+		} catch (SQLException e) {
+			System.err.println("Query: " + ConstantsH2.SELECT_ISSUE + "\n" + e);
+		} finally {
+			closeConnection(connection, stmt, resultSet);
+		}
+		return issue;
+	}
+
+	@Override
+	public boolean updateIssue(Issue issue) throws DaoException {
+		Connection connection = null;
+		PreparedStatement stmt = null;
+		ResultSet resultSet = null;
+		boolean isUpdated = false;
+		try {
+			connection = getConnection();
+			stmt = connection.prepareStatement(ConstantsH2.UPDATE_ISSUE);
+			final int MODIFY_DATE = 1, MODIFIED_BY = 2, SUMMARY = 3;
+			final int DESCRIPTION = 4, STATUS = 5, RESOLUTION = 6;
+			final int TYPE = 7, PRIORITY = 8, PROJECT = 9, BUILD = 10;
+			final int ASSIGNEE = 11, ISSUE_ID = 12;
+			stmt.setDate(MODIFY_DATE, issue.getModifyDate());
+			stmt.setInt(MODIFIED_BY, issue.getModifiedById());
+			stmt.setString(SUMMARY, issue.getSummary());
+			stmt.setString(DESCRIPTION, issue.getDescription());
+			stmt.setString(STATUS, issue.getStatus());
+			stmt.setString(RESOLUTION, issue.getResolution());
+			stmt.setString(TYPE, issue.getType());
+			stmt.setString(PRIORITY, issue.getPriority());
+			stmt.setString(PROJECT, issue.getProject());
+			stmt.setString(BUILD, issue.getBuildFound());
+			stmt.setString(ASSIGNEE, issue.getAssignee());
+			stmt.setInt(ISSUE_ID, issue.getId());
+			stmt.executeUpdate();
+			isUpdated = true;
+		} catch (SQLException e) {
+			System.err.println("Query: " + ConstantsH2.UPDATE_ISSUE + "\n" + e);
+		} finally {
+			closeConnection(connection, stmt, resultSet);
+		}
+		return isUpdated;
 	}
 
 }

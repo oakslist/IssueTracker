@@ -191,12 +191,16 @@ public class CreateTablesH2DB extends AbstractBaseDB {
             
             st.executeUpdate("INSERT INTO issues (summary, description, statusId, "
             		+ "resolutionId, typeId, priorityId, projectId, "
-            		+ "buildId, assignee, createdBy, modifiedBy) "
-            		+ "VALUES ('summary info', 'descr info', '1', '2', '3', '3', '1', '1', 'me', '1', '1')");
+            		+ "buildId, assignee, createdBy, modifiedBy, modifyDate) "
+            		+ "VALUES ('summary info', 'descr info', '1', '2', '3', '3', '1', '1', 'me', '1', '2', '2014-06-04')");
             st.executeUpdate("INSERT INTO issues (summary, description, statusId, "
             		+ "resolutionId, typeId, priorityId, projectId, "
-            		+ "buildId, assignee, createdBy, modifiedBy) "
-            		+ "VALUES ('summary info2', 'descr info2', '2', '3', '3', '4', '2', '2', 'me2', '1', '1')");
+            		+ "buildId, assignee, createdBy) "
+            		+ "VALUES ('summary info2', 'descr info2', '2', '3', '3', '4', '2', '2', 'me2', '1')");
+            st.executeUpdate("INSERT INTO issues (summary, description, statusId, "
+            		+ "resolutionId, typeId, priorityId, projectId, "
+            		+ "buildId, assignee, createdBy) "
+            		+ "VALUES ('summary info3', 'descr info3', '3', '2', '1', '2', '2', '1', 'me3', '2')");
             
             st.close();
             stmt.close();

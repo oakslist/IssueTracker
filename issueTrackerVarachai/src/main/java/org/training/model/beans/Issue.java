@@ -22,7 +22,7 @@ public class Issue implements Serializable {
     private Date modifyDate;
     private String modifiedBy;
     private int createdById;
-    private int modifyedById = 0;
+    private int modifiedById = 0;
     
     public Issue(int id, String summary, String description, String status,
     		String resolution, String type, String priority, String project,
@@ -169,12 +169,12 @@ public class Issue implements Serializable {
 		this.createdById = createdById;
 	}
 
-	public int getModifyedById() {
-		return modifyedById;
+	public int getModifiedById() {
+		return modifiedById;
 	}
 
-	public void setModifyedById(int modifyedById) {
-		this.modifyedById = modifyedById;
+	public void setModifiedById(int modifiedById) {
+		this.modifiedById = modifiedById;
 	}
 
 	@Override

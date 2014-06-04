@@ -25,6 +25,8 @@ public class ConstantsH2 {
 			+ "ON builds.buildId = projects.buildId";
 	public final static String SELECT_ALL_USERS = "SELECT * FROM users LEFT JOIN roles "
 			+ "ON users.roleId = roles.roleId";
+	public final static String SELECT_USER_BY_ID = "SELECT * FROM users LEFT JOIN roles "
+			+ "ON users.roleId = roles.roleId WHERE userId = ?";
 	
 	public final static String SELECT_ALL_ISSUES2 = "SELECT * FROM issues "
 			+ "LEFT JOIN statuses ON issues.statusId = statuses.statusId "
@@ -36,8 +38,24 @@ public class ConstantsH2 {
 			+ "GROUP BY issueId";
 	
 	public final static String INSERT_ISSUE = "INSERT INTO issues (summary, description, statusId, "
-			+ "typeId, priorityId, projectId, buildId, assignee, createdBy)"
+			+ "typeId, priorityId, projectId, buildId, assignee, createdBy) "
             + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
+	public final static String UPDATE_ISSUE = "UPDATE issues SET modifyDate = ?, "
+			+ "modifiedBy = ?, summary = ?, description = ?, statusId = ?, "
+			+ "resolutionId = ?, typeId = ?, priorityId = ?, projectId = ?, "
+			+ "buildId = ?, assignee = ? WHERE issueId = ?";
+	
+	public final static String SELECT_ISSUE = "SELECT * FROM issues "
+			+ "LEFT JOIN statuses ON issues.statusId = statuses.statusId "
+			+ "LEFT JOIN types ON issues.typeId = types.typeId "
+			+ "LEFT JOIN resolutions ON issues.resolutionId = resolutions.resolutionId "
+			+ "LEFT JOIN priorities ON issues.priorityId = priorities.priorityId "
+			+ "LEFT JOIN projects ON issues.projectId = projects.projectId "
+			+ "LEFT JOIN builds ON issues.buildId = builds.buildId "
+			+ "LEFT JOIN users ON issues.createdBy = users.userId "
+			+ "WHERE issueId = ? GROUP BY issueId";	
+	
 	public final static String SELECT_USER_BY_LOGIN = "SELECT * FROM users WHERE users.login=?";
 	public final static String ADD_NEW_USER = "INSERT INTO users (login,password) VALUES (?,?)";
 	

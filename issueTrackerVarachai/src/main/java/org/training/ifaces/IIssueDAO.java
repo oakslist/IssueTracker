@@ -10,4 +10,5 @@ public interface IIssueDAO {
 	public List<Issue> getIssues(int firstNumber, int number) throws DaoException;
 	public Issue getIssue(int number) throws DaoException;
 	public boolean setIssue(Issue issue) throws DaoException;
+	public boolean updateIssue(Issue issue) throws DaoException;
 }

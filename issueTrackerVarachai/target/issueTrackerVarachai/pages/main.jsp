@@ -8,6 +8,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="<c:url value='/pages/style/style.css'/>">
 <title>IssueTracker</title>
+<script language="JavaScript">
+	function editIssue(value) {
+		var id = value;
+		var curIssue = document.getElementById("hidden1");
+		curIssue.value = id;
+		document.forms[0].submit();
+	}
+
+</script>
 </head>
 <body>
 	<div class="error-message">
@@ -73,7 +82,7 @@
 				<table class="table-issues">
 					<thead>
 						<tr>
-							<th>Id</th>
+							<th class="table-id-name">Id</th>
 							<th>Priority</th>
 							<th>Assignee</th>
 							<th>Type</th>
@@ -82,14 +91,17 @@
 						</tr>
 					</thead>
 					<tbody>
+						<form action="<c:url value='/BeforeEditIssueController'/>" method="POST">
+							<input type="hidden" id="hidden1" value="" name="hidden1">
+						</form>	
 						<c:forEach items="${issuesList}" var="issue">
 							<tr>
 								<c:choose>
 									<c:when test="${user.role eq 'USER' || user.role eq 'ADMINISTRATOR'}">
-										<td><a href="<c:url value='/BeforeEditIssueController'/>">${issue.id}</a></td>
+										<td class="table-id"><a href="javascript:editIssue('${issue.id}')">${issue.id}</a></td>
 									</c:when>
 									<c:otherwise>
-										<td>${issue.id}</td>
+										<td class="table-id">${issue.id}</td>
 									</c:otherwise>
 								</c:choose>	
 								<td class="color-${issue.priority}">${issue.priority}</td>

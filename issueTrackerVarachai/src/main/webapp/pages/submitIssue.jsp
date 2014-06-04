@@ -8,6 +8,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="<c:url value='/pages/style/style.css'/>">
 <title>IssueTracker</title>
+<script language="JavaScript">
+
+	function loskSelectBuild() {
+		var order = document.getElementByClassName("build-select");
+		order.disabled = 'disabled';
+	}
+	
+	function unlockSelectBuild() {
+		var order = document.getElementByClassName("build-select");
+		order.disabled = 'enable';
+	}
+
+</script>
 </head>
 <body>
 	<div class="error-message">

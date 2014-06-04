@@ -102,6 +102,34 @@ public class H2UserImpl extends AbstractBaseDB implements IUserDAO {
 		}
 		return users;
 	}
+
+	@Override
+	public User getUserById(int id) throws DaoException {
+		User user = new User();
+		Connection connection = null;
+		PreparedStatement stmt = null;
+		ResultSet resultSet = null;
+		try {
+			connection = getConnection();
+			stmt = connection.prepareStatement(ConstantsH2.SELECT_USER_BY_ID);
+			final int ID_INDEX = 1;
+			stmt.setInt(ID_INDEX, id);
+			resultSet = stmt.executeQuery();
+			if (resultSet != null && resultSet.next()) {
+				user.setId(resultSet.getInt("userId"));
+				user.setFirstName(resultSet.getString("firstName"));
+				user.setLastName(resultSet.getString("lastName"));
+				user.setEmailAddress(resultSet.getString("emailAddress"));
+				user.setRole(UserRoleEnum.valueOf(resultSet.getString("roleName")));
+				user.setPassword(resultSet.getString("password"));
+			}
+		} catch (SQLException e) {
+            System.err.println("Query: " + ConstantsH2.SELECT_USER_BY_ID + "\n" + e);
+		} finally {
+			closeConnection(connection, stmt, resultSet);
+		}
+		return user;
+	}
 	
 	
 }

@@ -42,7 +42,7 @@ public class BeforeSubmitIssueController extends AbstractBaseController {
 			return;
 		}
 		
-		// check password and email in bd
+		// get data from db
 		ITableDataDAO tableDAO = TableDataFactory.getClassFromFactory();
 		try {
 			session.setAttribute(ServletConstants.JSP_TYPES_LIST, tableDAO.getTypes());

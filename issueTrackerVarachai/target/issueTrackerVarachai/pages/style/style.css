@@ -120,6 +120,10 @@ body {
 	margin: 5px 0;
 }
 
+.edit-btn {
+	margin: 5px 0;
+}
+
 .search-btn {
 	float: left;
 	margin: 0 10px 10px 0;
@@ -127,6 +131,10 @@ body {
 
 /* width in add issue page */
 .add-issue-table select {
+	width: 200px;
+}
+
+.add-edit-table select {
 	width: 200px;
 }
 
@@ -149,4 +157,12 @@ td.color-Critical {
 
 td.color-Minor {
 	color: green;
+}
+
+.table-id-name {
+	text-align: center;
+}
+
+.table-id {
+	text-align: center;
 }

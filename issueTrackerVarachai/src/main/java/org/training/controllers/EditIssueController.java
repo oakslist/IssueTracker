@@ -46,11 +46,13 @@ public class EditIssueController extends AbstractBaseController {
 			return;
 		}
 		
+		int id = Integer.parseInt(request.getParameter(ServletConstants.JSP_ISSUE_ID));
 		String summary = request.getParameter(ServletConstants.JSP_SUMMARY);
 		String description = request.getParameter(ServletConstants.JSP_DESCRIPTION);
 		String status = request.getParameter(ServletConstants.JSP_STATUS);
 		String type = request.getParameter(ServletConstants.JSP_TYPE);
 		String priority = request.getParameter(ServletConstants.JSP_PRIORITY);
+		String resolution = request.getParameter(ServletConstants.JSP_RESOLUTION);
 		String project = request.getParameter(ServletConstants.JSP_PROJECT);
 		String buildFound = request.getParameter(ServletConstants.JSP_BUILD_FOUND);
 		String assignee = request.getParameter(ServletConstants.JSP_ASSIGNEE);
@@ -63,32 +65,29 @@ public class EditIssueController extends AbstractBaseController {
 		}
 		
 		Issue issue = new Issue();
-		
+		issue.setId(id);
 		issue.setSummary(summary);
 		issue.setDescription(description);
 		issue.setStatus(status);
 		issue.setType(type);
 		issue.setPriority(priority);
+		issue.setResolution(resolution);
 		issue.setProject(project);
 		issue.setBuildFound(buildFound);
 		issue.setAssignee(assignee);
 		User user = (User) session.getAttribute(ServletConstants.JSP_USER);
-		issue.setCreatedBy(user.getEmailAddress() + " : " + user.getFirstName()
-				+ " " + user.getLastName());
-		issue.setCreatedById(user.getId());
-		
-		System.out.println(issue);
+		issue.setModifyDate(new java.sql.Date(System.currentTimeMillis()));
+		issue.setModifiedById(user.getId());
 		
 		try {
-			//set issue in db
+			//save issue in db
 			IIssueDAO issueDAO = IssueFactory.getClassFromFactory();
-			// set issue
-			boolean isSet = issueDAO.setIssue(issue);
-			if (isSet == true) {
-				jumpError(ServletConstants.ISSUE_ADD_SUCCESSFULLY, request, response);
+			boolean isUpdate = issueDAO.updateIssue(issue);
+			if (isUpdate == true) {
+				jumpError(ServletConstants.ISSUE_UPDATE_SUCCESSFULLY, request, response);
 			} else {
 				//  user not found
-				jumpError(ServletConstants.ERROR_ISSUE_NOT_ADD, request, response);
+				jumpError(ServletConstants.ERROR_ISSUE_NOT_UPDATE, request, response);
 			}
 		} catch (DaoException e) {
 			jumpError(e.getMessage(), request, response);
@@ -109,7 +108,7 @@ public class EditIssueController extends AbstractBaseController {
 
 	protected void jumpError(String message, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		jump(ServletConstants.JUMP_SUBMIT_ISSUE_PAGE, message, request, response);
+		jump(ServletConstants.JUMP_INDEX_PAGE, message, request, response);
 	}
 	
 	private String getInputResult(String summary, String description, String status, 

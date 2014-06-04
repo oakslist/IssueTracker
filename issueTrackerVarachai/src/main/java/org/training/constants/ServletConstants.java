@@ -21,6 +21,7 @@ public class ServletConstants {
 	public static final String JSP_DESCRIPTION = "description";
 	public static final String JSP_STATUS = "status";
 	public static final String JSP_TYPE = "type";
+	public static final String JSP_RESOLUTION = "resolution";
 	public static final String JSP_PRIORITY = "priority";
 	public static final String JSP_PROJECT = "project";
 	public static final String JSP_BUILD_FOUND = "buildFound";
@@ -30,6 +31,9 @@ public class ServletConstants {
 	public static final String JSP_MODIFY_DATE = "modifyDate";
 	public static final String JSP_MODIFIED_BY = "modifiedBy";
 	public static final String JSP_ISSUES_LIST = "issuesList";
+	public static final String JSP_ISSUE = "issue";
+	public static final String JSP_ISSUE_ID = "issueId";
+
 	
 	public static final String JSP_TYPES_LIST = "issueTypes";
 	public static final String JSP_STATUSES_LIST = "issueStatuses";
@@ -55,21 +59,24 @@ public class ServletConstants {
 	public static final String ERROR_BUILD_FOUND_EMPTY = "Build Found is empty.";
 	
 	public static final String ERROR_ISSUE_NOT_ADD = "Issue not add.";
+	public static final String ERROR_ISSUE_NOT_UPDATE = "Issue not update.";
 	public static final String ISSUE_ADD_SUCCESSFULLY = "Issue was add successfully.";
-	
+	public static final String ISSUE_UPDATE_SUCCESSFULLY = "Issue was update successfully.";
+		
 	public static final String LOGIN_VALID = "login ok";
 	public static final String LOGIN_INVALID = "error: invalid username or password!";
 	
 	public static final String ERROR_NULL_SESSION = "error: session was lost!";
 	public static final String KEY_ERROR_MESSAGE = "errorMessage";
 	
-	public static final String JUMP_INDEX_PAGE = "/IndexPageController";
-	
 	public static final String MESSAGE = "message";
 	public static final String KEY_EMPTY = "";
 	
+	public static final String JUMP_INDEX_PAGE = "/index.jsp";
 	public static final String JUMP_LOGIN = "/pages/login.jsp";
 	public static final String JUMP_MAIN_PAGE = "/pages/main.jsp";
 	public static final String JUMP_SUBMIT_ISSUE_PAGE = "/pages/submitIssue.jsp";
+	public static final String JUMP_EDIT_ISSUE_PAGE = "/pages/editIssue.jsp";
+
 
 }

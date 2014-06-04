@@ -100,7 +100,7 @@ public class SubmitIssueController extends AbstractBaseController {
 
 	protected void jumpError(String message, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		jump(ServletConstants.JUMP_SUBMIT_ISSUE_PAGE, message, request, response);
+		jump(ServletConstants.JUMP_INDEX_PAGE, message, request, response);
 	}
 	
 
