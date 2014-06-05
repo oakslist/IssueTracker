@@ -52,7 +52,7 @@ public class SubmitIssueController extends AbstractBaseController {
 		String priority = request.getParameter(ServletConstants.JSP_PRIORITY);
 		String project = request.getParameter(ServletConstants.JSP_PROJECT);
 		String buildFound = request.getParameter(ServletConstants.JSP_BUILD_FOUND);
-		String assignee = request.getParameter(ServletConstants.JSP_ASSIGNEE);
+		int assignee = Integer.parseInt(request.getParameter(ServletConstants.JSP_ASSIGNEE));
 
 		
 		Issue issue = new Issue();
@@ -64,7 +64,7 @@ public class SubmitIssueController extends AbstractBaseController {
 		issue.setPriority(priority);
 		issue.setProject(project);
 		issue.setBuildFound(buildFound);
-		issue.setAssignee(assignee);
+		issue.setAssigneeId(assignee);
 		User user = (User) session.getAttribute(ServletConstants.JSP_USER);
 		issue.setCreatedBy(user.getEmailAddress() + " : " + user.getFirstName()
 				+ " " + user.getLastName());

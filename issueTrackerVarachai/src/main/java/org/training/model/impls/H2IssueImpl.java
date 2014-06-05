@@ -33,7 +33,10 @@ public class H2IssueImpl extends AbstractBaseDB implements IIssueDAO {
 				issue.setPriority(resultSet.getString("priorityName"));
 				issue.setProject(resultSet.getString("name"));
 				issue.setBuildFound(resultSet.getString("buildNumber"));
-				issue.setAssignee(resultSet.getString("assignee"));
+				issue.setAssigneeId(resultSet.getInt("assigneeId"));
+				issue.setAssignee(resultSet.getString("emailAddress") + " : " 
+						+ resultSet.getString("firstName") + " "
+						+ resultSet.getString("lastName"));
 				issue.setCreateDate(resultSet.getDate("createDate"));
 				issue.setCreatedBy(resultSet.getString("createdBy"));
 				issue.setModifyDate(resultSet.getDate("modifyDate"));
@@ -49,7 +52,7 @@ public class H2IssueImpl extends AbstractBaseDB implements IIssueDAO {
 				}
 			}
 		} catch (SQLException e) {
-            System.err.println("Query: " + ConstantsH2.SELECT_ALL_ISSUES + "\n" + e);
+            System.err.println("Query: " + ConstantsH2.SELECT_ALL_ISSUES2 + "\n" + e);
 		} finally {
 			closeConnection(connection, stmt, resultSet);
 		}
@@ -74,7 +77,7 @@ public class H2IssueImpl extends AbstractBaseDB implements IIssueDAO {
 			stmt = connection.prepareStatement(ConstantsH2.INSERT_ISSUE);
 			final int SUMMARY = 1, DESCRIPTION = 2, STATUS = 3;
 			final int TYPE = 4, PRIORITY = 5, PROJECT = 6, BUILD = 7;
-			final int ASSIGNEE = 8, CREATED_BY = 9;
+			final int ASSIGNEE_ID = 8, CREATED_BY = 9;
 			stmt.setString(SUMMARY, issue.getSummary());
 			stmt.setString(DESCRIPTION, issue.getDescription());
 			stmt.setString(STATUS, issue.getStatus());
@@ -82,7 +85,7 @@ public class H2IssueImpl extends AbstractBaseDB implements IIssueDAO {
 			stmt.setString(PRIORITY, issue.getPriority());
 			stmt.setString(PROJECT, issue.getProject());
 			stmt.setString(BUILD, issue.getBuildFound());
-			stmt.setString(ASSIGNEE, issue.getAssignee());
+			stmt.setInt(ASSIGNEE_ID, issue.getAssigneeId());
 			stmt.setInt(CREATED_BY, issue.getCreatedById());
 			stmt.executeUpdate();
 			isCreated = true;
@@ -116,7 +119,7 @@ public class H2IssueImpl extends AbstractBaseDB implements IIssueDAO {
 				issue.setPriority(resultSet.getString("priorityName"));
 				issue.setProject(resultSet.getString("name"));
 				issue.setBuildFound(resultSet.getString("buildNumber"));
-				issue.setAssignee(resultSet.getString("assignee"));
+				issue.setAssigneeId(resultSet.getInt("assigneeId"));
 				issue.setCreateDate(resultSet.getDate("createDate"));
 				issue.setCreatedBy(resultSet.getString("firstName") + resultSet.getString("lastName"));
 				issue.setModifyDate(resultSet.getDate("modifyDate"));
@@ -142,7 +145,7 @@ public class H2IssueImpl extends AbstractBaseDB implements IIssueDAO {
 			final int MODIFY_DATE = 1, MODIFIED_BY = 2, SUMMARY = 3;
 			final int DESCRIPTION = 4, STATUS = 5, RESOLUTION = 6;
 			final int TYPE = 7, PRIORITY = 8, PROJECT = 9, BUILD = 10;
-			final int ASSIGNEE = 11, ISSUE_ID = 12;
+			final int ASSIGNEE_ID = 11, ISSUE_ID = 12;
 			stmt.setDate(MODIFY_DATE, issue.getModifyDate());
 			stmt.setInt(MODIFIED_BY, issue.getModifiedById());
 			stmt.setString(SUMMARY, issue.getSummary());
@@ -153,7 +156,7 @@ public class H2IssueImpl extends AbstractBaseDB implements IIssueDAO {
 			stmt.setString(PRIORITY, issue.getPriority());
 			stmt.setString(PROJECT, issue.getProject());
 			stmt.setString(BUILD, issue.getBuildFound());
-			stmt.setString(ASSIGNEE, issue.getAssignee());
+			stmt.setInt(ASSIGNEE_ID, issue.getAssigneeId());
 			stmt.setInt(ISSUE_ID, issue.getId());
 			stmt.executeUpdate();
 			isUpdated = true;

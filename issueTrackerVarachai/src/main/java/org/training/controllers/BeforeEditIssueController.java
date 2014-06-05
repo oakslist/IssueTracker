@@ -62,6 +62,11 @@ public class BeforeEditIssueController extends AbstractBaseController {
 				User user = userDAO.getUserById(issue.getModifiedById());
 				issue.setModifiedBy(user.getFirstName() + " " + user.getLastName());
 			}
+			User user = userDAO.getUserById(issue.getAssigneeId());
+			issue.setAssigneeId(user.getId());
+			issue.setAssignee(user.getEmailAddress() + " : " 
+					+ user.getFirstName() + " " + user.getLastName());
+			
 			session.setAttribute(ServletConstants.JSP_ISSUE, issue);
 			session.setAttribute(ServletConstants.JSP_TYPES_LIST, 
 					tableDAO.getTypes());

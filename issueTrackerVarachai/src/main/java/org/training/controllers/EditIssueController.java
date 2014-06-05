@@ -55,7 +55,7 @@ public class EditIssueController extends AbstractBaseController {
 		String resolution = request.getParameter(ServletConstants.JSP_RESOLUTION);
 		String project = request.getParameter(ServletConstants.JSP_PROJECT);
 		String buildFound = request.getParameter(ServletConstants.JSP_BUILD_FOUND);
-		String assignee = request.getParameter(ServletConstants.JSP_ASSIGNEE);
+		int assigneeId = Integer.parseInt(request.getParameter(ServletConstants.JSP_ASSIGNEE));
 
 		String inputResult = getInputResult(summary, description, status, type, priority,
 				project, buildFound);
@@ -74,7 +74,7 @@ public class EditIssueController extends AbstractBaseController {
 		issue.setResolution(resolution);
 		issue.setProject(project);
 		issue.setBuildFound(buildFound);
-		issue.setAssignee(assignee);
+		issue.setAssigneeId(assigneeId);
 		User user = (User) session.getAttribute(ServletConstants.JSP_USER);
 		issue.setModifyDate(new java.sql.Date(System.currentTimeMillis()));
 		issue.setModifiedById(user.getId());

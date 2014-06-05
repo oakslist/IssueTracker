@@ -23,8 +23,9 @@ public class Issue implements Serializable {
     private String modifiedBy;
     private int createdById;
     private int modifiedById = 0;
+    private int assigneeId = 0;
     
-    public Issue(int id, String summary, String description, String status,
+	public Issue(int id, String summary, String description, String status,
     		String resolution, String type, String priority, String project,
     		String buildFound, String assignee, Date createDate, 
     		String createdBy, Date modifyDate, String modifiedBy) {
@@ -175,6 +176,14 @@ public class Issue implements Serializable {
 
 	public void setModifiedById(int modifiedById) {
 		this.modifiedById = modifiedById;
+	}
+	
+    public int getAssigneeId() {
+		return assigneeId;
+	}
+
+	public void setAssigneeId(int assigneeId) {
+		this.assigneeId = assigneeId;
 	}
 
 	@Override

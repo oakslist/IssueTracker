@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.training.constants.ServletConstants;
 import org.training.ifaces.xmlDAO.IPrioritiesDAO;
 import org.training.ifaces.xmlDAO.IResolutionsDAO;
 import org.training.ifaces.xmlDAO.IStatusesDAO;
@@ -21,10 +22,8 @@ import org.training.model.factories.TypeFactory;
 public class CreateTablesH2DB extends AbstractBaseDB {
 
 	//create all tables and default data in database
-	private static boolean isCreateAllTable = false;
-	
 	static {
-		if (isCreateAllTable) {
+		if (ServletConstants.IS_CREATE_ALL_TABLES) {
 			try {
 				// read all constant parameters in table
 				Map<Integer, String> issueTypes = new HashMap<Integer, String>();
@@ -161,7 +160,7 @@ public class CreateTablesH2DB extends AbstractBaseDB {
 						+ "priorityId INT NOT NULL, "
 						+ "projectId INT NOT NULL, "
 						+ "buildId INT NOT NULL, "
-						+ "assignee varchar(50), "
+						+ "assigneeId INT, "
 						+ "createDate DATETIME NOT NULL DEFAULT (NOW()), "
 						+ "createdBy INT NOT NULL, "
 						+ "modifyDate DATETIME, "
@@ -174,7 +173,8 @@ public class CreateTablesH2DB extends AbstractBaseDB {
 						+ "FOREIGN KEY (typeId) REFERENCES types (typeId), "
 						+ "FOREIGN KEY (buildId) REFERENCES builds (buildId), "
 						+ "FOREIGN KEY (projectId) REFERENCES projects (projectId), "
-						+ "FOREIGN KEY (priorityId) REFERENCES priorities (priorityId))");
+						+ "FOREIGN KEY (priorityId) REFERENCES priorities (priorityId), "
+						+ "FOREIGN KEY (assigneeId) REFERENCES users (userId))");
 
 				// some default data in tables
 				st.executeUpdate("INSERT INTO users (firstName, lastName, emailAddress, roleId, password) "
@@ -189,24 +189,22 @@ public class CreateTablesH2DB extends AbstractBaseDB {
 				st.executeUpdate("INSERT INTO builds (buildNumber) VALUES ('3')");
 
 				st.executeUpdate("INSERT INTO projects (name, description, buildId, managerId) "
-						+ "VALUES ('MyProject1', 'Some descriptions', '1', '2')");
+						+ "VALUES ('MyProject1', 'Some descriptions', '1', '1')");
 				st.executeUpdate("INSERT INTO projects (name, description, buildId, managerId) "
-						+ "VALUES ('MyProject1', 'Some descriptions2', '2', '2')");
-				st.executeUpdate("INSERT INTO projects (name, description, buildId, managerId) "
-						+ "VALUES ('MyProject2', 'Some more descriptions', '2', '3')");
+						+ "VALUES ('MyProject2', 'Some descriptions2', '2', '2')");
 
 				st.executeUpdate("INSERT INTO issues (summary, description, statusId, "
 						+ "resolutionId, typeId, priorityId, projectId, "
-						+ "buildId, assignee, createdBy, modifiedBy, modifyDate) "
-						+ "VALUES ('summary info', 'descr info', '1', '2', '3', '3', '1', '1', 'me', '1', '2', '2014-06-04')");
+						+ "buildId, assigneeId, createdBy, modifiedBy, modifyDate) "
+						+ "VALUES ('summary info', 'descr info', '1', '2', '3', '3', '1', '1', '1', '1', '2', '2014-06-04')");
 				st.executeUpdate("INSERT INTO issues (summary, description, statusId, "
 						+ "resolutionId, typeId, priorityId, projectId, "
-						+ "buildId, assignee, createdBy) "
-						+ "VALUES ('summary info2', 'descr info2', '2', '3', '3', '4', '2', '2', 'me2', '1')");
+						+ "buildId, assigneeId, createdBy) "
+						+ "VALUES ('summary info2', 'descr info2', '2', '3', '3', '4', '2', '2', '2', '1')");
 				st.executeUpdate("INSERT INTO issues (summary, description, statusId, "
 						+ "resolutionId, typeId, priorityId, projectId, "
-						+ "buildId, assignee, createdBy) "
-						+ "VALUES ('summary info3', 'descr info3', '3', '2', '1', '2', '2', '1', 'me3', '2')");
+						+ "buildId, assigneeId, createdBy) "
+						+ "VALUES ('summary info3', 'descr info3', '3', '2', '1', '2', '2', '1', '1', '2')");
 
 				st.close();
 				stmt.close();

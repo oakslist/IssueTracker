@@ -35,16 +35,17 @@ public class ConstantsH2 {
 			+ "LEFT JOIN priorities ON issues.priorityId = priorities.priorityId "
 			+ "LEFT JOIN projects ON issues.projectId = projects.projectId "
 			+ "LEFT JOIN builds ON issues.buildId = builds.buildId "
+			+ "LEFT JOIN users ON issues.assigneeId = users.userId "
 			+ "GROUP BY issueId";
 	
 	public final static String INSERT_ISSUE = "INSERT INTO issues (summary, description, statusId, "
-			+ "typeId, priorityId, projectId, buildId, assignee, createdBy) "
+			+ "typeId, priorityId, projectId, buildId, assigneeId, createdBy) "
             + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 	public final static String UPDATE_ISSUE = "UPDATE issues SET modifyDate = ?, "
 			+ "modifiedBy = ?, summary = ?, description = ?, statusId = ?, "
 			+ "resolutionId = ?, typeId = ?, priorityId = ?, projectId = ?, "
-			+ "buildId = ?, assignee = ? WHERE issueId = ?";
+			+ "buildId = ?, assigneeId = ? WHERE issueId = ?";
 	
 	public final static String SELECT_ISSUE = "SELECT * FROM issues "
 			+ "LEFT JOIN statuses ON issues.statusId = statuses.statusId "
