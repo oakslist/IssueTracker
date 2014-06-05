@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<aside class="main-aside">
+	<aside class="main-aside-content">
 		<div class="pages-aside">
 			<ul>
 				<li class="home-page"><a href="<c:url value='/index.jsp'/>">HOME</a></li>
