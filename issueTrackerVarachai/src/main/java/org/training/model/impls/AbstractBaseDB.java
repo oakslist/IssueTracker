@@ -1,10 +1,12 @@
 package org.training.model.impls;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 abstract public class AbstractBaseDB {
 	
@@ -12,12 +14,19 @@ abstract public class AbstractBaseDB {
 		new CreateTablesH2DB();
 	}
 	
+	private InitialContext initContext;
+	private DataSource ds;
+	
 	protected Connection getConnection() {
 		try {
-			Class.forName(ConstantsH2.H2_DRIVER);
-			return DriverManager.getConnection(ConstantsH2.H2_DB_PATH, 
-					ConstantsH2.H2_DB_USER, 
-					ConstantsH2.H2_BD_PASSWORD);
+			initContext = new InitialContext();
+			ds = (DataSource) initContext.lookup("java:comp/env/jdbc/H2db");
+			return ds.getConnection();
+			
+//			Class.forName(ConstantsH2.H2_DRIVER);
+//			return DriverManager.getConnection(ConstantsH2.H2_DB_PATH, 
+//					ConstantsH2.H2_DB_USER, 
+//					ConstantsH2.H2_BD_PASSWORD);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

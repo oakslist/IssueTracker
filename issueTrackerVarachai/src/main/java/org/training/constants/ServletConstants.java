@@ -3,7 +3,7 @@ package org.training.constants;
 public class ServletConstants {
 	
 	public static final int NUMBER_N = 10;
-	public static final boolean IS_CREATE_ALL_TABLES = false;
+	public static final boolean IS_CREATE_ALL_TABLES = true;
 		
 	public static final String XML_USERS_FILE = "/Users.xml";
 	public static final String XML_PRIVILEGES_FILE = "/RolePrivileges.xml";
