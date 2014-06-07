@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="<c:url value='/pages/style/style.css'/>">
+<script type="text/javascript" src="<c:url value='/pages/js/script.js'/>"></script>
 <title>IssueTracker</title>
 <script language="JavaScript">
 	function editIssue(value) {

@@ -45,8 +45,17 @@ public class EditUserController extends AbstractBaseController {
 			return;
 		}
 		
+		User editUser = null;
+		User user = null;
 		
-		User user = (User) session.getAttribute(ServletConstants.JSP_USER);
+		user = (User) session.getAttribute(ServletConstants.JSP_USER);
+		
+		if (session.getAttribute(ServletConstants.JSP_EDIT_USER_BY_ID) == null) {
+			editUser = (User) session.getAttribute(ServletConstants.JSP_USER);
+		} else {
+			editUser = (User) session.getAttribute(ServletConstants.JSP_EDIT_USER_BY_ID);
+			session.removeAttribute(ServletConstants.JSP_EDIT_USER_BY_ID);
+		}
 		
 		String firstName = request.getParameter(ServletConstants.JSP_FIRST_NAME);
 		String lastName = request.getParameter(ServletConstants.JSP_LAST_NAME);
@@ -58,20 +67,20 @@ public class EditUserController extends AbstractBaseController {
 			return;
 		}
 		
-		user.setFirstName(firstName);
-		user.setLastName(lastName);
-		user.setEmailAddress(emailAddress);
-		
+		editUser.setFirstName(firstName);
+		editUser.setLastName(lastName);
+		editUser.setEmailAddress(emailAddress);
+
 		if (user.getRole().equals(UserRoleEnum.ADMINISTRATOR)) {
 			String role = request.getParameter(ServletConstants.JSP_ROLE);
-			user.setRole(UserRoleEnum.valueOf(role));
+			editUser.setRole(UserRoleEnum.valueOf(role));
 		}
 
 		
 		try {
-			//save issue in db
+			//save user in db
 			IUserDAO userDAO = UserFactory.getClassFromFactory();
-			boolean isUpdated = userDAO.updateUser(user);
+			boolean isUpdated = userDAO.updateUser(editUser);
 			if (isUpdated == true) {
 				jumpError(ServletConstants.USER_UPDATE_SUCCESSFULLY, request, response);
 			} else {

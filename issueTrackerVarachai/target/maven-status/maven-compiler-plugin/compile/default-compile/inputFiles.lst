@@ -19,10 +19,12 @@ D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\impls\CreateTable
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\beans\User.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\beans\Project.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\factories\TableDataFactory.java
+D:\!copy\issueTrackerVarachai\src\main\java\org\training\controllers\EditDifferentUserPasswordController.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\beans\UserRolePrivileges.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\controllers\SessionController.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\beans\enums\UserRoleEnum.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\controllers\EditIssueController.java
+D:\!copy\issueTrackerVarachai\src\main\java\org\training\controllers\EditDifferentUserController.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\beans\Issue.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\impls\AbstractBaseDB.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\ifaces\IUserDAO.java

@@ -36,6 +36,8 @@ public class ServletConstants {
 	public static final String JSP_ISSUES_LIST = "issuesList";
 	public static final String JSP_ISSUE = "issue";
 	public static final String JSP_ISSUE_ID = "issueId";
+	public static final String JSP_EDIT_USER_BY_ID = "editUser";
+	public static final String JSP_EDIT_PASSWORD_BY_ID = "editPassword";
 
 	
 	public static final String JSP_TYPES_LIST = "issueTypes";

@@ -57,6 +57,14 @@
 		<servlet-name>BeforeSearchUserController</servlet-name>
 		<servlet-class>org.training.controllers.BeforeSearchUserController</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>EditDifferentUserController</servlet-name>
+		<servlet-class>org.training.controllers.EditDifferentUserController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>EditDifferentUserPasswordController</servlet-name>
+		<servlet-class>org.training.controllers.EditDifferentUserPasswordController</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>SessionController</servlet-name>
@@ -101,5 +109,13 @@
 	<servlet-mapping>
 		<servlet-name>BeforeSearchUserController</servlet-name>
 		<url-pattern>/BeforeSearchUserController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EditDifferentUserController</servlet-name>
+		<url-pattern>/EditDifferentUserController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	<servlet-name>EditDifferentUserPasswordController</servlet-name>
+		<url-pattern>/EditDifferentUserPasswordController</url-pattern>
 	</servlet-mapping>
 </web-app>

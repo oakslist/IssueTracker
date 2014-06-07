@@ -16,12 +16,12 @@ import org.training.model.factories.UserFactory;
 import org.training.model.impls.DaoException;
 
 /**
- * Servlet implementation class EditPasswordController
+ * Servlet implementation class EditDifferentUserController
  */
 
-public class EditPasswordController extends AbstractBaseController {
+public class EditDifferentUserController extends AbstractBaseController {
 	
-private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
     
 	protected void doGet(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
@@ -44,37 +44,15 @@ private static final long serialVersionUID = 1L;
 			jumpError(ServletConstants.ERROR_NULL_SESSION, request, response);
 			return;
 		}
-		
-		User editUser = null;
-		
-		if (session.getAttribute(ServletConstants.JSP_EDIT_PASSWORD_BY_ID) == null) {
-			editUser = (User) session.getAttribute(ServletConstants.JSP_USER);
-		} else {
-			editUser = (User) session.getAttribute(ServletConstants.JSP_EDIT_PASSWORD_BY_ID);
-			session.removeAttribute(ServletConstants.JSP_EDIT_PASSWORD_BY_ID);
-		}
-		
-		String password = request.getParameter(ServletConstants.JSP_PASSWORD);
-		String passwordConfirmation = request.getParameter(ServletConstants.JSP_PASSWORD_CONFIRMATION);
-		
-		String inputResult = getInputResult(password, passwordConfirmation);
-		if(inputResult != null) {
-			jump(ServletConstants.JUMP_EDIT_PASSWORD_PAGE, inputResult, request, response);
-			return;
-		}
-		
-		editUser.setPassword(password);
+				
+		int editUserId = Integer.parseInt(request.getParameter("hidden2"));
 		
 		try {
-			//save user in db
+			//get user from db
 			IUserDAO userDAO = UserFactory.getClassFromFactory();
-			boolean isUpdated = userDAO.updateUserPassword(editUser);
-			if (isUpdated == true) {
-				jumpError(ServletConstants.PASSWORD_UPDATE_SUCCESSFULLY, request, response);
-			} else {
-				//  password not update
-				jumpError(ServletConstants.ERROR_PASSWORD_NOT_UPDATE, request, response);
-			}
+			User user = userDAO.getUserById(editUserId);
+			session.setAttribute(ServletConstants.JSP_EDIT_USER_BY_ID, user);
+			jump(ServletConstants.JUMP_EDIT_USER_PAGE, request, response);
 		} catch (DaoException e) {
 			jumpError(e.getMessage(), request, response);
 		}
@@ -95,19 +73,6 @@ private static final long serialVersionUID = 1L;
 	protected void jumpError(String message, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		jump(ServletConstants.JUMP_INDEX_PAGE, message, request, response);
-	}
-
-	private String getInputResult(String password, String passwordConfirmation) {
-		if(password == null || password.equals("")) {
-			return ServletConstants.ERROR_PASSWORD_EMPTY;
-		}
-		if (passwordConfirmation == null || passwordConfirmation.equals("")) {
-			return ServletConstants.ERROR_PASSWORD_CONFIRM_EMPTY;
-		}
-		if (!password.equals(passwordConfirmation)) {
-			return ServletConstants.ERROR_PASSWORDS_NOT_EQUAL;
-		}
-		return null;
 	}
 
 }

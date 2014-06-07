@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="<c:url value='/pages/style/style.css'/>">
+<script type="text/javascript" src="<c:url value='/pages/js/script.js'/>"></script>
 <title>IssueTracker</title>
 </head>
 <body>
@@ -28,7 +29,7 @@
 			<h2>All Users:</h2>
 			<c:choose>
 				<c:when test="${user.role eq 'ADMINISTRATOR' || user.role eq 'USER'}">
-					<form method="POST" action="<c:url value='#'/>">
+					<form method="POST" action="<c:url value='/'/>">
 							<table class="users-table">
 							<thead>
 								<tr>
@@ -52,16 +53,17 @@
 <%-- 										<td><c:out value="${user.password}"/></td> --%>
 										<td>
 											<div>
-												<a href="<c:url value='/pages/editUser.jsp'/>">Edit user</a>
+												<a href="javascript:editUser('${user.id}')">Edit user</a>
 											</div>
 											<div>
-												<a href="<c:url value='/pages/editPassword.jsp'/>">Change password</a>
+												<a href="javascript:editPassword('${user.id}')">Change password</a>
 											</div>
 										</td>
         							</tr>
     							</c:forEach>
     						</tbody>
 							</table>
+							<input type="hidden" id="hidden2" value="" name="hidden2">
 						</form>
 				</c:when>
 				<c:otherwise>
