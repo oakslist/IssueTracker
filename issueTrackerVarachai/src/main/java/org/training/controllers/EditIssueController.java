@@ -82,8 +82,8 @@ public class EditIssueController extends AbstractBaseController {
 		try {
 			//save issue in db
 			IIssueDAO issueDAO = IssueFactory.getClassFromFactory();
-			boolean isUpdate = issueDAO.updateIssue(issue);
-			if (isUpdate == true) {
+			boolean isUpdated = issueDAO.updateIssue(issue);
+			if (isUpdated == true) {
 				jumpError(ServletConstants.ISSUE_UPDATE_SUCCESSFULLY, request, response);
 			} else {
 				//  user not found

@@ -58,6 +58,9 @@ public class ConstantsH2 {
 			+ "resolutionId = ?, typeId = ?, priorityId = ?, projectId = ?, "
 			+ "buildId = ?, assigneeId = ? WHERE issueId = ?";
 	
+	public final static String UPDATE_USER = "UPDATE users SET firstName = ?, "
+			+ "lastName = ?, emailAddress = ?, roleId = ? WHERE userId = ?";
+	
 	public final static String SELECT_ISSUE = "SELECT * FROM issues "
 			+ "LEFT JOIN statuses ON issues.statusId = statuses.statusId "
 			+ "LEFT JOIN types ON issues.typeId = types.typeId "

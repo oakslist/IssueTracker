@@ -27,7 +27,7 @@
 		<c:otherwise>
 			<div class="login-place-header">
 				<div class="user-menu-header">
-					<a href="#">User Menu</a>
+					<a href="<c:url value='/pages/editUser.jsp'/>">User Menu</a>
 				</div>
 				<div class="first-name-header">
 					<span>Hello, <a href="#">${user.firstName}</a>!</span>

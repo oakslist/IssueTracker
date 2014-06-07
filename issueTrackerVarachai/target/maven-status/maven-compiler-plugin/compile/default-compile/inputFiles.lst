@@ -5,11 +5,12 @@ D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\impls\H2UserImpl.
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\ifaces\ITableDataDAO.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\controllers\SubmitIssueController.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\factories\ResolutionFactory.java
+D:\!copy\issueTrackerVarachai\src\main\java\org\training\controllers\EditUserController.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\ifaces\xmlDAO\IPrivilegesDAO.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\impls\xmls\XmlPrivilegesImpl.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\ifaces\AbstractBaseController.java
-D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\factories\TypeFactory.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\impls\xmls\XmlStatusesImpl.java
+D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\factories\TypeFactory.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\controllers\BeforeEditIssueController.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\ifaces\xmlDAO\ITypesDAO.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\factories\UserFactory.java

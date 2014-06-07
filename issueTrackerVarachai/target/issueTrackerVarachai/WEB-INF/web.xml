@@ -13,6 +13,7 @@
 		<res-auth>Container</res-auth>
 	</resource-ref>
 	<display-name>issueTrackerVarachai</display-name>
+	<!-- servlets -->
 	<servlet>
 		<servlet-name>LoginController</servlet-name>
 		<servlet-class>org.training.controllers.LoginController</servlet-class>
@@ -45,7 +46,13 @@
 		<servlet-name>AddUserController</servlet-name>
 		<servlet-class>org.training.controllers.AddUserController</servlet-class>
 	</servlet>
-	
+	<servlet>
+		<servlet-name>EditUserController</servlet-name>
+		<servlet-class>org.training.controllers.EditUserController</servlet-class>
+	</servlet>
+
+	<!-- mappings -->
+
 	<servlet-mapping>
 		<servlet-name>SessionController</servlet-name>
 		<url-pattern>/SessionController</url-pattern>
@@ -77,5 +84,9 @@
 	<servlet-mapping>
 		<servlet-name>AddUserController</servlet-name>
 		<url-pattern>/AddUserController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EditUserController</servlet-name>
+		<url-pattern>/EditUserController</url-pattern>
 	</servlet-mapping>
 </web-app>

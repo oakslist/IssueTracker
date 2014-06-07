@@ -137,6 +137,44 @@ public class H2UserImpl extends AbstractBaseDB implements IUserDAO {
 		}
 		return user;
 	}
+
+	@Override
+	public boolean updateUser(User user) throws DaoException {
+		Connection connection = null;
+		PreparedStatement stmtUpd = null;
+		PreparedStatement stmtRole = null;
+		ResultSet resultSet = null;
+		boolean isUpdated = false;
+		try {
+			connection = getConnection();
+			//update user
+			stmtRole = connection.prepareStatement(ConstantsH2.SELECT_ROLE_ID);
+			final int ROLE_NAME = 1;
+			stmtRole.setString(ROLE_NAME, user.getRole().toString());
+			resultSet = stmtRole.executeQuery();
+			int roleId = 0;
+			if (resultSet != null && resultSet.next()) {
+				roleId = resultSet.getInt("roleId");
+				stmtUpd = connection.prepareStatement(ConstantsH2.UPDATE_USER);
+				final int FIRST_NAME = 1, LAST_NAME = 2, EMAIL = 3;
+				final int ROLE = 4, USER_ID = 5;
+				stmtUpd.setString(FIRST_NAME, user.getFirstName());
+				stmtUpd.setString(LAST_NAME, user.getLastName());
+				stmtUpd.setString(EMAIL, user.getEmailAddress());
+				stmtUpd.setInt(ROLE, roleId);
+				stmtUpd.setInt(USER_ID, user.getId());
+				synchronized (this) {
+					stmtUpd.executeUpdate();
+					isUpdated = true;
+				}
+			}
+		} catch (SQLException e) {
+			System.err.println("Query: " + ConstantsH2.UPDATE_USER + "\n" + e);
+		} finally {
+			closeConnection(connection, stmtUpd, stmtRole, resultSet);
+		}
+		return isUpdated;
+	}
 	
 	
 }

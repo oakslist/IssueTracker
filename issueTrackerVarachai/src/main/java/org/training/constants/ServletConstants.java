@@ -68,9 +68,11 @@ public class ServletConstants {
 	public static final String ERROR_ISSUE_NOT_ADD = "Issue not add.";
 	public static final String ERROR_USER_NOT_ADD = "User not add.";
 	public static final String ERROR_ISSUE_NOT_UPDATE = "Issue not update.";
-	public static final String ISSUE_ADD_SUCCESSFULLY = "Issue was add successfully.";
-	public static final String USER_ADD_SUCCESSFULLY = "USER was add successfully.";
-	public static final String ISSUE_UPDATE_SUCCESSFULLY = "Issue was update successfully.";
+	public static final String ERROR_USER_NOT_UPDATE = "User not update.";
+	public static final String ISSUE_ADD_SUCCESSFULLY = "Issue was added successfully.";
+	public static final String USER_ADD_SUCCESSFULLY = "USER was added successfully.";
+	public static final String ISSUE_UPDATE_SUCCESSFULLY = "Issue was updated successfully.";
+	public static final String USER_UPDATE_SUCCESSFULLY = "User was updated successfully.";
 		
 	public static final String LOGIN_VALID = "login ok";
 	public static final String LOGIN_INVALID = "error: invalid username or password!";
@@ -85,6 +87,7 @@ public class ServletConstants {
 	public static final String JUMP_LOGIN = "/pages/login.jsp";
 	public static final String JUMP_MAIN_PAGE = "/pages/main.jsp";
 	public static final String JUMP_SUBMIT_ISSUE_PAGE = "/pages/submitIssue.jsp";
+	public static final String JUMP_EDIT_USER_PAGE = "/pages/editUser.jsp";
 	public static final String JUMP_ADD_USER_PAGE = "/pages/addUser.jsp";
 	public static final String JUMP_EDIT_ISSUE_PAGE = "/pages/editIssue.jsp";
 
