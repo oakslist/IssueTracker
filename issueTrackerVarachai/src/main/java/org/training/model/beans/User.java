@@ -2,13 +2,13 @@ package org.training.model.beans;
 
 import java.io.Serializable;
 
-import org.training.model.beans.nums.UserRoleEnum;
+import org.training.model.beans.enums.UserRoleEnum;
 
 public class User implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private int id;
+	private int id = 0;
 	private String firstName;
 	private String lastName;
 	private String emailAddress;
@@ -25,11 +25,7 @@ public class User implements Serializable {
 	}
 	
 	public User() {
-		this.firstName = null;
-		this.lastName = null;
-		this.emailAddress = null;
-		this.role = UserRoleEnum.GUEST;
-		this.password = null;
+		this(null, null, null, UserRoleEnum.GUEST, null);
 	}
 	
 	public int getId() {

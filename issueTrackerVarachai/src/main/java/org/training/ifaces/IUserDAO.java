@@ -10,4 +10,5 @@ public interface IUserDAO {
 	public List<User> getExistUsers() throws DaoException;
 	public User getExistUser(String emailAddress, String password) throws DaoException;
 	public User getUserById(int id) throws DaoException;
+	public boolean addNewUser(User user) throws DaoException;
 }

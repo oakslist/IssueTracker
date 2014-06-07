@@ -71,7 +71,7 @@
 							<a href="<c:url value='#'/>">Search User</a>
 						</div>
 						<div class="pages-link-add-user-admin">
-							<a href="<c:url value='#'/>">Add User</a>
+							<a href="<c:url value='/pages/addUser.jsp'/>">Add User</a>
 						</div>
 					</div>
 				</c:when>

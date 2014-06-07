@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.training.ifaces.IUserDAO;
 import org.training.model.beans.User;
-import org.training.model.beans.nums.UserRoleEnum;
+import org.training.model.beans.enums.UserRoleEnum;
 
 
 public class H2UserImpl extends AbstractBaseDB implements IUserDAO {
@@ -47,31 +47,38 @@ public class H2UserImpl extends AbstractBaseDB implements IUserDAO {
 
 	public synchronized boolean addNewUser(User user) throws DaoException {
 		Connection connection = null;
-		PreparedStatement stmtSelect = null;
 		PreparedStatement stmtAdd = null;
+		PreparedStatement stmtRole = null;
 		ResultSet resultSet = null;
 		boolean isCreated = false;
-//		try {
-//			connection = getConnection();
-//			//check exist or not that login
-//			stmtSelect = connection.prepareStatement(ConstantsH2.SELECT_USER_BY_LOGIN);
-//			stmtAdd = connection.prepareStatement(ConstantsH2.ADD_NEW_USER);
-//			final int LOGIN_INDEX = 1, PASSWORD_INDEX = 2;
-//			synchronized (this) {
-//				stmtSelect.setString(LOGIN_INDEX, "sss");
-//				resultSet = stmtSelect.executeQuery();
-//				if (!resultSet.next()) {
-//					stmtAdd.setString(LOGIN_INDEX, "sss"); //user.getLogin());
-//					stmtAdd.setString(PASSWORD_INDEX, user.getPassword());
-//					stmtAdd.executeUpdate();
-//					isCreated = true;
-//				}
-//			}
-//		} catch (SQLException e) {
-//			System.err.println("Query: " + ConstantsH2.ADD_NEW_USER + "\n" + e);
-//		} finally {
-//			closeConnection(connection, stmtSelect, stmtAdd, resultSet);
-//		}
+		try {
+			connection = getConnection();
+			//set new user
+			stmtRole = connection.prepareStatement(ConstantsH2.SELECT_ROLE_ID);
+			final int ROLE_NAME = 1;
+			stmtRole.setString(ROLE_NAME, user.getRole().toString());
+			resultSet = stmtRole.executeQuery();
+			int roleId = 0;
+			if (resultSet != null && resultSet.next()) {
+				roleId = resultSet.getInt("roleId");
+				stmtAdd = connection.prepareStatement(ConstantsH2.ADD_NEW_USER);
+				final int FIRST_NAME = 1, LAST_NAME = 2, EMAIL = 3;
+				final int ROLE = 4, PASSWORD = 5;
+				stmtAdd.setString(FIRST_NAME, user.getFirstName());
+				stmtAdd.setString(LAST_NAME, user.getLastName());
+				stmtAdd.setString(EMAIL, user.getEmailAddress());
+				stmtAdd.setInt(ROLE, roleId);
+				stmtAdd.setString(PASSWORD, user.getPassword());
+				synchronized (this) {
+					stmtAdd.executeUpdate();
+					isCreated = true;
+				}
+			}
+		} catch (SQLException e) {
+			System.err.println("Query: " + ConstantsH2.ADD_NEW_USER + "\n" + e);
+		} finally {
+			closeConnection(connection, stmtAdd, stmtRole, resultSet);
+		}
 		return isCreated;
 	}
 

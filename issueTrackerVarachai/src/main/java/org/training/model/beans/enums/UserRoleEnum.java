@@ -1,4 +1,4 @@
-package org.training.model.beans.nums;
+package org.training.model.beans.enums;
 
 import org.training.ifaces.xmlDAO.IPrivilegesDAO;
 import org.training.model.beans.UserRolePrivileges;

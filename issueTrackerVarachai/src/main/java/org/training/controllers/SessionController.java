@@ -15,6 +15,7 @@ import org.training.ifaces.AbstractBaseController;
 import org.training.ifaces.IIssueDAO;
 import org.training.model.beans.Issue;
 import org.training.model.beans.User;
+import org.training.model.beans.enums.UserRoleEnum;
 import org.training.model.factories.IssueFactory;
 import org.training.model.impls.DaoException;
 
@@ -41,6 +42,7 @@ public class SessionController extends AbstractBaseController {
 			HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session= request.getSession(false);
+		
 		if (session == null) {
 			session= request.getSession(true);
 			session.setAttribute(ServletConstants.JSP_USER, new User());
@@ -51,8 +53,16 @@ public class SessionController extends AbstractBaseController {
 		List<Issue> issuesList = new ArrayList<Issue>();
 		try {
 			IIssueDAO issueDAO = IssueFactory.getClassFromFactory();
-			issuesList = issueDAO.getAllIssues();
-			// write data in session
+			User curUser = (User) session.getAttribute(ServletConstants.JSP_USER);
+			if (curUser == null || curUser.getRole().equals(UserRoleEnum.GUEST)) {
+				issuesList = issueDAO.getAllIssues();
+			} else { 
+				if (curUser.getRole().equals(UserRoleEnum.USER) 
+						|| curUser.getRole().equals(UserRoleEnum.ADMINISTRATOR)) { 
+					issuesList = issueDAO.getUserIssues(curUser.getId());
+				}
+			}
+			//write data in session
 			session.setAttribute(ServletConstants.JSP_ISSUES_LIST, issuesList);
 		} catch (DaoException e) {
 			jumpError(e.getMessage(), request, response);

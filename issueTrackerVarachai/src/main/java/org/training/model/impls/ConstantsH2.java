@@ -38,6 +38,17 @@ public class ConstantsH2 {
 			+ "LEFT JOIN users ON issues.assigneeId = users.userId "
 			+ "GROUP BY issueId";
 	
+	public final static String SELECT_USER_ISSUES = "SELECT TOP ? * FROM issues "
+			+ "LEFT JOIN statuses ON issues.statusId = statuses.statusId "
+			+ "LEFT JOIN types ON issues.typeId = types.typeId "
+			+ "LEFT JOIN resolutions ON issues.resolutionId = resolutions.resolutionId "
+			+ "LEFT JOIN priorities ON issues.priorityId = priorities.priorityId "
+			+ "LEFT JOIN projects ON issues.projectId = projects.projectId "
+			+ "LEFT JOIN builds ON issues.buildId = builds.buildId "
+			+ "LEFT JOIN users ON issues.assigneeId = users.userId "
+			+ "WHERE assigneeId = ? "
+			+ "GROUP BY issueId";
+	
 	public final static String INSERT_ISSUE = "INSERT INTO issues (summary, description, statusId, "
 			+ "typeId, priorityId, projectId, buildId, assigneeId, createdBy) "
             + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -57,28 +68,15 @@ public class ConstantsH2 {
 			+ "LEFT JOIN users ON issues.createdBy = users.userId "
 			+ "WHERE issueId = ? GROUP BY issueId";	
 	
-	public final static String SELECT_USER_BY_LOGIN = "SELECT * FROM users WHERE users.login=?";
-	public final static String ADD_NEW_USER = "INSERT INTO users (login,password) VALUES (?,?)";
-	
-	public final static String SELECT_NOTES = "SELECT * FROM notes WHERE userId = ? AND date = ? AND status = ? ORDER BY id";
-	public final static String SELECT_NOTES_SOMEDAY = "SELECT * FROM notes WHERE userId = ? AND (date < ? OR date > ?) AND status = ? ORDER BY id";
-	public final static String SELECT_NOTES_BY_STATUS = "SELECT * FROM notes WHERE userId = ? AND status = ? ORDER BY id";
-	public final static String ADD_NEW_NOTE = "INSERT INTO notes (userId, task, date, status) VALUES (?, ?, ?, 0)";
-	public final static String UPDATE_STATUS_NOTE = "UPDATE notes SET status = ? WHERE id = ?";
-	public final static String UPDATE_RESTORE_STATUS = "UPDATE notes SET status = 0, date = ? WHERE id = ?";
-	public final static String DELETE_FOREVER_NOTE = "DELETE FROM notes WHERE id = ?";
-	public final static String UPDATE_FILE_NOTE = "UPDATE notes SET file = ? WHERE id = ?";
-	
-	
+	public final static String SELECT_ROLE_ID = "SELECT * FROM roles WHERE roleName = ?";
+	public final static String ADD_NEW_USER = "INSERT INTO users (firstName, lastName, emailAddress, roleId, password) "
+			+ "VALUES (?, ?, ?, ?, ?)";
 	
 	public final static String INSERT_INTO_ROLES = "INSERT INTO roles (roleName) VALUES (?)";
 	public final static String INSERT_INTO_STATUSES = "INSERT INTO statuses (statusName) VALUES (?)";
 	public final static String INSERT_INTO_TYPES = "INSERT INTO types (typeName) VALUES (?)";
 	public final static String INSERT_INTO_RESOLUTIONS = "INSERT INTO resolutions (resolutionName) VALUES (?)";
 	public final static String INSERT_INTO_PRIORITIES = "INSERT INTO priorities (priorityName) VALUES (?)";
-	
-	public static final int KEY_NOTE_STATUS_DEFAULT = 0;
-	public static final int KEY_NOTE_STATUS_FIXED = 1;
-	public static final int KEY_NOTE_STATUS_RECYCLE_BIN = 2;
+
 	
 }

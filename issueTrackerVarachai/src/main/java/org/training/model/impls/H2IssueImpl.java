@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.training.constants.ServletConstants;
 import org.training.ifaces.IIssueDAO;
 import org.training.model.beans.Issue;
 
@@ -166,6 +167,56 @@ public class H2IssueImpl extends AbstractBaseDB implements IIssueDAO {
 			closeConnection(connection, stmt, resultSet);
 		}
 		return isUpdated;
+	}
+
+	@Override
+	public List<Issue> getUserIssues(int userId) throws DaoException {
+		Connection connection = null;
+		PreparedStatement stmt = null;
+		ResultSet resultSet = null;
+		List<Issue> issuesList = new ArrayList<Issue>();
+		try {
+			connection = getConnection();
+			stmt = connection.prepareStatement(ConstantsH2.SELECT_USER_ISSUES);
+			final int ROW_NUMBER = 1, USER_ID = 2;
+			stmt.setInt(ROW_NUMBER, ServletConstants.NUMBER_N);
+			stmt.setInt(USER_ID, userId);
+			resultSet = stmt.executeQuery();
+			while (resultSet != null && resultSet.next()) {
+				Issue issue = new Issue();
+				issue.setId(resultSet.getInt("issueId"));
+				issue.setSummary(resultSet.getString("summary"));
+				issue.setDescription(resultSet.getString("description"));
+				issue.setStatus(resultSet.getString("statusName"));
+				issue.setResolution(resultSet.getString("resolutionName"));
+				issue.setType(resultSet.getString("typeName"));
+				issue.setPriority(resultSet.getString("priorityName"));
+				issue.setProject(resultSet.getString("name"));
+				issue.setBuildFound(resultSet.getString("buildNumber"));
+				issue.setAssigneeId(resultSet.getInt("assigneeId"));
+				issue.setAssignee(resultSet.getString("emailAddress") + " : " 
+						+ resultSet.getString("firstName") + " "
+						+ resultSet.getString("lastName"));
+				issue.setCreateDate(resultSet.getDate("createDate"));
+				issue.setCreatedBy(resultSet.getString("createdBy"));
+				issue.setModifyDate(resultSet.getDate("modifyDate"));
+				issue.setModifiedBy(resultSet.getString("modifiedBy"));
+				if (issue.getId() != 0 || issue.getSummary() != null 
+						|| issue.getDescription() != null || issue.getStatus() != null
+						|| issue.getResolution() != null || issue.getType() != null 
+						|| issue.getPriority() != null || issue.getProject() != null
+						|| issue.getBuildFound() != null || issue.getCreateDate() != null
+						|| issue.getCreatedBy() != null || issue.getModifyDate() != null
+						|| issue.getModifiedBy() != null) {
+					issuesList.add(issue);
+				}
+			}
+		} catch (SQLException e) {
+            System.err.println("Query: " + ConstantsH2.SELECT_USER_ISSUES + "\n" + e);
+		} finally {
+			closeConnection(connection, stmt, resultSet);
+		}
+		return issuesList;
 	}
 
 }

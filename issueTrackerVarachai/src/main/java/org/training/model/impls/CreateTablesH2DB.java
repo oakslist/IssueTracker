@@ -13,7 +13,7 @@ import org.training.ifaces.xmlDAO.IPrioritiesDAO;
 import org.training.ifaces.xmlDAO.IResolutionsDAO;
 import org.training.ifaces.xmlDAO.IStatusesDAO;
 import org.training.ifaces.xmlDAO.ITypesDAO;
-import org.training.model.beans.nums.UserRoleEnum;
+import org.training.model.beans.enums.UserRoleEnum;
 import org.training.model.factories.PriorityFactory;
 import org.training.model.factories.ResolutionFactory;
 import org.training.model.factories.StatusFactory;

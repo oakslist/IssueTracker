@@ -20,6 +20,7 @@ D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\beans\Project.jav
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\factories\TableDataFactory.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\beans\UserRolePrivileges.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\controllers\SessionController.java
+D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\beans\enums\UserRoleEnum.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\controllers\EditIssueController.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\beans\Issue.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\impls\AbstractBaseDB.java
@@ -29,9 +30,9 @@ D:\!copy\issueTrackerVarachai\src\main\java\org\training\controllers\BeforeSubmi
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\ifaces\xmlDAO\IResolutionsDAO.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\impls\ConstantsH2.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\factories\PriorityFactory.java
-D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\beans\nums\UserRoleEnum.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\ifaces\xmlDAO\IPrioritiesDAO.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\impls\DaoException.java
+D:\!copy\issueTrackerVarachai\src\main\java\org\training\controllers\AddUserController.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\filters\LoginDoubleSubmitFilter.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\constants\ServletConstants.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\ifaces\IIssueDAO.java

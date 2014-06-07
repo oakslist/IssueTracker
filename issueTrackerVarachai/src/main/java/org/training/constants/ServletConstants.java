@@ -18,6 +18,7 @@ public class ServletConstants {
 	public static final String JSP_EMAIL_ADDRESS = "emailAddress";
 	public static final String JSP_ROLE = "role";
 	public static final String JSP_PASSWORD = "password";
+	public static final String JSP_PASSWORD_CONFIRMATION = "passwordConfirmation";
 	public static final String JSP_SUMMARY = "summary";
 	public static final String JSP_DESCRIPTION = "description";
 	public static final String JSP_STATUS = "status";
@@ -51,6 +52,11 @@ public class ServletConstants {
 	public static final String ERROR_DATA_NOT_FOUND = "Data not found.";
 	public static final String ERROR_EMAIL_EMPTY = "Email address is empty.";
 	public static final String ERROR_PASSWORD_EMPTY = "Password is empty.";
+	public static final String ERROR_PASSWORD_CONFIRM_EMPTY = "Password confirmation is empty.";
+	public static final String ERROR_PASSWORDS_NOT_EQUAL = "Password and Password confirmation are not equal.";
+	public static final String ERROR_FIRST_NAME_EMPTY = "First name is empty.";
+	public static final String ERROR_LAST_NAME_EMPTY = "Last name is empty.";
+	public static final String ERROR_ROLE_EMPTY = "Role is empty.";
 	public static final String ERROR_SUMMARY_EMPTY = "Summary is empty.";
 	public static final String ERROR_DESCRIPTION_EMPTY = "Description is empty.";
 	public static final String ERROR_STATUS_EMPTY = "Status is empty.";
@@ -60,8 +66,10 @@ public class ServletConstants {
 	public static final String ERROR_BUILD_FOUND_EMPTY = "Build Found is empty.";
 	
 	public static final String ERROR_ISSUE_NOT_ADD = "Issue not add.";
+	public static final String ERROR_USER_NOT_ADD = "User not add.";
 	public static final String ERROR_ISSUE_NOT_UPDATE = "Issue not update.";
 	public static final String ISSUE_ADD_SUCCESSFULLY = "Issue was add successfully.";
+	public static final String USER_ADD_SUCCESSFULLY = "USER was add successfully.";
 	public static final String ISSUE_UPDATE_SUCCESSFULLY = "Issue was update successfully.";
 		
 	public static final String LOGIN_VALID = "login ok";
@@ -77,6 +85,7 @@ public class ServletConstants {
 	public static final String JUMP_LOGIN = "/pages/login.jsp";
 	public static final String JUMP_MAIN_PAGE = "/pages/main.jsp";
 	public static final String JUMP_SUBMIT_ISSUE_PAGE = "/pages/submitIssue.jsp";
+	public static final String JUMP_ADD_USER_PAGE = "/pages/addUser.jsp";
 	public static final String JUMP_EDIT_ISSUE_PAGE = "/pages/editIssue.jsp";
 
 

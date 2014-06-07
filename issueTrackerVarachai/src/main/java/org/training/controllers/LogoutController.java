@@ -42,7 +42,7 @@ public class LogoutController extends AbstractBaseController {
 
 		session.setAttribute(ServletConstants.JSP_USER, new User());
 		
-		jumpPage(ServletConstants.JUMP_MAIN_PAGE, request, response);
+		jumpPage(ServletConstants.JUMP_INDEX_PAGE, request, response);
 	}
 
 	protected void jump(String url, String message, HttpServletRequest request,

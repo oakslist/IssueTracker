@@ -18,7 +18,7 @@
 				just USE email: admin pass: admin OR email: user pass: user
 					<span class="input-name">email:</span><input type="text"
 						name=<%= ServletConstants.JSP_EMAIL_ADDRESS%> size="15">
-					<span class="input-name">password:</span><input type="text"
+					<span class="input-name">password:</span><input type="password"
 						name=<%= ServletConstants.JSP_PASSWORD%> size="15">
 					<input type="submit" value="Login">
 				</div>
