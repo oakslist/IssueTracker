@@ -27,6 +27,7 @@ D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\beans\Issue.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\impls\AbstractBaseDB.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\ifaces\IUserDAO.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\impls\H2IssueImpl.java
+D:\!copy\issueTrackerVarachai\src\main\java\org\training\controllers\BeforeSearchUserController.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\controllers\BeforeSubmitIssueController.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\ifaces\xmlDAO\IResolutionsDAO.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\impls\ConstantsH2.java
@@ -40,6 +41,7 @@ D:\!copy\issueTrackerVarachai\src\main\java\org\training\ifaces\IIssueDAO.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\factories\PrivilegesFactory.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\factories\StatusFactory.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\impls\xmls\XmlPrioritiesImpl.java
+D:\!copy\issueTrackerVarachai\src\main\java\org\training\controllers\EditPasswordController.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\controllers\LoginController.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\impls\xmls\XmlTypesImpl.java
 D:\!copy\issueTrackerVarachai\src\main\java\org\training\model\impls\xmls\XmlResolutionsImpl.java

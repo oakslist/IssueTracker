@@ -60,6 +60,10 @@ body {
 	text-align: center;
 }
 
+h2 {
+	padding: 10px 0 10px 0;
+}
+
 .input-name {
 	margin: 10px;	
 }
@@ -104,11 +108,30 @@ body {
 	margin: 10px 0;
 }
 
+.users-table {
+	border-collapse: collapse;
+	border: 4px double black;
+	width: 100%;
+	margin: 10px 0;
+}
+
+.users-table th {
+	text-align: left;
+    background: #ccc; 
+    padding: 5px;
+    border: 1px solid black; 
+}
+
 .table-issues th { 
     text-align: left;
     background: #ccc; 
     padding: 5px;
     border: 1px solid black; 
+}
+
+.users-table td { 
+    padding: 5px;
+    border: 1px solid black;
 }
 
 .table-issues td { 

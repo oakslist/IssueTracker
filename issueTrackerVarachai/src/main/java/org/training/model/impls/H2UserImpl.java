@@ -175,6 +175,31 @@ public class H2UserImpl extends AbstractBaseDB implements IUserDAO {
 		}
 		return isUpdated;
 	}
+
+	@Override
+	public boolean updateUserPassword(User user) throws DaoException {
+		Connection connection = null;
+		PreparedStatement stmt = null;
+		ResultSet resultSet = null;
+		boolean isUpdated = false;
+		try {
+			connection = getConnection();
+			//update user
+			stmt = connection.prepareStatement(ConstantsH2.UPDATE_USER_PASSWORD);
+			final int PASSWORD = 1, USER_ID = 2;
+			stmt.setString(PASSWORD, user.getPassword());
+			stmt.setInt(USER_ID, user.getId());
+			synchronized (this) {
+				stmt.executeUpdate();
+				isUpdated = true;
+			}
+		} catch (SQLException e) {
+			System.err.println("Query: " + ConstantsH2.UPDATE_USER_PASSWORD + "\n" + e);
+		} finally {
+			closeConnection(connection, stmt, resultSet);
+		}
+		return isUpdated;
+	}
 	
 	
 }

@@ -52,25 +52,23 @@
 					<div class="admin-links">
 						<div class="pages-link-admin">
 							<p>Pages:</p>
-							<a href="<c:url value='#'/>">Projects</a> <a
-								href="<c:url value='#'/>">Statuses</a> <a
-								href="<c:url value='#'/>">Resolutions</a> <a
-								href="<c:url value='#'/>">Priorities</a> <a
-								href="<c:url value='#'/>">Types</a>
+							<a href="<c:url value='#'/>">Projects</a> 
+							<a href="<c:url value='#'/>">Statuses</a> 
+							<a href="<c:url value='#'/>">Resolutions</a> 
+							<a href="<c:url value='#'/>">Priorities</a> 
+							<a href="<c:url value='#'/>">Types</a>
 						</div>
 						<div class="add-pages-link-admin">
 							<p>Add Pages:</p>
-							<a href="<c:url value='#'/>">Add Project</a> <a
-								href="<c:url value='#'/>">Add Status</a> <a
-								href="<c:url value='#'/>">Add Resolution</a> <a
-								href="<c:url value='#'/>">Add Priority</a> <a
-								href="<c:url value='#'/>">Add Type</a>
+							<a href="<c:url value='#'/>">Add Project</a> 
+							<a href="<c:url value='#'/>">Add Status</a> 
+							<a href="<c:url value='#'/>">Add Resolution</a> 
+							<a href="<c:url value='#'/>">Add Priority</a> 
+							<a href="<c:url value='#'/>">Add Type</a>
 						</div>
 						<div class="pages-link-user-admin">
 							<p>Work with User:</p>
-							<a href="<c:url value='#'/>">Search User</a>
-						</div>
-						<div class="pages-link-add-user-admin">
+							<a href="<c:url value='/BeforeSearchUserController'/>">Search User</a>
 							<a href="<c:url value='/pages/addUser.jsp'/>">Add User</a>
 						</div>
 					</div>

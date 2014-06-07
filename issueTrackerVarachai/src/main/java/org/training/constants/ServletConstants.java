@@ -13,6 +13,7 @@ public class ServletConstants {
 	public static final String XML_ISSUE_STATUSES_FILE = "/IssueStatuses.xml";
 	
 	public static final String JSP_USER = "user";
+	public static final String JSP_USER_LIST = "userList";
 	public static final String JSP_FIRST_NAME = "firstName";
 	public static final String JSP_LAST_NAME = "lastName";
 	public static final String JSP_EMAIL_ADDRESS = "emailAddress";
@@ -53,7 +54,7 @@ public class ServletConstants {
 	public static final String ERROR_EMAIL_EMPTY = "Email address is empty.";
 	public static final String ERROR_PASSWORD_EMPTY = "Password is empty.";
 	public static final String ERROR_PASSWORD_CONFIRM_EMPTY = "Password confirmation is empty.";
-	public static final String ERROR_PASSWORDS_NOT_EQUAL = "Password and Password confirmation are not equal.";
+	public static final String ERROR_PASSWORDS_NOT_EQUAL = "Password and Password Confirmation are not equal.";
 	public static final String ERROR_FIRST_NAME_EMPTY = "First name is empty.";
 	public static final String ERROR_LAST_NAME_EMPTY = "Last name is empty.";
 	public static final String ERROR_ROLE_EMPTY = "Role is empty.";
@@ -69,10 +70,12 @@ public class ServletConstants {
 	public static final String ERROR_USER_NOT_ADD = "User not add.";
 	public static final String ERROR_ISSUE_NOT_UPDATE = "Issue not update.";
 	public static final String ERROR_USER_NOT_UPDATE = "User not update.";
+	public static final String ERROR_PASSWORD_NOT_UPDATE = "Password not update.";
 	public static final String ISSUE_ADD_SUCCESSFULLY = "Issue was added successfully.";
 	public static final String USER_ADD_SUCCESSFULLY = "USER was added successfully.";
 	public static final String ISSUE_UPDATE_SUCCESSFULLY = "Issue was updated successfully.";
 	public static final String USER_UPDATE_SUCCESSFULLY = "User was updated successfully.";
+	public static final String PASSWORD_UPDATE_SUCCESSFULLY = "Password was updated successfully.";
 		
 	public static final String LOGIN_VALID = "login ok";
 	public static final String LOGIN_INVALID = "error: invalid username or password!";
@@ -88,8 +91,10 @@ public class ServletConstants {
 	public static final String JUMP_MAIN_PAGE = "/pages/main.jsp";
 	public static final String JUMP_SUBMIT_ISSUE_PAGE = "/pages/submitIssue.jsp";
 	public static final String JUMP_EDIT_USER_PAGE = "/pages/editUser.jsp";
+	public static final String JUMP_EDIT_PASSWORD_PAGE = "/pages/editPassword.jsp";
 	public static final String JUMP_ADD_USER_PAGE = "/pages/addUser.jsp";
 	public static final String JUMP_EDIT_ISSUE_PAGE = "/pages/editIssue.jsp";
+	public static final String JUMP_SEARCH_USER_PAGE = "/pages/searchUser.jsp";
 
 
 }

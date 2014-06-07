@@ -13,7 +13,6 @@
 		<res-auth>Container</res-auth>
 	</resource-ref>
 	<display-name>issueTrackerVarachai</display-name>
-	<!-- servlets -->
 	<servlet>
 		<servlet-name>LoginController</servlet-name>
 		<servlet-class>org.training.controllers.LoginController</servlet-class>
@@ -50,8 +49,14 @@
 		<servlet-name>EditUserController</servlet-name>
 		<servlet-class>org.training.controllers.EditUserController</servlet-class>
 	</servlet>
-
-	<!-- mappings -->
+	<servlet>
+		<servlet-name>EditPasswordController</servlet-name>
+		<servlet-class>org.training.controllers.EditPasswordController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>BeforeSearchUserController</servlet-name>
+		<servlet-class>org.training.controllers.BeforeSearchUserController</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>SessionController</servlet-name>
@@ -88,5 +93,13 @@
 	<servlet-mapping>
 		<servlet-name>EditUserController</servlet-name>
 		<url-pattern>/EditUserController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EditPasswordController</servlet-name>
+		<url-pattern>/EditPasswordController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BeforeSearchUserController</servlet-name>
+		<url-pattern>/BeforeSearchUserController</url-pattern>
 	</servlet-mapping>
 </web-app>
