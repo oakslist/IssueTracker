@@ -65,7 +65,12 @@
 		<servlet-name>EditDifferentUserPasswordController</servlet-name>
 		<servlet-class>org.training.controllers.EditDifferentUserPasswordController</servlet-class>
 	</servlet>
-
+	<servlet>
+		<servlet-name>AddIssueCommentController</servlet-name>
+		<servlet-class>org.training.controllers.AddIssueCommentController</servlet-class>
+	</servlet>
+	
+	
 	<servlet-mapping>
 		<servlet-name>SessionController</servlet-name>
 		<url-pattern>/SessionController</url-pattern>
@@ -115,7 +120,11 @@
 		<url-pattern>/EditDifferentUserController</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-	<servlet-name>EditDifferentUserPasswordController</servlet-name>
+		<servlet-name>EditDifferentUserPasswordController</servlet-name>
 		<url-pattern>/EditDifferentUserPasswordController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	<servlet-name>AddIssueCommentController</servlet-name>
+		<url-pattern>/AddIssueCommentController</url-pattern>
 	</servlet-mapping>
 </web-app>

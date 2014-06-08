@@ -61,6 +61,7 @@ public class CreateTablesH2DB extends AbstractBaseDB {
 				st.executeUpdate("DROP TABLE IF EXISTS priorities");
 				st.executeUpdate("DROP TABLE IF EXISTS projects");
 				st.executeUpdate("DROP TABLE IF EXISTS builds");
+				st.executeUpdate("DROP TABLE IF EXISTS comments");
 
 				// add a roles table
 				st.executeUpdate("CREATE TABLE IF NOT EXISTS roles ("
@@ -149,7 +150,7 @@ public class CreateTablesH2DB extends AbstractBaseDB {
 						+ "FOREIGN KEY (managerId) REFERENCES users (userId), "
 						+ "FOREIGN KEY (buildId) REFERENCES builds (buildId))");
 
-				// add a defects table
+				// add a issues table
 				st.executeUpdate("CREATE TABLE IF NOT EXISTS issues "
 						+ "(issueId INT AUTO_INCREMENT, "
 						+ "summary varchar(200) NOT NULL, "
@@ -176,6 +177,17 @@ public class CreateTablesH2DB extends AbstractBaseDB {
 						+ "FOREIGN KEY (priorityId) REFERENCES priorities (priorityId), "
 						+ "FOREIGN KEY (assigneeId) REFERENCES users (userId))");
 
+				// add a comments table
+				st.executeUpdate("CREATE TABLE IF NOT EXISTS comments "
+						+ "(commentId INT AUTO_INCREMENT, "
+						+ "addedById INT NOT NULL, "
+						+ "addDate DATETIME NOT NULL DEFAULT (NOW()), "
+						+ "issueId INT NOT NULL, "
+						+ "comment varchar(2000) NOT NULL, "
+						+ "PRIMARY KEY (commentId), "
+						+ "FOREIGN KEY (addedById) REFERENCES users (userId), "
+						+ "FOREIGN KEY (issueId) REFERENCES issues (issueId))");
+				
 				// some default data in tables
 				st.executeUpdate("INSERT INTO users (firstName, lastName, emailAddress, roleId, password) "
 						+ "VALUES ('SiarheiUser', 'Varachai', 'user', '2', 'user')");
@@ -187,7 +199,7 @@ public class CreateTablesH2DB extends AbstractBaseDB {
 				st.executeUpdate("INSERT INTO builds (buildNumber) VALUES ('1')");
 				st.executeUpdate("INSERT INTO builds (buildNumber) VALUES ('2')");
 				st.executeUpdate("INSERT INTO builds (buildNumber) VALUES ('3')");
-
+				
 				st.executeUpdate("INSERT INTO projects (name, description, buildId, managerId) "
 						+ "VALUES ('MyProject1', 'Some descriptions', '1', '1')");
 				st.executeUpdate("INSERT INTO projects (name, description, buildId, managerId) "
@@ -206,6 +218,13 @@ public class CreateTablesH2DB extends AbstractBaseDB {
 						+ "buildId, assigneeId, createdBy) "
 						+ "VALUES ('summary info3', 'descr info3', '3', '2', '1', '2', '2', '1', '1', '2')");
 
+				st.executeUpdate("INSERT INTO comments (addedById, issueId, comment) "
+						+ "VALUES ('1', '1', 'comment 1')");
+				st.executeUpdate("INSERT INTO comments (addedById, issueId, comment) "
+						+ "VALUES ('2', '1', 'comment 1 + 1')");
+				st.executeUpdate("INSERT INTO comments (addedById, issueId, comment) "
+						+ "VALUES ('2', '2', 'comment 2')");
+				
 				st.close();
 				stmt.close();
 				connection.close();

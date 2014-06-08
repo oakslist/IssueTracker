@@ -204,6 +204,39 @@
 					</div>
 				</c:when>
 			</c:choose>
+			<div class="comment-part">
+			<h2>Comments:</h2>
+				<div class="comments">
+				<c:if test="${empty commentList}">
+					<p>No comments here</p>
+				</c:if>
+					<c:forEach items="${commentList}" var="comment">
+						<div>
+							<div class="header-comment">
+								<div class="add-comment">
+									<span class="left"><c:out value="${comment.addedBy}"></c:out></span>
+								</div>
+								<div class="date-comment">
+									<span class="right">date: <c:out value="${comment.addDate}"></c:out></span>
+								</div>
+							</div>
+						</div>
+						<div class="footer-comment">
+							<span class="comment"><c:out value="${comment.comment}"></c:out></span>
+							<hr>
+						</div>
+					</c:forEach>
+				</div>
+				<form id="comment-form" method="POST" action="<c:url value='/AddIssueCommentController'/>">
+					<div>
+						<textarea rows="4" cols="50" name="comment" form="comment-form"></textarea>
+					</div>
+					<div>
+						<input class="add-btn" type="submit" value="Add Comment">
+						<input type="hidden" name="hidden-issue-id" value="${issue.id}">
+					</div>					
+				</form>
+			</div>
 		</div>
 		
 		<div class="main-aside">

@@ -1,6 +1,8 @@
 package org.training.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,11 +12,14 @@ import javax.servlet.http.HttpSession;
 
 import org.training.constants.ServletConstants;
 import org.training.ifaces.AbstractBaseController;
+import org.training.ifaces.ICommentDAO;
 import org.training.ifaces.IIssueDAO;
 import org.training.ifaces.ITableDataDAO;
 import org.training.ifaces.IUserDAO;
+import org.training.model.beans.Comment;
 import org.training.model.beans.Issue;
 import org.training.model.beans.User;
+import org.training.model.factories.CommentFactory;
 import org.training.model.factories.IssueFactory;
 import org.training.model.factories.TableDataFactory;
 import org.training.model.factories.UserFactory;
@@ -50,7 +55,14 @@ public class BeforeEditIssueController extends AbstractBaseController {
 			return;
 		}
 		
-		int issueEditId = Integer.parseInt(request.getParameter("hidden1"));
+		int issueEditId;
+		
+		if (request.getParameter("hidden1") != null) {
+			issueEditId = Integer.parseInt(request.getParameter("hidden1"));
+		} else {
+			issueEditId = (Integer) session.getAttribute(ServletConstants.JSP_COMMENT_ISSUE_ID);
+			session.removeAttribute(ServletConstants.JSP_COMMENT_ISSUE_ID);
+		}
 		
 		// get data from db
 		try {
@@ -82,6 +94,13 @@ public class BeforeEditIssueController extends AbstractBaseController {
 					tableDAO.getBuildFound());
 			session.setAttribute(ServletConstants.JSP_ASSIGNEES_LIST,
 					tableDAO.getAssignee());
+			//get all comments relate to issue
+			ICommentDAO commentDAO = CommentFactory.getClassFromFactory();
+			List<Comment> comments = new ArrayList<Comment>();
+			comments = commentDAO.getCommentsByIssueId(issueEditId);
+			
+			session.setAttribute(ServletConstants.JSP_COMMENT_LIST, comments);
+					
 			jumpPage(ServletConstants.JUMP_EDIT_ISSUE_PAGE, request, response);
 		} catch (DaoException e) {
 			jumpError(e.getMessage(), request, response);

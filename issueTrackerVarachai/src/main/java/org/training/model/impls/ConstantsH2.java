@@ -13,7 +13,7 @@ public class ConstantsH2 {
 			+ "ON users.roleId = roles.roleId WHERE emailAddress=? AND password=?";
 	
 		
-	public final static String SELECT_ALL_ISSUES = "SELECT * FROM issues GROUP BY issueId";
+	public final static String SELECT_ALL_ISSUES = "SELECT * FROM issues ORDER BY issueId";
 	public final static String SELECT_ALL_STATUSES = "SELECT * FROM statuses";
 	public final static String SELECT_ALL_TYPES = "SELECT * FROM types";
 	public final static String SELECT_ALL_RESOLUTIONS = "SELECT * FROM resolutions";
@@ -36,7 +36,7 @@ public class ConstantsH2 {
 			+ "LEFT JOIN projects ON issues.projectId = projects.projectId "
 			+ "LEFT JOIN builds ON issues.buildId = builds.buildId "
 			+ "LEFT JOIN users ON issues.assigneeId = users.userId "
-			+ "GROUP BY issueId";
+			+ "ORDER BY issueId";
 	
 	public final static String SELECT_USER_ISSUES = "SELECT TOP ? * FROM issues "
 			+ "LEFT JOIN statuses ON issues.statusId = statuses.statusId "
@@ -47,7 +47,14 @@ public class ConstantsH2 {
 			+ "LEFT JOIN builds ON issues.buildId = builds.buildId "
 			+ "LEFT JOIN users ON issues.assigneeId = users.userId "
 			+ "WHERE assigneeId = ? "
-			+ "GROUP BY issueId";
+			+ "ORDER BY issueId";
+	
+	public final static String SELECT_COMMENTS_BY_ISSUE_ID = "SELECT * FROM comments "
+			+ "LEFT JOIN users ON comments.addedById = users.userId "
+			+ "LEFT JOIN issues ON comments.issueId = issues.issueId "
+			+ "WHERE comments.issueId = ? "
+			+ "ORDER BY addDate";
+			//DATEADD(day, DATEDIFF(day, 0, addDate), 0)"; //CAST(addDate AS DATE)";
 	
 	public final static String INSERT_ISSUE = "INSERT INTO issues (summary, description, statusId, "
 			+ "typeId, priorityId, projectId, buildId, assigneeId, createdBy) "
@@ -72,11 +79,14 @@ public class ConstantsH2 {
 			+ "LEFT JOIN projects ON issues.projectId = projects.projectId "
 			+ "LEFT JOIN builds ON issues.buildId = builds.buildId "
 			+ "LEFT JOIN users ON issues.createdBy = users.userId "
-			+ "WHERE issueId = ? GROUP BY issueId";	
+			+ "WHERE issueId = ? ORDER BY issueId";	
 	
 	public final static String SELECT_ROLE_ID = "SELECT * FROM roles WHERE roleName = ?";
 	public final static String ADD_NEW_USER = "INSERT INTO users (firstName, lastName, emailAddress, roleId, password) "
 			+ "VALUES (?, ?, ?, ?, ?)";
+	
+	public final static String ADD_NEW_COMMENT = "INSERT INTO comments (addedById, issueId, comment) "
+			+ "VALUES (?, ?, ?)";
 	
 	public final static String INSERT_INTO_ROLES = "INSERT INTO roles (roleName) VALUES (?)";
 	public final static String INSERT_INTO_STATUSES = "INSERT INTO statuses (statusName) VALUES (?)";

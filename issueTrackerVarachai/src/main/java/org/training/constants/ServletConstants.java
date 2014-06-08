@@ -14,6 +14,7 @@ public class ServletConstants {
 	
 	public static final String JSP_USER = "user";
 	public static final String JSP_USER_LIST = "userList";
+	public static final String JSP_COMMENT_LIST = "commentList";
 	public static final String JSP_FIRST_NAME = "firstName";
 	public static final String JSP_LAST_NAME = "lastName";
 	public static final String JSP_EMAIL_ADDRESS = "emailAddress";
@@ -38,6 +39,8 @@ public class ServletConstants {
 	public static final String JSP_ISSUE_ID = "issueId";
 	public static final String JSP_EDIT_USER_BY_ID = "editUser";
 	public static final String JSP_EDIT_PASSWORD_BY_ID = "editPassword";
+	public static final String JSP_COMMENT = "comment";
+	public static final String JSP_COMMENT_ISSUE_ID = "commentIssueId";
 
 	
 	public static final String JSP_TYPES_LIST = "issueTypes";
@@ -67,17 +70,20 @@ public class ServletConstants {
 	public static final String ERROR_PRIORITY_EMPTY = "Priority is empty.";
 	public static final String ERROR_PROJECT_EMPTY = "Project is empty.";
 	public static final String ERROR_BUILD_FOUND_EMPTY = "Build Found is empty.";
+	public static final String ERROR_COMMENT_EMPTY = "Comment is empty.";
 	
 	public static final String ERROR_ISSUE_NOT_ADD = "Issue not add.";
 	public static final String ERROR_USER_NOT_ADD = "User not add.";
 	public static final String ERROR_ISSUE_NOT_UPDATE = "Issue not update.";
 	public static final String ERROR_USER_NOT_UPDATE = "User not update.";
 	public static final String ERROR_PASSWORD_NOT_UPDATE = "Password not update.";
+	public static final String ERROR_COMMENT_NOT_ADD = "Comment not add.";
 	public static final String ISSUE_ADD_SUCCESSFULLY = "Issue was added successfully.";
 	public static final String USER_ADD_SUCCESSFULLY = "USER was added successfully.";
 	public static final String ISSUE_UPDATE_SUCCESSFULLY = "Issue was updated successfully.";
 	public static final String USER_UPDATE_SUCCESSFULLY = "User was updated successfully.";
 	public static final String PASSWORD_UPDATE_SUCCESSFULLY = "Password was updated successfully.";
+	public static final String COMMENT_ADD_SUCCESSFULLY = "Comment was added successfully.";
 		
 	public static final String LOGIN_VALID = "login ok";
 	public static final String LOGIN_INVALID = "error: invalid username or password!";
@@ -97,6 +103,7 @@ public class ServletConstants {
 	public static final String JUMP_ADD_USER_PAGE = "/pages/addUser.jsp";
 	public static final String JUMP_EDIT_ISSUE_PAGE = "/pages/editIssue.jsp";
 	public static final String JUMP_SEARCH_USER_PAGE = "/pages/searchUser.jsp";
+	public static final String JUMP_BEFORE_EDIT_ISSUE_CONTROLLER = "/BeforeEditIssueController";
 
 
 }

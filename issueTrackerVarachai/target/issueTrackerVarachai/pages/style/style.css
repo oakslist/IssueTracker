@@ -194,3 +194,35 @@ td.color-Minor {
 	text-align: center;
 }
 
+/* ===== comment ======= */
+.comments {
+	border-bottom: 10px; 
+}
+
+.comment-part span {
+	padding: 15px 5px 15px;
+}
+
+.add-comment {
+	width: 320px; 
+	color: blue; 
+	float: left;
+}
+
+.date-comment {
+	width: 120px; 
+	color: blue; 
+	float: right;
+	text-align: right;
+}
+
+.footer-comment {
+	clear: both; 
+	background-color: #CCC;
+}
+
+span.comment {
+	border: 30px;
+}
+
+
