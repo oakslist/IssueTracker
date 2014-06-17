@@ -1,4 +1,5 @@
 IssueTracker
 ============
 
-IssueTracker task for epam
+IssueTracker task for trainig.org
+made by Siarhei Varachai

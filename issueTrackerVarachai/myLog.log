@@ -1,0 +1,32 @@
+2014-06-14 18:39:10 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-06-14 18:39:10 INFO  Version:54 - HHH000412: Hibernate Core {4.3.5.Final}
+2014-06-14 18:39:10 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-06-14 18:39:10 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-06-14 18:39:10 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-06-14 18:39:10 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-06-14 18:39:10 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-06-14 18:39:10 INFO  Configuration:757 - HHH000221: Reading mappings from resource: org/trainig/myhibernate/User.hbm.xml
+2014-06-14 19:30:54 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-06-14 19:30:54 INFO  Version:54 - HHH000412: Hibernate Core {4.3.5.Final}
+2014-06-14 19:30:54 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-06-14 19:30:54 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-06-14 19:30:54 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-06-14 19:30:54 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-06-14 19:30:54 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-06-14 19:30:54 INFO  Configuration:757 - HHH000221: Reading mappings from resource: org.trainig.myhibernate.User.hbm.xml
+2014-06-14 19:32:19 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-06-14 19:32:19 INFO  Version:54 - HHH000412: Hibernate Core {4.3.5.Final}
+2014-06-14 19:32:19 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-06-14 19:32:19 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-06-14 19:32:19 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-06-14 19:32:19 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-06-14 19:32:19 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-06-14 19:32:19 INFO  Configuration:757 - HHH000221: Reading mappings from resource: org/trainig/myhibernate/User.hbm.xml
+2014-06-14 20:52:28 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-06-14 20:52:28 INFO  Version:54 - HHH000412: Hibernate Core {4.3.5.Final}
+2014-06-14 20:52:28 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-06-14 20:52:28 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-06-14 20:52:28 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-06-14 20:52:28 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-06-14 20:52:28 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-06-14 20:52:28 INFO  Configuration:757 - HHH000221: Reading mappings from resource: org/trainig/myhibernate/User.hbm.xml

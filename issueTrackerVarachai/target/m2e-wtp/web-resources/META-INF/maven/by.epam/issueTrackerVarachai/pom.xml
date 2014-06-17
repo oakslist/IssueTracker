@@ -1,6 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>by.epam</groupId>
 	<artifactId>issueTrackerVarachai</artifactId>
@@ -8,46 +7,80 @@
 	<version>1.0</version>
 	<name>issueTrackerVarachai Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-	  
+
 	<dependencies>
- 		<dependency>
-    		<groupId>junit</groupId>
-    		<artifactId>junit</artifactId>
-    		<version>3.8.1</version>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
-    		<groupId>javax.servlet</groupId>
-    		<artifactId>servlet-api</artifactId>
-    		<version>2.5</version>
-    		<scope>provided</scope>
-    	</dependency>
-    	
-    	<dependency>
-      		<groupId>log4j</groupId>
-      		<artifactId>log4j</artifactId>
-      		<version>1.2.17</version>
-    	</dependency>
-    	
-    	 <dependency>
-    		<groupId>com.h2database</groupId>
-    		<artifactId>h2</artifactId>
-    		<version>1.4.178</version>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
-    		<groupId>javax.servlet</groupId>
-    		<artifactId>jstl</artifactId>
-    		<version>1.2</version>
-    		<scope>runtime</scope>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.178</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Hibernate framework -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.3.5.Final</version>
+		</dependency>
+		<!-- Hibernate library dependecy start -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>dom4j</groupId> -->
+<!-- 			<artifactId>dom4j</artifactId> -->
+<!-- 			<version>1.6.1</version> -->
+<!-- 		</dependency> -->
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml</groupId>
+			<artifactId>classmate</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<!-- Hibernate library dependecy end -->
+
+		<!-- Hibernate query library dependency start -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>antlr</groupId> -->
+<!-- 			<artifactId>antlr</artifactId> -->
+<!-- 			<version>2.7.7</version> -->
+<!-- 		</dependency> -->
+		<!-- Hibernate query library dependency end -->
+
 	</dependencies>
-	
+
+
 	<build>
-	
+
 		<finalName>issueTrackerVarachai</finalName>
-    
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -58,8 +91,8 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
-			
+
 		</plugins>
-    
+
 	</build>
 </project>

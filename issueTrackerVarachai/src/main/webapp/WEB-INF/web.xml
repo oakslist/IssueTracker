@@ -69,6 +69,10 @@
 		<servlet-name>AddIssueCommentController</servlet-name>
 		<servlet-class>org.training.controllers.AddIssueCommentController</servlet-class>
 	</servlet>
+	<servlet>
+	<servlet-name>AppServlet</servlet-name>
+		<servlet-class>org.training.constants.AppServlet</servlet-class>
+	</servlet>
 	
 	
 	<servlet-mapping>
@@ -124,7 +128,12 @@
 		<url-pattern>/EditDifferentUserPasswordController</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-	<servlet-name>AddIssueCommentController</servlet-name>
+		<servlet-name>AddIssueCommentController</servlet-name>
 		<url-pattern>/AddIssueCommentController</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AppServlet</servlet-name>
+		<url-pattern>/AppServlet</url-pattern>
+	</servlet-mapping>
+	
 </web-app>

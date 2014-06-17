@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="org.training.myhibernate.User" table="user2">
+		<id name="id" type="int">
+			<column name="ID" />
+			<generator class="native">
+				<param name="sequence">id_column_sequence</param>
+			</generator>
+		</id>
+		<property name="firstName" type="string">
+			<column name="FIRST_NAME" length="20" not-null="true" unique="false" />
+		</property>
+		<property name="lastName" type="string">
+			<column name="LAST_NAME" length="20" not-null="true" unique="false" />
+		</property>
+		<property name="emailAddress" type="string">
+			<column name="EMAIL_ADDRESS" length="60" not-null="true"
+				unique="true" />
+		</property>
+		<property name="roleId" type="java.lang.Integer">
+			<column name="ROLE_ID" not-null="true" />
+		</property>
+		<property name="password" type="string">
+			<column name="PASSWORD" length="40" not-null="true" unique="false" />
+		</property>
+	</class>
+</hibernate-mapping>
