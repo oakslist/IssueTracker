@@ -15,7 +15,8 @@
         <property name="current_session_context_class">thread</property>
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
         <property name="hbm2ddl.auto">update</property>
-        <mapping resource="org/training/myhibernate/User.hbm.xml"></mapping>
-        <mapping class="org.training.myhibernate.UserUn"></mapping>
+        
+        <mapping class="org.training.model.beans.hibbeans.Role"></mapping>
+        <mapping class="org.training.model.beans.hibbeans.User"></mapping>
     </session-factory>
 </hibernate-configuration>

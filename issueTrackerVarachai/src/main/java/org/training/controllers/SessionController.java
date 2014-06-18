@@ -17,6 +17,7 @@ import org.training.model.beans.Issue;
 import org.training.model.beans.User;
 import org.training.model.beans.enums.UserRoleEnum;
 import org.training.model.factories.IssueFactory;
+import org.training.model.hib.impls.DefaultDataTables;
 import org.training.model.impls.DaoException;
 
 
@@ -26,6 +27,8 @@ import org.training.model.impls.DaoException;
 public class SessionController extends AbstractBaseController {
 	
 	private static final long serialVersionUID = 1L;
+	
+	private static boolean isTableNotCreated = true;
        
 	protected void doGet(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
@@ -47,6 +50,12 @@ public class SessionController extends AbstractBaseController {
 			session= request.getSession(true);
 			session.setAttribute(ServletConstants.JSP_USER, new User());
 			return;
+		}
+		
+		//create default data in the tables
+		if (isTableNotCreated) {
+			new DefaultDataTables();
+			isTableNotCreated = false;
 		}
 		
 		// get all issues from db
