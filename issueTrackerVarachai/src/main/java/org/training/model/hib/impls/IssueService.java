@@ -2,12 +2,13 @@ package org.training.model.hib.impls;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
-import org.training.model.beans.hibbeans.Project;
+import org.training.model.beans.hibbeans.Issue;
 import org.training.persistence.HibernateUtil;
 
-public class ProjectService {
+public class IssueService {
 
-	private static final Logger LOG = Logger.getLogger(ProjectService.class);
+	
+	private static final Logger LOG = Logger.getLogger(IssueService.class);
 
 	private Session openSession() {
 		return HibernateUtil.getSessionFactory().openSession();
@@ -17,26 +18,24 @@ public class ProjectService {
 		session.close();
 	}
 
-	public Project add(Project project) {
-		System.out.println("Add project");
-		LOG.info("Add project");
+	public Issue add(Issue issue) {
+		System.out.println("Add issue");
+		LOG.info("Add issue");
 		Session session = openSession();
 		try {
 			session.beginTransaction();
 
-			//problem was here, but working now
-			//maybe it depended on the annotations project - build
-			session.save(project);
+			session.save(issue);
 
 			session.getTransaction().commit();
+			System.out.println("issue was added : " + issue);
 		} catch (Exception e) {
 			HibernateUtil.getSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
-			System.out.println("eror in create new project " + e);
+			System.out.println("eror in create new issue " + e);
 		}
 		closeSession(session);
-		return project;
+		return issue;
 	}
-	
 	
 }

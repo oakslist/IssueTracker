@@ -18,6 +18,7 @@ import org.training.ifaces.xmlDAO.IStatusesDAO;
 import org.training.ifaces.xmlDAO.ITypesDAO;
 import org.training.model.beans.enums.UserRoleEnum;
 import org.training.model.beans.hibbeans.BuildFound;
+import org.training.model.beans.hibbeans.Issue;
 import org.training.model.beans.hibbeans.Priority;
 import org.training.model.beans.hibbeans.Project;
 import org.training.model.beans.hibbeans.Resolution;
@@ -95,6 +96,9 @@ public class DefaultDataTables {
 		}
 
 		// set default issues
+		if (ifExistData("Issue") == false) {
+			createDataIssue();
+		}
 
 	}
 
@@ -116,6 +120,52 @@ public class DefaultDataTables {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			LOG.info(e.getMessage());
+		}
+	}
+	
+	private void createDataIssue() {
+		try {
+			System.out.println("=== Create default data in the Issue ===");
+			LOG.info("=== Create default data in the Issue ===");
+			Session session = HibernateUtil.getSessionFactory().openSession();
+
+//			BuildFound buildFound = new BuildFound();
+//			buildFound.setBuildValue("1.0.1");
+//
+//			Project project = new Project();
+//			project.setProjectName("MyFirstProject");
+//			project.setDescription("It's my first project description");
+//
+//			UserService userService = new UserService();
+//			User manager = userService
+//					.getUserByEmail(ServletConstants.DEFAULT_USER_EMAIL_ADDRESS);
+//
+//			System.out.println("manager = " + manager);
+//
+//			// buildFound.setProject(project);
+//
+//			project.setManager(manager);
+//			project.getBuilds().add(buildFound);
+//
+//			ProjectService projectService = new ProjectService();
+//			projectService.add(project);
+			
+			
+			Issue issue = new Issue();
+			issue.setSummary("It'is the summary about issue");
+			issue.setDescription("It'is the issue description");
+			CommonService commonService = new CommonService();
+//			commonService.
+//			issue.setStatus(status);
+//			
+			session.close();
+			System.out.println("Issue default was saved into the Issue table");
+			LOG.info("Issue default was saved into the Issue table");
+
+		} catch (Exception ex) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in create data Project === " + ex);
 		}
 	}
 
@@ -161,28 +211,6 @@ public class DefaultDataTables {
 			LOG.info("=== Create default data in the Project ===");
 			Session session = HibernateUtil.getSessionFactory().openSession();
 
-			// BuildFound build = new BuildFound();
-			// build.setBuildValue("1.0.1");
-
-			// Project project = new Project();
-			// project.setProjectName("MyFirstProject");
-			// project.setDescription("It's my first project description");
-
-			// build.setProject(project);
-
-			// Role role = new Role();
-			// RoleService roleService = new RoleService();
-			// userDef.setRole(roleService.get(ServletConstants.DEFAUL_USER_ROLE));
-			//
-			// role.getUsers().add(userDef);
-			//
-			// UserService userService = new UserService();
-			// userService.add(userDef);
-
-			// System.out.println("User default was saved into the USER table");
-			// LOG.info("User default was saved into the USER table");
-			// session.close();
-
 			BuildFound buildFound = new BuildFound();
 			buildFound.setBuildValue("1.0.1");
 
@@ -198,7 +226,7 @@ public class DefaultDataTables {
 
 			// buildFound.setProject(project);
 
-			// project.setManager(manager);
+			project.setManager(manager);
 			project.getBuilds().add(buildFound);
 
 			ProjectService projectService = new ProjectService();

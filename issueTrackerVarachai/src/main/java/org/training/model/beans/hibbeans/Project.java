@@ -29,7 +29,7 @@ public class Project implements Serializable {
 	private int id;
 	private String projectName;
 	private String description;
-//	private User manager;
+	private User manager;
 	private Set<Issue> issues = new HashSet<Issue>();
 	private Set<BuildFound> builds = new HashSet<BuildFound>();
 	
@@ -75,15 +75,16 @@ public class Project implements Serializable {
 		this.builds = builds;
 	}
 	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "MANAGER", nullable = false)
-//	public User getManager() {
-//		return manager;
-//	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MANAGER", nullable = false)
+//	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	public User getManager() {
+		return manager;
+	}
 
-//	public void setManager(User manager) {
-//		this.manager = manager;
-//	}
+	public void setManager(User manager) {
+		this.manager = manager;
+	}
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public Set<Issue> getIssues() {
