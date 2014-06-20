@@ -18,5 +18,13 @@
         
         <mapping class="org.training.model.beans.hibbeans.Role"></mapping>
         <mapping class="org.training.model.beans.hibbeans.User"></mapping>
+        <mapping class="org.training.model.beans.hibbeans.Issue"></mapping>
+        <mapping class="org.training.model.beans.hibbeans.Type"></mapping>
+        <mapping class="org.training.model.beans.hibbeans.Status"></mapping>
+        <mapping class="org.training.model.beans.hibbeans.Resolution"></mapping>
+        <mapping class="org.training.model.beans.hibbeans.Project"></mapping>
+        <mapping class="org.training.model.beans.hibbeans.Priority"></mapping>
+        <mapping class="org.training.model.beans.hibbeans.Comment"></mapping>
+        <mapping class="org.training.model.beans.hibbeans.BuildFound"></mapping>
     </session-factory>
 </hibernate-configuration>

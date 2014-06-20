@@ -3,7 +3,7 @@ package org.training.model.beans.hibbeans;
 import static javax.persistence.GenerationType.AUTO;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -121,7 +121,7 @@ public class Issue implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "BUILD_FOUND", nullable = false)
+	@JoinColumn(name = "BUILD", nullable = false)
 	public BuildFound getBuildFound() {
 		return buildFound;
 	}
@@ -141,7 +141,7 @@ public class Issue implements Serializable {
 	}
 
 	@Column(name = "CREATED_DATE", nullable = false, columnDefinition = "date default sysdate")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
 	public Date getCreateDate() {
 		return createDate;
 	}

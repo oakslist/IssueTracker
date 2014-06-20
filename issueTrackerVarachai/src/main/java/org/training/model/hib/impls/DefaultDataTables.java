@@ -1,13 +1,13 @@
 package org.training.model.hib.impls;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.training.constants.ServletConstants;
 import org.training.ifaces.xmlDAO.IPrioritiesDAO;
@@ -15,7 +15,11 @@ import org.training.ifaces.xmlDAO.IResolutionsDAO;
 import org.training.ifaces.xmlDAO.IStatusesDAO;
 import org.training.ifaces.xmlDAO.ITypesDAO;
 import org.training.model.beans.enums.UserRoleEnum;
+import org.training.model.beans.hibbeans.Priority;
+import org.training.model.beans.hibbeans.Resolution;
 import org.training.model.beans.hibbeans.Role;
+import org.training.model.beans.hibbeans.Status;
+import org.training.model.beans.hibbeans.Type;
 import org.training.model.beans.hibbeans.User;
 import org.training.model.factories.PriorityFactory;
 import org.training.model.factories.ResolutionFactory;
@@ -34,14 +38,48 @@ public class DefaultDataTables {
 	private static final Logger LOG = Logger.getLogger(DefaultDataTables.class);
 
 	public DefaultDataTables() {
+
+		try {
+			// read all default data from xml
+			ITypesDAO typesDAO = TypeFactory.getClassFromFactory();
+			issueTypes = typesDAO.getExistTypes();
+			IStatusesDAO statusesDAO = StatusFactory.getClassFromFactory();
+			issueStatuses = statusesDAO.getExistStatuses();
+			IResolutionsDAO resolutionsDAO = ResolutionFactory
+					.getClassFromFactory();
+			issueResolutions = resolutionsDAO.getExistResolutions();
+			IPrioritiesDAO prioritiesDAO = PriorityFactory
+					.getClassFromFactory();
+			issuePriorities = prioritiesDAO.getExistPriorities();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
 		if (ServletConstants.IS_SET_DEFAULT_DATA) {
 			readXMLData();
+			// set default roles
 			if (ifExistDataRole() == false) {
 				createDataRole();
 			}
-
-			if (ifExistDataUser() == false) {
+			// set default users
+			if (ifExistData(User.class.getSimpleName()) == false) {
 				createDataUser();
+			}
+			// set default types
+			if (ifExistData(Type.class.getSimpleName()) == false) {
+				createData(Type.class.getSimpleName(), issueTypes);
+			}
+			// set default statuses
+			if (ifExistData("Status") == false) {
+				createData(Status.class.getSimpleName(), issueStatuses);
+			}
+			// set default resolution
+			if (ifExistData("Resolution") == false) {
+				createData(Resolution.class.getSimpleName(), issueResolutions);
+			}
+			// set default resolution
+			if (ifExistData("Priority") == false) {
+				createData(Priority.class.getSimpleName(), issuePriorities);
 			}
 		}
 	}
@@ -101,7 +139,7 @@ public class DefaultDataTables {
 			System.out.println("eror in create data tables");
 		}
 	}
-	
+
 	private void createDataUser() {
 		try {
 			System.out.println("=== Create default data in the user ===");
@@ -114,15 +152,15 @@ public class DefaultDataTables {
 			userDef.setLastName("admin");
 			userDef.setEmailAddress("ad@ad.ad");
 			userDef.setPassword("ad");
-			Role role = null;
+			Role role = new Role();
 			RoleService roleService = new RoleService();
 			userDef.setRole(roleService.get(UserRoleEnum.ADMINISTRATOR));
-			
+
 			role.getUsers().add(userDef);
-	
+
 			UserService userService = new UserService();
 			userService.add(userDef);
-			
+
 			System.out.println("User default was saved into the USER table");
 			LOG.info("User default was saved into the USER table");
 			session.close();
@@ -131,6 +169,85 @@ public class DefaultDataTables {
 					.getTransaction().rollback();
 			System.out.println("eror in create data users");
 		}
+	}
+
+	private void createData(String tableClassName, Map<Integer, String> values) {
+		try {
+			System.out.println("=== Create default data in the "
+					+ tableClassName + " ===");
+			LOG.info("=== Create default data in the " + tableClassName
+					+ " ===");
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			if (!values.isEmpty()) {
+				session.beginTransaction();
+				Collection<String> instances = values.values();
+				for (String instance : instances) {
+					switch (tableClassName) {
+						case "Type":
+							Type type = new Type();
+							type.setTypeName(instance);
+							session.save(type);
+							break;
+						case "Status":
+							Status status = new Status();
+							status.setStatusName(instance);
+							session.save(status);
+							break;
+						case "Resolution":
+							Resolution resolution = new Resolution();
+							resolution.setResolutionName(instance);
+							session.save(resolution);
+							break;
+						case "Priority":
+							Priority priority = new Priority();
+							priority.setPriorityName(instance);
+							session.save(priority);
+							break;
+						default:
+							System.out.println("Class not found");
+							break;
+					}
+				}			
+				session.getTransaction().commit();
+			}
+			System.out.println(tableClassName + " default was saved into the "
+					+ tableClassName + " table");
+			LOG.info(tableClassName + " default was saved into the "
+					+ tableClassName + " table");
+			session.close();
+		} catch (Exception ex) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in create data " + tableClassName);
+		}
+	}
+
+	private boolean ifExistData(String tableClassName) {
+		try {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			try {
+				session.beginTransaction();
+				List list = session.createQuery("from " + tableClassName)
+						.list();
+				if (!list.isEmpty()) {
+					session.getTransaction().commit();
+					session.close();
+					return true;
+				}
+				session.getTransaction().commit();
+			} catch (HibernateException e) {
+				e.printStackTrace();
+				session.getTransaction().rollback();
+			}
+			session.close();
+
+		} catch (Exception ex) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in checking data data table "
+					+ tableClassName);
+		}
+		return false;
 	}
 
 	private boolean ifExistDataRole() {
@@ -149,6 +266,8 @@ public class DefaultDataTables {
 						Role role = new Role();
 						role.setRoleName(curRole);
 						session.contains(role);
+						session.getTransaction().commit();
+						session.close();
 						return true;
 					}
 					session.getTransaction().commit();
@@ -168,31 +287,12 @@ public class DefaultDataTables {
 		return false;
 	}
 
-	private boolean ifExistDataUser() {
-		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
-
-			try {
-
-				List list = session.createQuery("from User").list();
-				System.out.println(list);
-
-				if (!list.isEmpty()) {
-					session.close();
-					return true;
-				}
-
-			} catch (HibernateException e) {
-				e.printStackTrace();
-				session.getTransaction().rollback();
-			}
-			session.close();
-
-		} catch (Exception ex) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
-					.getTransaction().rollback();
-			System.out.println("eror in create data tables");
-		}
-		return false;
+	private void showDataFromTable(String tableClassName) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		List list = session.createQuery("from " + tableClassName).list();
+		System.out.println(list);
+		session.getTransaction().commit();
+		session.close();
 	}
 }

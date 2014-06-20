@@ -60,8 +60,7 @@ public class Type implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Type [id=" + id + ", typeName=" + typeName + ", issues="
-				+ issues + "]";
+		return "Type [id=" + id + ", typeName=" + typeName + "]";
 	}
 	
 	
