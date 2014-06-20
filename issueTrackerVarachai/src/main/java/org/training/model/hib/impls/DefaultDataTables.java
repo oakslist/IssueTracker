@@ -1,5 +1,7 @@
 package org.training.model.hib.impls;
 
+//http://habrahabr.ru/post/29694/
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -15,7 +17,9 @@ import org.training.ifaces.xmlDAO.IResolutionsDAO;
 import org.training.ifaces.xmlDAO.IStatusesDAO;
 import org.training.ifaces.xmlDAO.ITypesDAO;
 import org.training.model.beans.enums.UserRoleEnum;
+import org.training.model.beans.hibbeans.BuildFound;
 import org.training.model.beans.hibbeans.Priority;
+import org.training.model.beans.hibbeans.Project;
 import org.training.model.beans.hibbeans.Resolution;
 import org.training.model.beans.hibbeans.Role;
 import org.training.model.beans.hibbeans.Status;
@@ -82,6 +86,16 @@ public class DefaultDataTables {
 				createData(Priority.class.getSimpleName(), issuePriorities);
 			}
 		}
+
+		// set default project build
+
+		// set default project
+		if (ifExistData("Project") == false) {
+			createDataProject();
+		}
+
+		// set default issues
+
 	}
 
 	// read all constant parameters in table
@@ -111,19 +125,20 @@ public class DefaultDataTables {
 			LOG.info("=== Create default data in the trables ===");
 
 			Session session = HibernateUtil.getSessionFactory().openSession();
-
+			
+			rolesList.clear();
 			for (UserRoleEnum role : UserRoleEnum.values()) {
 				rolesList.add(role.getUserRole());
 			}
 
 			try {
-				session.beginTransaction();
 				for (String curRole : rolesList) {
+					session.beginTransaction();
 					Role role = new Role();
 					role.setRoleName(curRole);
 					session.save(role);
+					session.getTransaction().commit();
 				}
-				session.getTransaction().commit();
 
 				System.out.println("Role was saved into the ROLE table");
 				LOG.info("Role was saved into the ROLE table");
@@ -140,6 +155,66 @@ public class DefaultDataTables {
 		}
 	}
 
+	private void createDataProject() {
+		try {
+			System.out.println("=== Create default data in the Project ===");
+			LOG.info("=== Create default data in the Project ===");
+			Session session = HibernateUtil.getSessionFactory().openSession();
+
+			// BuildFound build = new BuildFound();
+			// build.setBuildValue("1.0.1");
+
+			// Project project = new Project();
+			// project.setProjectName("MyFirstProject");
+			// project.setDescription("It's my first project description");
+
+			// build.setProject(project);
+
+			// Role role = new Role();
+			// RoleService roleService = new RoleService();
+			// userDef.setRole(roleService.get(ServletConstants.DEFAUL_USER_ROLE));
+			//
+			// role.getUsers().add(userDef);
+			//
+			// UserService userService = new UserService();
+			// userService.add(userDef);
+
+			// System.out.println("User default was saved into the USER table");
+			// LOG.info("User default was saved into the USER table");
+			// session.close();
+
+			BuildFound buildFound = new BuildFound();
+			buildFound.setBuildValue("1.0.1");
+
+			Project project = new Project();
+			project.setProjectName("MyFirstProject");
+			project.setDescription("It's my first project description");
+
+			UserService userService = new UserService();
+			User manager = userService
+					.getUserByEmail(ServletConstants.DEFAULT_USER_EMAIL_ADDRESS);
+
+			System.out.println("manager = " + manager);
+
+			// buildFound.setProject(project);
+
+			// project.setManager(manager);
+			project.getBuilds().add(buildFound);
+
+			ProjectService projectService = new ProjectService();
+			projectService.add(project);
+			session.close();
+			System.out
+					.println("Project default was saved into the Project table");
+			LOG.info("Project default was saved into the Project table");
+
+		} catch (Exception ex) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in create data Project === " + ex);
+		}
+	}
+
 	private void createDataUser() {
 		try {
 			System.out.println("=== Create default data in the user ===");
@@ -148,13 +223,13 @@ public class DefaultDataTables {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 
 			User userDef = new User();
-			userDef.setFirstName("admin");
-			userDef.setLastName("admin");
-			userDef.setEmailAddress("ad@ad.ad");
-			userDef.setPassword("ad");
+			userDef.setFirstName(ServletConstants.DEFAULT_USER_FIRST_NAME);
+			userDef.setLastName(ServletConstants.DEFAULT_USER_LAST_NAME);
+			userDef.setEmailAddress(ServletConstants.DEFAULT_USER_EMAIL_ADDRESS);
+			userDef.setPassword(ServletConstants.DEFAULT_USER_PASSWORD);
 			Role role = new Role();
 			RoleService roleService = new RoleService();
-			userDef.setRole(roleService.get(UserRoleEnum.ADMINISTRATOR));
+			userDef.setRole(roleService.get(ServletConstants.DEFAULT_USER_ROLE));
 
 			role.getUsers().add(userDef);
 
@@ -183,31 +258,31 @@ public class DefaultDataTables {
 				Collection<String> instances = values.values();
 				for (String instance : instances) {
 					switch (tableClassName) {
-						case "Type":
-							Type type = new Type();
-							type.setTypeName(instance);
-							session.save(type);
-							break;
-						case "Status":
-							Status status = new Status();
-							status.setStatusName(instance);
-							session.save(status);
-							break;
-						case "Resolution":
-							Resolution resolution = new Resolution();
-							resolution.setResolutionName(instance);
-							session.save(resolution);
-							break;
-						case "Priority":
-							Priority priority = new Priority();
-							priority.setPriorityName(instance);
-							session.save(priority);
-							break;
-						default:
-							System.out.println("Class not found");
-							break;
+					case "Type":
+						Type type = new Type();
+						type.setTypeName(instance);
+						session.save(type);
+						break;
+					case "Status":
+						Status status = new Status();
+						status.setStatusName(instance);
+						session.save(status);
+						break;
+					case "Resolution":
+						Resolution resolution = new Resolution();
+						resolution.setResolutionName(instance);
+						session.save(resolution);
+						break;
+					case "Priority":
+						Priority priority = new Priority();
+						priority.setPriorityName(instance);
+						session.save(priority);
+						break;
+					default:
+						System.out.println("Class not found");
+						break;
 					}
-				}			
+				}
 				session.getTransaction().commit();
 			}
 			System.out.println(tableClassName + " default was saved into the "
@@ -230,8 +305,10 @@ public class DefaultDataTables {
 				List list = session.createQuery("from " + tableClassName)
 						.list();
 				if (!list.isEmpty()) {
+					System.out.println(list);
 					session.getTransaction().commit();
 					session.close();
+
 					return true;
 				}
 				session.getTransaction().commit();
@@ -265,10 +342,11 @@ public class DefaultDataTables {
 					for (String curRole : rolesList) {
 						Role role = new Role();
 						role.setRoleName(curRole);
-						session.contains(role);
-						session.getTransaction().commit();
-						session.close();
-						return true;
+						if (session.contains(role)) {
+							session.getTransaction().commit();
+							session.close();
+							return true;
+						}
 					}
 					session.getTransaction().commit();
 				} catch (HibernateException e) {
@@ -287,12 +365,14 @@ public class DefaultDataTables {
 		return false;
 	}
 
-	private void showDataFromTable(String tableClassName) {
+	private List showDataFromTable(String tableClassName) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		List list = session.createQuery("from " + tableClassName).list();
 		System.out.println(list);
 		session.getTransaction().commit();
 		session.close();
+		return list;
 	}
+
 }

@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import static javax.persistence.GenerationType.AUTO;
 
 /**
  * Role user privileges
@@ -39,7 +38,7 @@ public class Role implements Serializable {
 	}
 	
 	@Id
-	@GeneratedValue(strategy = AUTO)
+	@GeneratedValue
 	@Column(name = "ROLE_ID", unique = true, nullable = false)
 	public int getRoleId() {
 		return roleId;

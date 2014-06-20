@@ -1,9 +1,6 @@
 package org.training.model.hib.impls;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.training.model.beans.enums.UserRoleEnum;
 import org.training.model.beans.hibbeans.Role;
@@ -23,28 +20,22 @@ public class RoleService {
 
 	public Role get(UserRoleEnum role) {
 		Role userRole = null;
+		System.out.println("Get role");
+		LOG.info("Get role");
+		Session session = openSession();
 		try {
-			System.out.println("Get role");
-			LOG.info("Get role");
-			Session session = openSession();
 			session.getTransaction().begin();
-			
-			Query query = session.createQuery("from Role where roleName = :code");
-			query.setParameter("code", role.toString());
-			List list = query.list();
-			
-			if (!list.isEmpty()) {
-				userRole = (Role) list.get(0);
-			} else {
-				System.out.println("Role not found");
-			}
+			userRole = (Role) session.createQuery(
+				    "from Role r where r.roleName = ?")
+				   .setString(0, role.toString())
+				   .uniqueResult();
 			session.getTransaction().commit();
-			closeSession(session);
 		} catch (Exception e) {
 			HibernateUtil.getSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror to get Role");
 		}
+		closeSession(session);
 		return userRole;
 	}
 }

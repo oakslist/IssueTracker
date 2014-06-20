@@ -30,7 +30,6 @@ public class Issue implements Serializable {
 	private Type type;
 	private Priority priority;
 	private Project project;
-	private BuildFound buildFound;
 	private User assignee;
 	private Date createDate;
 	private User createdBy;
@@ -111,23 +110,13 @@ public class Issue implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PROJECT", nullable = false)
+	@JoinColumn(name = "PROJECT_ID", nullable = false)
 	public Project getProject() {
 		return project;
 	}
 
 	public void setProject(Project project) {
 		this.project = project;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "BUILD", nullable = false)
-	public BuildFound getBuildFound() {
-		return buildFound;
-	}
-
-	public void setBuildFound(BuildFound buildFound) {
-		this.buildFound = buildFound;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -185,7 +174,7 @@ public class Issue implements Serializable {
 		return "Issue [id=" + id + ", summary=" + summary + ", description="
 				+ description + ", status=" + status + ", resolution="
 				+ resolution + ", type=" + type + ", priority=" + priority
-				+ ", project=" + project + ", buildFound=" + buildFound
+				+ ", project=" + project 
 				+ ", assignee=" + assignee + ", createDate=" + createDate
 				+ ", createdBy=" + createdBy + ", modifyDate=" + modifyDate
 				+ ", modifiedBy=" + modifiedBy + "]";

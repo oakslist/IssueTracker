@@ -3,15 +3,14 @@ package org.training.model.beans.hibbeans;
 import static javax.persistence.GenerationType.AUTO;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -20,19 +19,19 @@ import javax.persistence.UniqueConstraint;
 public class BuildFound implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private int id;
 	private String buildValue;
-	private Project project;
-	private Set<Project> projects = new HashSet<Project>();
-	
+//	private Project project;
+//	private Set<Project> projects = new HashSet<Project>();
+
 	public BuildFound() {
-		
+
 	}
-	
+
 	@Id
-	@GeneratedValue(strategy = AUTO)
 	@Column(name = "BUILD_ID", unique = true, nullable = false)
+	@GeneratedValue(strategy = AUTO)
 	public int getId() {
 		return id;
 	}
@@ -40,7 +39,7 @@ public class BuildFound implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	@Column(name = "BUILD_VALUE", nullable = false, length = 20)
 	public String getBuildValue() {
 		return buildValue;
@@ -49,25 +48,21 @@ public class BuildFound implements Serializable {
 	public void setBuildValue(String buildValue) {
 		this.buildValue = buildValue;
 	}
-	
-	@Column(name = "PROJECT", nullable = false)
-	public Project getProject() {
-		return project;
-	}
 
-	public void setProject(Project project) {
-		this.project = project;
-	}
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "build")
-	public Set<Project> getProjects() {
-		return projects;
-	}
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "PROJECT_ID", nullable = false)
+//	public Project getProject() {
+//		return project;
+//	}
+//
+//	public void setProject(Project project) {
+//		this.project = project;
+//	}
 
-	public void setProjects(Set<Project> projects) {
-		this.projects = projects;
+	@Override
+	public String toString() {
+		return "BuildFound [id=" + id + ", buildValue=" + buildValue + "]";
 	}
-
 
 
 }

@@ -1,10 +1,18 @@
 package org.training.constants;
 
+import org.training.model.beans.enums.UserRoleEnum;
+
 public class ServletConstants {
 	
 	public static final int NUMBER_N = 10;
 	public static final boolean IS_CREATE_ALL_TABLES = true;
 	public static final boolean IS_SET_DEFAULT_DATA = true;
+	
+	public static final String DEFAULT_USER_FIRST_NAME = "admin";
+	public static final String DEFAULT_USER_LAST_NAME = "admin";
+	public static final String DEFAULT_USER_EMAIL_ADDRESS = "ad@ad.ad";
+	public static final String DEFAULT_USER_PASSWORD = "ad";
+	public static final UserRoleEnum DEFAULT_USER_ROLE = UserRoleEnum.ADMINISTRATOR;
 		
 	public static final String XML_USERS_FILE = "/Users.xml";
 	public static final String XML_PRIVILEGES_FILE = "/RolePrivileges.xml";

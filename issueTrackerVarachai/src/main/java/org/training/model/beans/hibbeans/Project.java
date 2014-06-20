@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,12 +14,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "project", uniqueConstraints = @UniqueConstraint(columnNames = "PROJECT_NAME"))
+@Table(name = "project", uniqueConstraints = {
+		@UniqueConstraint(columnNames = "PROJECT_NAME")
+})
 public class Project implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -26,9 +29,9 @@ public class Project implements Serializable {
 	private int id;
 	private String projectName;
 	private String description;
-	private BuildFound build;
-	private User manager;
+//	private User manager;
 	private Set<Issue> issues = new HashSet<Issue>();
+	private Set<BuildFound> builds = new HashSet<BuildFound>();
 	
 	public Project() {
 		
@@ -63,33 +66,39 @@ public class Project implements Serializable {
 		this.description = description;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "BUILD_ID", nullable = false)
-	public BuildFound getBuild() {
-		return build;
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	public Set<BuildFound> getBuilds() {
+		return builds;
 	}
 
-	public void setBuild(BuildFound build) {
-		this.build = build;
+	public void setBuilds(Set<BuildFound> builds) {
+		this.builds = builds;
+	}
+	
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "MANAGER", nullable = false)
+//	public User getManager() {
+//		return manager;
+//	}
+
+//	public void setManager(User manager) {
+//		this.manager = manager;
+//	}
+	
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	public Set<Issue> getIssues() {
+		return issues;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", nullable = false)
-	public User getManager() {
-		return manager;
-	}
-
-	public void setManager(User manager) {
-		this.manager = manager;
+	public void setIssues(Set<Issue> issues) {
+		this.issues = issues;
 	}
 
 	@Override
 	public String toString() {
 		return "Project [id=" + id + ", projectName=" + projectName
-				+ ", description=" + description + ", build=" + build
-				+ ", manager=" + manager + ", issues=" + issues + "]";
+				+ ", description=" + description 
+				+ ", manager=" +  ", builds=" + builds + "]";
 	}
-	
-	
 
 }
