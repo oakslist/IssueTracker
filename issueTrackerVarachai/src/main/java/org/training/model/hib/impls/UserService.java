@@ -63,41 +63,47 @@ public class UserService implements IUserDAOHib {
 	}
 
 	@Override
-	public List<Issue> getAllIssues() throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Issue> getUserIssues(int userId) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Issue> getIssues(int firstNumber, int number)
+	public List<org.training.model.beans.hibbeans.Issue> getAllIssues()
 			throws DaoException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Issue getIssue(int number) throws DaoException {
+	public List<org.training.model.beans.hibbeans.Issue> getUserIssues(
+			int userId) throws DaoException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean setIssue(Issue issue) throws DaoException {
+	public List<org.training.model.beans.hibbeans.Issue> getIssues(
+			int firstNumber, int number) throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public org.training.model.beans.hibbeans.Issue getIssue(int number)
+			throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean setIssue(org.training.model.beans.hibbeans.Issue issue)
+			throws DaoException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean updateIssue(Issue issue) throws DaoException {
+	public boolean updateIssue(org.training.model.beans.hibbeans.Issue issue)
+			throws DaoException {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 
 	
 

@@ -103,10 +103,10 @@
 										<td class="table-id">${issue.id}</td>
 									</c:otherwise>
 								</c:choose>	
-								<td class="color-${issue.priority}">${issue.priority}</td>
-								<td>${issue.assignee}</td>
-								<td>${issue.type}</td>
-								<td>${issue.status}</td>
+								<td class="color-${issue.priority}">${issue.priority.priorityName}</td>
+								<td>${issue.assignee.firstName} ${issue.assignee.lastName} ${issue.assignee.emailAddress}</td>
+								<td>${issue.type.typeName}</td>
+								<td>${issue.status.statusName}</td>
 								<td>${issue.summary}</td>
 							</tr>
 						</c:forEach>

@@ -2,8 +2,9 @@ package org.training.ifaces.hib;
 
 import java.util.List;
 
-import org.training.model.beans.Issue;
+import org.training.model.beans.hibbeans.Issue;
 import org.training.model.impls.DaoException;
+
 
 public interface IUserDAOHib {
 

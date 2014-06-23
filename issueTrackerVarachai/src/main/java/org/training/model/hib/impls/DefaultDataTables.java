@@ -131,8 +131,8 @@ public class DefaultDataTables {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 
 			Issue issue = new Issue();
-			issue.setSummary("It'is the summary about issue"); 
-			issue.setDescription("It'is the issue description");
+			issue.setSummary("It's the summary about issue"); 
+			issue.setDescription("It's the issue description");
 			User assignee = new UserService().getUserByEmail(ServletConstants.DEFAULT_USER_EMAIL_ADDRESS);
 			issue.setAssignee(assignee);
 			

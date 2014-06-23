@@ -84,7 +84,7 @@ public class User extends DefaultTableClass implements Serializable {
 		this.emailAddress = emailAddress;
 	}
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER) //(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ROLE_ID", nullable = false)
 	public Role getRole() {
 		return role;

@@ -76,7 +76,7 @@ public class Issue extends DefaultTableClass implements Serializable {
 //	@JoinColumn(name = "STATUS_ID")
 //	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "STATUS_ID", nullable = false)
 	public Status getStatus() {
 		return status;
@@ -91,7 +91,7 @@ public class Issue extends DefaultTableClass implements Serializable {
 //	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //	@ManyToOne
 //	@JoinColumn(name = "RESOLUTION_ID")
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "RESOLUTION_ID", nullable = false)
 	public Resolution getResolution() {
 		return resolution;
@@ -106,7 +106,7 @@ public class Issue extends DefaultTableClass implements Serializable {
 //	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //	@ManyToOne
 //	@JoinColumn(name = "TYPE_ID")
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "TYPE_ID", nullable = false)
 	public Type getType() {
 		return type;
@@ -121,7 +121,7 @@ public class Issue extends DefaultTableClass implements Serializable {
 //	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //	@ManyToOne
 //	@JoinColumn(name = "PRIORITY_ID")
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PRIORITY_ID", nullable = false)
 	public Priority getPriority() {
 		return priority;
@@ -136,7 +136,7 @@ public class Issue extends DefaultTableClass implements Serializable {
 //	@ManyToOne
 //	@JoinColumn(name = "PROJECT_ID")
 //	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PROJECT_ID", nullable = false)
 	public Project getProject() {
 		return project;
@@ -148,7 +148,7 @@ public class Issue extends DefaultTableClass implements Serializable {
 
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "PROJECT_ID", nullable = false)
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID", nullable = true)
 	public User getAssignee() {
 		return assignee;

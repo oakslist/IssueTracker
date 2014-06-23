@@ -80,7 +80,7 @@ public class Project extends DefaultTableClass implements Serializable {
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "MANAGER", nullable = false)
 //	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER) //(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USER_ID", nullable = true)
 	public User getManager() {
 		return manager;
