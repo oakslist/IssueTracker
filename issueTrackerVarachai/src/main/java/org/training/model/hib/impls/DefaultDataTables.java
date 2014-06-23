@@ -316,12 +316,12 @@ public class DefaultDataTables {
 			userDef.setPassword(ServletConstants.DEFAULT_ADMIN_PASSWORD);
 			Role role = new Role();
 			RoleService roleService = new RoleService();
-			userDef.setRole(roleService.get(ServletConstants.DEFAULT_ADMIN_ROLE));
+			userDef.setRole(roleService.getExistRole(ServletConstants.DEFAULT_ADMIN_ROLE));
 
 			role.getUsers().add(userDef);
 
 			UserService userService = new UserService();
-			userService.add(userDef);
+			userService.addNewUser(userDef);
 			
 			
 			//add user
@@ -331,11 +331,11 @@ public class DefaultDataTables {
 			userDef.setEmailAddress(ServletConstants.DEFAULT_USER_EMAIL_ADDRESS);
 			userDef.setPassword(ServletConstants.DEFAULT_USER_PASSWORD);
 			role = new Role();
-			userDef.setRole(roleService.get(ServletConstants.DEFAULT_USER_ROLE));
+			userDef.setRole(roleService.getExistRole(ServletConstants.DEFAULT_USER_ROLE));
 
 			role.getUsers().add(userDef);
 
-			userService.add(userDef);
+			userService.addNewUser(userDef);
 
 			System.out.println("User default was saved into the USER table");
 			LOG.info("User default was saved into the USER table");

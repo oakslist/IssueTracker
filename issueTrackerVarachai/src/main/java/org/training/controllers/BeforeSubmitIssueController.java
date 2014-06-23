@@ -10,8 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import org.training.constants.ServletConstants;
 import org.training.ifaces.AbstractBaseController;
-import org.training.ifaces.ITableDataDAO;
-import org.training.model.factories.TableDataFactory;
+import org.training.ifaces.hib.ITableDataDAOHib;
+import org.training.model.factories.hib.TableDataFactoryHib;
 import org.training.model.impls.DaoException;
 
 /**
@@ -43,14 +43,14 @@ public class BeforeSubmitIssueController extends AbstractBaseController {
 		}
 		
 		// get data from db
-		ITableDataDAO tableDAO = TableDataFactory.getClassFromFactory();
+		ITableDataDAOHib tableDAO = TableDataFactoryHib.getClassFromFactory();
 		try {
 			session.setAttribute(ServletConstants.JSP_TYPES_LIST, tableDAO.getTypes());
 			session.setAttribute(ServletConstants.JSP_STATUSES_LIST, tableDAO.getStatuses());
 			session.setAttribute(ServletConstants.JSP_RESOLUTIONS_LIST, tableDAO.getResolutions());
 			session.setAttribute(ServletConstants.JSP_PRIORITIES_LIST, tableDAO.getPriorities());
 			session.setAttribute(ServletConstants.JSP_PROJECTS_LIST, tableDAO.getProjects());
-			session.setAttribute(ServletConstants.JSP_PROJECT_BUILDS_LIST, tableDAO.getBuildFound());
+			session.setAttribute(ServletConstants.JSP_PROJECT_BUILDS_LIST, tableDAO.getBuildFounds());
 			session.setAttribute(ServletConstants.JSP_ASSIGNEES_LIST, tableDAO.getAssignee());
 			jumpPage(ServletConstants.JUMP_SUBMIT_ISSUE_PAGE, request, response);
 		} catch (DaoException e) {

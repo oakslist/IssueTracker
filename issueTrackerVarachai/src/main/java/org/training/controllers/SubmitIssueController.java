@@ -11,10 +11,14 @@ import javax.servlet.http.HttpSession;
 import org.training.constants.ServletConstants;
 import org.training.ifaces.AbstractBaseController;
 import org.training.ifaces.IIssueDAO;
-import org.training.model.beans.Issue;
-import org.training.model.beans.User;
+import org.training.model.beans.hibbeans.Issue;
+import org.training.model.beans.hibbeans.Type;
+import org.training.model.beans.hibbeans.User;
 import org.training.model.factories.IssueFactory;
+import org.training.model.hib.impls.CommonService;
+import org.training.model.hib.impls.UserService;
 import org.training.model.impls.DaoException;
+
 
 /**
  * Servlet implementation class SubmitIssueController
@@ -44,7 +48,7 @@ public class SubmitIssueController extends AbstractBaseController {
 			jumpError(ServletConstants.ERROR_NULL_SESSION, request, response);
 			return;
 		}
-		
+
 		String summary = request.getParameter(ServletConstants.JSP_SUMMARY);
 		String description = request.getParameter(ServletConstants.JSP_DESCRIPTION);
 		String status = request.getParameter(ServletConstants.JSP_STATUS);
@@ -54,11 +58,18 @@ public class SubmitIssueController extends AbstractBaseController {
 		String buildFound = request.getParameter(ServletConstants.JSP_BUILD_FOUND);
 		int assignee = Integer.parseInt(request.getParameter(ServletConstants.JSP_ASSIGNEE));
 
-		
+		//set issue
 		Issue issue = new Issue();
 		
 		issue.setSummary(summary);
 		issue.setDescription(description);
+		User curAssignee = new UserService().getUserById(assignee);
+		issue.setAssignee(curAssignee);
+		
+		CommonService 
+		Type curType = new CommonService().getTypeByName(type);
+		issue.setType(type);
+		
 		issue.setStatus(status);
 		issue.setType(type);
 		issue.setPriority(priority);
@@ -69,6 +80,38 @@ public class SubmitIssueController extends AbstractBaseController {
 		issue.setCreatedBy(user.getEmailAddress() + " : " + user.getFirstName()
 				+ " " + user.getLastName());
 		issue.setCreatedById(user.getId());
+		
+		
+		
+		
+		//find and set data from exist data
+//	
+//		Type type = commonService.getTypeByName("Bug");
+//		issue.setType(type);
+//		
+//		Priority priority = commonService.getPriorityByName("Important");
+//		issue.setPriority(priority);
+//		
+//		Resolution resolution = commonService.getResolutionByName("Wontfix");
+//		issue.setResolution(resolution);
+//		
+//		Project project = commonService.getProjectByName("MyFirstProject");
+//		issue.setProject(project);
+//		
+//		status.getIssues().add(issue);
+//		type.getIssues().add(issue);
+//		priority.getIssues().add(issue);
+//		resolution.getIssues().add(issue);
+//		project.getIssues().add(issue);
+//
+//
+//		IssueService issueService = new IssueService();
+//		issueService.addIssue(issue);
+		
+		
+		
+		
+		
 		
 		try {
 			//set issue in db

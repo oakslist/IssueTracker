@@ -10,10 +10,13 @@ import javax.servlet.http.HttpSession;
 
 import org.training.constants.ServletConstants;
 import org.training.ifaces.AbstractBaseController;
-import org.training.ifaces.IUserDAO;
-import org.training.model.beans.User;
+import org.training.ifaces.hib.IRoleDAOHib;
+import org.training.ifaces.hib.IUserDAOHib;
 import org.training.model.beans.enums.UserRoleEnum;
-import org.training.model.factories.UserFactory;
+import org.training.model.beans.hibbeans.Role;
+import org.training.model.beans.hibbeans.User;
+import org.training.model.factories.hib.RoleFactoryHib;
+import org.training.model.factories.hib.UserFactoryHib;
 import org.training.model.impls.DaoException;
 
 
@@ -64,12 +67,16 @@ public class AddUserController extends AbstractBaseController {
 		newUser.setFirstName(firstName);
 		newUser.setLastName(lastName);
 		newUser.setEmailAddress(emailAddress);
-		newUser.setRole(UserRoleEnum.valueOf(role));
 		newUser.setPassword(password);
 				
 		try {
+			//get Role from db
+			IRoleDAOHib roleDAO = RoleFactoryHib.getClassFromFactory();
+			Role curRole = roleDAO.getExistRole(UserRoleEnum.valueOf(role));
+			newUser.setRole(curRole);
+			
 			//set user in db
-			IUserDAO userDAO = UserFactory.getClassFromFactory();
+			IUserDAOHib userDAO = UserFactoryHib.getClassFromFactory();
 			boolean isSet = userDAO.addNewUser(newUser);
 			if (isSet == true) {
 				jumpError(ServletConstants.USER_ADD_SUCCESSFULLY, request, response);

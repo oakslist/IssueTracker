@@ -37,11 +37,11 @@
 
 			<h1>Submit Issue</h1>
 			<c:choose>
-				<c:when test="${user.role eq 'GUEST'}">
+				<c:when test="${user.role.roleName eq 'GUEST'}">
 					<p><font color=&quot#AABBCC&quot>Your are in IssueTracker now<br>
 					Please login or work as a guest.</font></p>
 				</c:when>
-				<c:when test="${user.role eq 'USER' || user.role eq 'ADMINISTRATOR'}">
+				<c:when test="${user.role.roleName eq 'USER' || user.role.roleName eq 'ADMINISTRATOR'}">
 					<div class="add-submit-issue">
 						<form method="POST" action="<c:url value='/SubmitIssueController'/>">
 							<table class="add-issue-table">
@@ -58,7 +58,7 @@
 									<td>
 									<select class="status-select" name=<%= ServletConstants.JSP_STATUS%>>
 										<c:forEach items="${issueStatuses}" var="status">
-        									<option value="${status.key}">${status.value}</option>
+        									<option value="${status.id}">${status.statusName}</option>
     									</c:forEach>
    									</select>
    									</td>
@@ -68,7 +68,7 @@
 									<td>
 									<select class="type-select" name=<%= ServletConstants.JSP_TYPE%>>
 										<c:forEach items="${issueTypes}" var="type">
-        									<option value="${type.key}">${type.value}</option>
+        									<option value="${type.id}">${type.typeName}</option>
     									</c:forEach>
    									</select>
    									</td>
@@ -78,7 +78,7 @@
 									<td>
 									<select class="priority-select" name=<%= ServletConstants.JSP_PRIORITY%>>
 										<c:forEach items="${issuePriorities}" var="priority">
-        									<option value="${priority.key}" class="color-${priority.key}">${priority.value}</option>
+        									<option value="${priority.id}" class="color-${priority.id}">${priority.priorityName}</option>
     									</c:forEach>
    									</select>
    									</td>
@@ -88,7 +88,7 @@
 									<td>
 									<select class="project-select" name=<%= ServletConstants.JSP_PROJECT%>>
 										<c:forEach items="${issueProjects}" var="project">
-        									<option value="${project.key}">${project.value.name}</option>
+        									<option value="${project.id}">${project.projectName}</option>
     									</c:forEach>
    									</select>
    									</td>
@@ -98,7 +98,7 @@
 									<td>
 									<select class="build-select" name=<%= ServletConstants.JSP_BUILD_FOUND%>>
 										<c:forEach items="${issueProjectBuilds}" var="build">
-        									<option value="${build.key}">${build.value}</option>
+        									<option value="${build.id}">${build.buildValue}</option>
     									</c:forEach>
    									</select>
    									</td>
@@ -108,7 +108,7 @@
 									<td>
 									<select class="assignee-select" name=<%= ServletConstants.JSP_ASSIGNEE%>>
 										<c:forEach items="${issueAssignees}" var="assignee">
-        									<option value="${assignee.key}">${assignee.value}</option>
+        									<option value="${assignee.userId}">${assignee.firstName} ${assignee.lastName} : ${assignee.emailAddress}</option>
     									</c:forEach>
    									</select>
    									</td>

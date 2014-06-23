@@ -1,15 +1,24 @@
 package org.training.model.hib.impls;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
+import org.training.ifaces.hib.ITableDataDAOHib;
+import org.training.model.beans.hibbeans.BuildFound;
 import org.training.model.beans.hibbeans.Priority;
 import org.training.model.beans.hibbeans.Project;
 import org.training.model.beans.hibbeans.Resolution;
 import org.training.model.beans.hibbeans.Status;
 import org.training.model.beans.hibbeans.Type;
+import org.training.model.beans.hibbeans.User;
+import org.training.model.impls.DaoException;
 import org.training.persistence.HibernateUtil;
 
-public class CommonService {
+public class CommonService implements ITableDataDAOHib {
 
 	
 	private static final Logger LOG = Logger.getLogger(CommonService.class);
@@ -21,25 +30,6 @@ public class CommonService {
 	private void closeSession(Session session) {
 		session.close();
 	}
-	
-//	public boolean setNewDataInTable(DefaultTableClass arg) {
-//		boolean isSet = false;
-//		System.out.println("Add " + arg);
-//		LOG.info("Add " + arg);
-//		Session session = openSession();
-//		try {
-//			session.beginTransaction();
-//			session.save(arg);
-//			session.getTransaction().commit();
-//			isSet = true;
-//		} catch (Exception e) {
-//			HibernateUtil.getSessionFactory().getCurrentSession()
-//					.getTransaction().rollback();
-//			System.out.println("eror in create new " + arg + " " + e);
-//		}
-//		closeSession(session);
-//		return isSet;
-//	}
 	
 	public boolean setStatus(Status status) {
 		boolean isSet = false;
@@ -109,13 +99,6 @@ public class CommonService {
 		Status status = new Status();
 		Session session = openSession();
 		try {
-			
-//			session.beginTransaction();
-//			List list = session.createQuery("from Status").list();
-//			System.out.println(list);
-//			session.getTransaction().commit();
-			
-			
 			session.beginTransaction();
 			status = (Status) session.createQuery(
 				    "from Status s where s.statusName = ?")
@@ -234,5 +217,184 @@ public class CommonService {
 		closeSession(session);
 		return project;
 	}
+
+	@Override
+	public List<Status> getStatuses() throws DaoException {
+		System.out.println("Get all statuses");
+		LOG.info("Get all statuses");
+		List<Status> statuses = new ArrayList<Status>();
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			statuses = (List<Status>) session.createQuery("from Status").list();
+			if (statuses.isEmpty()) {
+				session.getTransaction().commit();
+				closeSession(session);
+				return null;
+			}
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in Get all statuses " + e);
+		}
+		closeSession(session);
+		return statuses;
+	}
+
+	@Override
+	public List<Type> getTypes() throws DaoException {
+		System.out.println("Get all types");
+		LOG.info("Get all types");
+		List<Type> types = new ArrayList<Type>();
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			types = (List<Type>) session.createQuery("from Type").list();
+			if (types.isEmpty()) {
+				session.getTransaction().commit();
+				closeSession(session);
+				return null;
+			}
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in Get all types " + e);
+		}
+		closeSession(session);
+		return types;
+	}
+
+	@Override
+	public List<Resolution> getResolutions() throws DaoException {
+		System.out.println("Get all resolutions");
+		LOG.info("Get all resolutions");
+		List<Resolution> resolutions = new ArrayList<Resolution>();
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			resolutions = (List<Resolution>) session.createQuery("from Resolution").list();
+			if (resolutions.isEmpty()) {
+				session.getTransaction().commit();
+				closeSession(session);
+				return null;
+			}
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in Get all resolutions " + e);
+		}
+		closeSession(session);
+		return resolutions;
+	}
+
+	@Override
+	public List<Priority> getPriorities() throws DaoException {
+		System.out.println("Get all priorities");
+		LOG.info("Get all priorities");
+		List<Priority> priorities = new ArrayList<Priority>();
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			priorities = (List<Priority>) session.createQuery("from Priority").list();
+			if (priorities.isEmpty()) {
+				session.getTransaction().commit();
+				closeSession(session);
+				return null;
+			}
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in Get all priorities " + e);
+		}
+		closeSession(session);
+		return priorities;
+	}
+
+	@Override
+	public List<Project> getProjects() throws DaoException {
+		System.out.println("Get all projects");
+		LOG.info("Get all projects");
+		List<Project> projects = new ArrayList<Project>();
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			projects = (List<Project>) session.createQuery("from Project").list();
+			if (projects.isEmpty()) {
+				session.getTransaction().commit();
+				closeSession(session);
+				return null;
+			}
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in Get all projects " + e);
+		}
+		closeSession(session);
+		return projects;
+	}
+
+	@Override
+	public List<BuildFound> getBuildFound(String projectNumber)
+			throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<BuildFound> getBuildFounds() throws DaoException {
+		System.out.println("Get all buildFounds");
+		LOG.info("Get all buildFounds");
+		List<BuildFound> buildFounds = new ArrayList<BuildFound>();
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			buildFounds = (List<BuildFound>) session.createQuery("from BuildFound").list();
+			if (buildFounds.isEmpty()) {
+				session.getTransaction().commit();
+				closeSession(session);
+				return null;
+			}
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in Get all buildFounds " + e);
+		}
+		closeSession(session);
+		return buildFounds;
+	}
+
+	@Override
+	public List<User> getAssignee() throws DaoException {
+		System.out.println("Get all assignees");
+		LOG.info("Get all assignees");
+		List<User> assignees = new ArrayList<User>();
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			assignees = (List<User>) session.createQuery("from User").list();
+			if (assignees.isEmpty()) {
+				session.getTransaction().commit();
+				closeSession(session);
+				return null;
+			}
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in Get all assignees " + e);
+		}
+		closeSession(session);
+		return assignees;
+	}
+
+	
+
+	
 		
 }

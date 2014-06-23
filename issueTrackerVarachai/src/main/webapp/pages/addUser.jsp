@@ -38,7 +38,7 @@
 
 			<h1>Add New User</h1>
 			<c:choose>
-				<c:when test="${user.role eq 'USER' || user.role eq 'ADMINISTRATOR'}">
+				<c:when test="${user.role.roleName eq 'USER' || user.role.roleName eq 'ADMINISTRATOR'}">
 					<div class="add-submit-issue">
 						<form method="POST" action="<c:url value='/AddUserController'/>">
 							<table class="add-user-table">

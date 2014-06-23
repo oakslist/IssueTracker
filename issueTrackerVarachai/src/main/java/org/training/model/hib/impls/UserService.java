@@ -22,27 +22,10 @@ public class UserService implements IUserDAOHib {
 		session.close();
 	}
 
-	public User add(User user) {
-		System.out.println("Add user");
-		LOG.info("Add user");
-		Session session = openSession();		
-		try {
-			session.beginTransaction();
-			session.save(user);
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
-					.getTransaction().rollback();
-			System.out.println("eror in create new user");
-		}
-		closeSession(session);
-		return user;
-	}
-	
 	public User getUserByEmail(String email) {
 		User user = new User();
-		System.out.println("get user by email");
-		LOG.info("get user by email");
+		System.out.println("get user by email " + email);
+		LOG.info("get user by email " + email);
 		Session session = openSession();
 		try {
 			session.beginTransaction();
@@ -50,8 +33,6 @@ public class UserService implements IUserDAOHib {
 				    "from User u where u.emailAddress = ?")
 				   .setString(0, email)
 				   .uniqueResult();
-			//this comment fix transaction error !!!!
-			System.out.println(user);			
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			HibernateUtil.getSessionFactory().getCurrentSession()
@@ -64,7 +45,6 @@ public class UserService implements IUserDAOHib {
 
 	@Override
 	public List<User> getExistUsers() throws DaoException {
-		User user = new User();
 		System.out.println("get all exist users");
 		LOG.info("get all exist users");
 		List<User> users = new ArrayList<User>();
@@ -86,8 +66,10 @@ public class UserService implements IUserDAOHib {
 	public User getExistUser(String emailAddress, String password)
 			throws DaoException {
 		User user = new User();
-		System.out.println("get user by email and password");
-		LOG.info("get user by email and password");
+		System.out.println("get user by email and password " + emailAddress 
+				+ "; " + password);
+		LOG.info("get user by email and password " + emailAddress 
+				+ "; " + password);
 		Session session = openSession();
 		try {
 			session.beginTransaction();
@@ -109,14 +91,43 @@ public class UserService implements IUserDAOHib {
 
 	@Override
 	public User getUserById(int id) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		User user = new User();
+		System.out.println("get user by id " + id);
+		LOG.info("get user by id " + id);
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			user = (User) session.createQuery(
+				    "from User u where u.userId = ?")
+				   .setInteger(0, id).uniqueResult();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in getting user by id");
+		}
+		closeSession(session);
+		return user;
 	}
 
 	@Override
 	public boolean addNewUser(User user) throws DaoException {
-		// TODO Auto-generated method stub
-		return false;
+		System.out.println("Add new user " + user);
+		LOG.info("Add new user " + user);
+		boolean isAdded = false;
+		Session session = openSession();		
+		try {
+			session.beginTransaction();
+			session.save(user);
+			session.getTransaction().commit();
+			isAdded = true;
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in add new user");
+		}
+		closeSession(session);
+		return isAdded;
 	}
 
 	@Override

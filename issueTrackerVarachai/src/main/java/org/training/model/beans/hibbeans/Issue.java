@@ -158,15 +158,20 @@ public class Issue extends DefaultTableClass implements Serializable {
 		this.assignee = assignee;
 	}
 
-//	@Column(name = "CREATED_DATE", nullable = false, columnDefinition = "date default sysdate")
-//    @Temporal(TemporalType.DATE)
-//	public Date getCreateDate() {
-//		return createDate;
-//	}
-//
-//	public void setCreateDate(Date createDate) {
-//		this.createDate = createDate;
-//	}
+//	@Column(name = "CREATED_DATE", nullable = false, updatable = false, columnDefinition = "date default sysdate")
+//  @Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "CREATED_DATE", insertable = false)
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		if (this.createDate == null) { 
+			this.createDate = new Date(); 
+		}
+		this.createDate = createDate;
+	}
 
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "CREATED_BY", nullable = false)
