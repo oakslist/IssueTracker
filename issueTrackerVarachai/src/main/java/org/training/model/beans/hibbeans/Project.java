@@ -18,11 +18,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.training.model.hib.impls.DefaultTableClass;
+
 @Entity
 @Table(name = "project", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "PROJECT_NAME")
 })
-public class Project implements Serializable {
+public class Project extends DefaultTableClass implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -75,9 +77,11 @@ public class Project implements Serializable {
 		this.builds = builds;
 	}
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MANAGER", nullable = false)
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "MANAGER", nullable = false)
 //	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ID", nullable = true)
 	public User getManager() {
 		return manager;
 	}
@@ -86,7 +90,9 @@ public class Project implements Serializable {
 		this.manager = manager;
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
 	public Set<Issue> getIssues() {
 		return issues;
 	}
@@ -99,7 +105,7 @@ public class Project implements Serializable {
 	public String toString() {
 		return "Project [id=" + id + ", projectName=" + projectName
 				+ ", description=" + description 
-				+ ", manager=" +  ", builds=" + builds + "]";
+				+ ", builds=" + builds + "]";
 	}
 
 }

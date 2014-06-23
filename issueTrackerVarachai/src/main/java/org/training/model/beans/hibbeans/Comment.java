@@ -16,9 +16,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.training.model.hib.impls.DefaultTableClass;
+
 @Entity
 @Table(name = "comment")
-public class Comment implements Serializable {
+public class Comment extends DefaultTableClass implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	

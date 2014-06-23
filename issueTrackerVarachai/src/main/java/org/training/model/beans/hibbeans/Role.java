@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.training.model.hib.impls.DefaultTableClass;
+
 /**
  * Role user privileges
  */
@@ -21,7 +23,7 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "role", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "ROLE_NAME")})
 
-public class Role implements Serializable {
+public class Role extends DefaultTableClass implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	

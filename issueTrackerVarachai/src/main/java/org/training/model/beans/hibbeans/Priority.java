@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,9 +16,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.training.model.hib.impls.DefaultTableClass;
+
 @Entity
 @Table(name = "priority", uniqueConstraints = @UniqueConstraint(columnNames = "PRIORITY_NAME"))
-public class Priority implements Serializable {
+public class Priority extends DefaultTableClass implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -49,7 +52,9 @@ public class Priority implements Serializable {
 		this.priorityName = priorityName;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "priority")
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "priority")
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "priority")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "priority")
 	public Set<Issue> getIssues() {
 		return issues;
 	}

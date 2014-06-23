@@ -15,9 +15,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.training.model.hib.impls.DefaultTableClass;
+
 @Entity
 @Table(name = "type", uniqueConstraints = @UniqueConstraint(columnNames = "TYPE_NAME"))
-public class Type implements Serializable {
+public class Type extends DefaultTableClass implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -49,7 +51,9 @@ public class Type implements Serializable {
 		this.typeName = typeName;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "type")
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "type")
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "type")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "type")
 	public Set<Issue> getIssues() {
 		return issues;
 	}

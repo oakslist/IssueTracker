@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -129,35 +130,43 @@ public class DefaultDataTables {
 			LOG.info("=== Create default data in the Issue ===");
 			Session session = HibernateUtil.getSessionFactory().openSession();
 
-//			BuildFound buildFound = new BuildFound();
-//			buildFound.setBuildValue("1.0.1");
-//
-//			Project project = new Project();
-//			project.setProjectName("MyFirstProject");
-//			project.setDescription("It's my first project description");
-//
-//			UserService userService = new UserService();
-//			User manager = userService
-//					.getUserByEmail(ServletConstants.DEFAULT_USER_EMAIL_ADDRESS);
-//
-//			System.out.println("manager = " + manager);
-//
-//			// buildFound.setProject(project);
-//
-//			project.setManager(manager);
-//			project.getBuilds().add(buildFound);
-//
-//			ProjectService projectService = new ProjectService();
-//			projectService.add(project);
-			
-			
 			Issue issue = new Issue();
-			issue.setSummary("It'is the summary about issue");
+			issue.setSummary("It'is the summary about issue"); 
 			issue.setDescription("It'is the issue description");
+			User assignee = new UserService().getUserByEmail(ServletConstants.DEFAULT_USER_EMAIL_ADDRESS);
+			issue.setAssignee(assignee);
+			
+			//find and set data from exist data
 			CommonService commonService = new CommonService();
-//			commonService.
-//			issue.setStatus(status);
-//			
+			Status status = commonService.getStatusByName("Assigned");
+			issue.setStatus(status);
+			
+			Type type = commonService.getTypeByName("Bug");
+			issue.setType(type);
+			
+			Priority priority = commonService.getPriorityByName("Important");
+			issue.setPriority(priority);
+			
+			Resolution resolution = commonService.getResolutionByName("Wontfix");
+			issue.setResolution(resolution);
+			
+			Project project = commonService.getProjectByName("MyFirstProject");
+			issue.setProject(project);
+			
+			status.getIssues().add(issue);
+			type.getIssues().add(issue);
+			priority.getIssues().add(issue);
+			resolution.getIssues().add(issue);
+			project.getIssues().add(issue);
+
+
+			IssueService issueService = new IssueService();
+			issueService.addIssue(issue);
+					
+
+//			User createdUser = new UserService().getUserByEmail(ServletConstants.DEFAULT_USER_EMAIL_ADDRESS);
+//			issue.setCreatedBy(createdUser);
+			System.out.println(issue);
 			session.close();
 			System.out.println("Issue default was saved into the Issue table");
 			LOG.info("Issue default was saved into the Issue table");
@@ -393,14 +402,14 @@ public class DefaultDataTables {
 		return false;
 	}
 
-	private List showDataFromTable(String tableClassName) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-		List list = session.createQuery("from " + tableClassName).list();
-		System.out.println(list);
-		session.getTransaction().commit();
-		session.close();
-		return list;
-	}
+//	private List showDataFromTable(String tableClassName) {
+//		Session session = HibernateUtil.getSessionFactory().openSession();
+//		session.beginTransaction();
+//		List list = session.createQuery("from " + tableClassName).list();
+//		System.out.println(list);
+//		session.getTransaction().commit();
+//		session.close();
+//		return list;
+//	}
 
 }

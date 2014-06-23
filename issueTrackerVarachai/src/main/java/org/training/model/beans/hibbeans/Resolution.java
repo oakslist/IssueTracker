@@ -15,9 +15,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.training.model.hib.impls.DefaultTableClass;
+
 @Entity
 @Table(name = "resolution", uniqueConstraints = @UniqueConstraint(columnNames = "RESOLUTION_NAME"))
-public class Resolution implements Serializable {
+public class Resolution extends DefaultTableClass implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -49,7 +51,9 @@ public class Resolution implements Serializable {
 		this.resolutionName = resolutionName;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "resolution")
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "resolution")
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "resolution")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "resolution")
 	public Set<Issue> getIssues() {
 		return issues;
 	}
@@ -61,7 +65,7 @@ public class Resolution implements Serializable {
 	@Override
 	public String toString() {
 		return "Resolution [id=" + id + ", resolutionName=" + resolutionName
-				+ ", issues=" + issues + "]";
+				+ "]";
 	}
 
 	

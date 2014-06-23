@@ -16,9 +16,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.training.model.hib.impls.DefaultTableClass;
+
 @Entity
 @Table(name = "issue")
-public class Issue implements Serializable {
+public class Issue extends DefaultTableClass implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -69,8 +71,13 @@ public class Issue implements Serializable {
 		this.description = description;
 	}
 
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@ManyToOne
+//	@JoinColumn(name = "STATUS_ID")
+//	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "STATUS", nullable = false)
+	@JoinColumn(name = "STATUS_ID", nullable = false)
 	public Status getStatus() {
 		return status;
 	}
@@ -79,8 +86,13 @@ public class Issue implements Serializable {
 		this.status = status;
 	}
 
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "RESOLUTION", nullable = false)
+//	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@ManyToOne
+//	@JoinColumn(name = "RESOLUTION_ID")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "RESOLUTION", nullable = false)
+	@JoinColumn(name = "RESOLUTION_ID", nullable = false)
 	public Resolution getResolution() {
 		return resolution;
 	}
@@ -89,8 +101,13 @@ public class Issue implements Serializable {
 		this.resolution = resolution;
 	}
 
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "TYPE", nullable = false)
+//	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@ManyToOne
+//	@JoinColumn(name = "TYPE_ID")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "TYPE", nullable = false)
+	@JoinColumn(name = "TYPE_ID", nullable = false)
 	public Type getType() {
 		return type;
 	}
@@ -99,8 +116,13 @@ public class Issue implements Serializable {
 		this.type = type;
 	}
 	
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "PRIORITY", nullable = false)
+//	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@ManyToOne
+//	@JoinColumn(name = "PRIORITY_ID")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PRIORITY", nullable = false)
+	@JoinColumn(name = "PRIORITY_ID", nullable = false)
 	public Priority getPriority() {
 		return priority;
 	}
@@ -109,6 +131,11 @@ public class Issue implements Serializable {
 		this.priority = priority;
 	}
 
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "PROJECT_ID", nullable = false)
+//	@ManyToOne
+//	@JoinColumn(name = "PROJECT_ID")
+//	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PROJECT_ID", nullable = false)
 	public Project getProject() {
@@ -119,8 +146,10 @@ public class Issue implements Serializable {
 		this.project = project;
 	}
 
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "PROJECT_ID", nullable = false)
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ASSIGNEE", nullable = true)
+	@JoinColumn(name = "USER_ID", nullable = true)
 	public User getAssignee() {
 		return assignee;
 	}
@@ -129,57 +158,57 @@ public class Issue implements Serializable {
 		this.assignee = assignee;
 	}
 
-	@Column(name = "CREATED_DATE", nullable = false, columnDefinition = "date default sysdate")
-    @Temporal(TemporalType.DATE)
-	public Date getCreateDate() {
-		return createDate;
-	}
+//	@Column(name = "CREATED_DATE", nullable = false, columnDefinition = "date default sysdate")
+//    @Temporal(TemporalType.DATE)
+//	public Date getCreateDate() {
+//		return createDate;
+//	}
+//
+//	public void setCreateDate(Date createDate) {
+//		this.createDate = createDate;
+//	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "CREATED_BY", nullable = false)
+//	public User getCreatedBy() {
+//		return createdBy;
+//	}
+//
+//	public void setCreatedBy(User createdBy) {
+//		this.createdBy = createdBy;
+//	}
+//
+//	@Column(name = "MODIFY_DATE", nullable = true)
+//    @Temporal(TemporalType.TIMESTAMP)
+//	public Date getModifyDate() {
+//		return modifyDate;
+//	}
+//
+//	public void setModifyDate(Date modifyDate) {
+//		this.modifyDate = modifyDate;
+//	}
+//
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "MODIFIED_BY", nullable = true)
+//	public User getModifiedBy() {
+//		return modifiedBy;
+//	}
+//
+//	public void setModifiedBy(User modifiedBy) {
+//		this.modifiedBy = modifiedBy;
+//	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATED_BY", nullable = false)
-	public User getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(User createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	@Column(name = "MODIFY_DATE", nullable = true)
-    @Temporal(TemporalType.TIMESTAMP)
-	public Date getModifyDate() {
-		return modifyDate;
-	}
-
-	public void setModifyDate(Date modifyDate) {
-		this.modifyDate = modifyDate;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MODIFIED_BY", nullable = true)
-	public User getModifiedBy() {
-		return modifiedBy;
-	}
-
-	public void setModifiedBy(User modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
 
 	@Override
 	public String toString() {
 		return "Issue [id=" + id + ", summary=" + summary + ", description="
 				+ description + ", status=" + status + ", resolution="
 				+ resolution + ", type=" + type + ", priority=" + priority
-				+ ", project=" + project 
-				+ ", assignee=" + assignee + ", createDate=" + createDate
-				+ ", createdBy=" + createdBy + ", modifyDate=" + modifyDate
-				+ ", modifiedBy=" + modifiedBy + "]";
+				+ ", project=" + project + ", assignee=" + assignee
+				+ ", createDate=" + createDate + ", createdBy=" + createdBy
+				+ ", modifyDate=" + modifyDate + ", modifiedBy=" + modifiedBy
+				+ "]";
 	}
-	
 	
 
 }

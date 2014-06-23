@@ -14,13 +14,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.training.model.hib.impls.DefaultTableClass;
+
 /**
  * User class for all users entity.  
  */
 
 @Entity
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "EMAIL_ADDRESS"))
-public class User implements Serializable {
+public class User extends DefaultTableClass implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

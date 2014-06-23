@@ -11,9 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.training.model.hib.impls.DefaultTableClass;
+
 @Entity
 @Table(name = "build", uniqueConstraints = @UniqueConstraint(columnNames = "BUILD_VALUE"))
-public class BuildFound implements Serializable {
+public class BuildFound extends DefaultTableClass implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
