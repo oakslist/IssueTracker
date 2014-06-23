@@ -40,7 +40,7 @@ public class LogoutController extends AbstractBaseController {
 			return;
 		}
 
-		session.setAttribute(ServletConstants.JSP_USER, new User());
+		session.setAttribute(ServletConstants.JSP_USER, null);
 		
 		jumpPage(ServletConstants.JUMP_INDEX_PAGE, request, response);
 	}

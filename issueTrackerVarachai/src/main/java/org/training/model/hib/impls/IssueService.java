@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Query;
 import org.hibernate.Session;
-import org.training.constants.ServletConstants;
 import org.training.ifaces.hib.IIssueDAOHib;
 import org.training.model.beans.hibbeans.Issue;
 import org.training.model.impls.DaoException;
@@ -52,27 +50,7 @@ public class IssueService implements IIssueDAOHib {
 		Session session = openSession();
 		try {
 			session.beginTransaction();
-			
-//			String hqlQuery = "from Employee emp "
-//                    + "left join fetch emp.employeesOffice
-//			Query empQuery = session.createQuery(hqlQuery);
-//			empQuery.setMaxResults(maxResult);
-//			employees = (List<Employee>) empQuery.list();
-//			for (Employee emp : employees) {
-//			    Hibernate.initialize(emp.address);
-//			}
-			
-//			Query issueQuery = session.createQuery("from Issue");
-//			issueQuery.setMaxResults(ServletConstants.NUMBER_N);
-//			List<Issue> issues = new ArrayList<Issue>();
-//			issues = (List<Issue>) issueQuery.list();
-//			for (Issue issue : issues) {
-//				
-//			}
-			
-			Query issueQuery = session.createQuery("from Issue");
-			issueQuery.setMaxResults(ServletConstants.NUMBER_N);
-			issues = (List<Issue>) issueQuery.list();
+			issues = (List<Issue>) session.createQuery("from Issue").list();
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			HibernateUtil.getSessionFactory().getCurrentSession()
@@ -87,11 +65,12 @@ public class IssueService implements IIssueDAOHib {
 	public List<Issue> getUserIssues(int userId) throws DaoException {
 		System.out.println("get user Issues by id");
 		LOG.info("get user Issues by id");
+		System.out.println("userId = " + userId);
 		List<Issue> list = null;
 		Session session = openSession();
 		try {
 			session.beginTransaction();
-			list = (List<Issue>) session.createQuery("from Issue i where i.id = ?")
+			list = (List<Issue>) session.createQuery("from Issue i where i.assignee.userId = ?")
 					.setInteger(0, userId).list();
 			session.getTransaction().commit();
 		} catch (Exception e) {

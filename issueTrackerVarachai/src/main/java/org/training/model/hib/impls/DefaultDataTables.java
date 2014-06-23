@@ -129,7 +129,8 @@ public class DefaultDataTables {
 			System.out.println("=== Create default data in the Issue ===");
 			LOG.info("=== Create default data in the Issue ===");
 			Session session = HibernateUtil.getSessionFactory().openSession();
-
+			
+			//issue for user
 			Issue issue = new Issue();
 			issue.setSummary("It's the summary about issue"); 
 			issue.setDescription("It's the issue description");
@@ -164,6 +165,40 @@ public class DefaultDataTables {
 			issueService.addIssue(issue);
 					
 
+			
+			//issue for admin
+			issue = new Issue();
+			issue.setSummary("It's the issue for admin"); 
+			issue.setDescription("It's the issue for admin description");
+			assignee = new UserService().getUserByEmail(ServletConstants.DEFAULT_ADMIN_EMAIL_ADDRESS);
+			issue.setAssignee(assignee);
+			
+			//find and set data from exist data
+			status = commonService.getStatusByName("Assigned");
+			issue.setStatus(status);
+			
+			type = commonService.getTypeByName("Bug");
+			issue.setType(type);
+			
+			priority = commonService.getPriorityByName("Important");
+			issue.setPriority(priority);
+			
+			resolution = commonService.getResolutionByName("Wontfix");
+			issue.setResolution(resolution);
+			
+			project = commonService.getProjectByName("MyFirstProject");
+			issue.setProject(project);
+			
+			status.getIssues().add(issue);
+			type.getIssues().add(issue);
+			priority.getIssues().add(issue);
+			resolution.getIssues().add(issue);
+			project.getIssues().add(issue);
+
+			issueService.addIssue(issue);
+			
+			
+			
 //			User createdUser = new UserService().getUserByEmail(ServletConstants.DEFAULT_USER_EMAIL_ADDRESS);
 //			issue.setCreatedBy(createdUser);
 			System.out.println(issue);
@@ -220,6 +255,7 @@ public class DefaultDataTables {
 			LOG.info("=== Create default data in the Project ===");
 			Session session = HibernateUtil.getSessionFactory().openSession();
 
+			//add issue1
 			BuildFound buildFound = new BuildFound();
 			buildFound.setBuildValue("1.0.1");
 
@@ -231,18 +267,31 @@ public class DefaultDataTables {
 			User manager = userService
 					.getUserByEmail(ServletConstants.DEFAULT_USER_EMAIL_ADDRESS);
 
-			System.out.println("manager = " + manager);
-
-			// buildFound.setProject(project);
-
 			project.setManager(manager);
 			project.getBuilds().add(buildFound);
 
 			ProjectService projectService = new ProjectService();
 			projectService.add(project);
+			
+			//add issue2
+			buildFound = new BuildFound();
+			buildFound.setBuildValue("1.0.2");
+
+			project = new Project();
+			project.setProjectName("ProjectForAdmin");
+			project.setDescription("It's project for administrator");
+
+			manager = userService
+					.getUserByEmail(ServletConstants.DEFAULT_USER_EMAIL_ADDRESS);
+
+			project.setManager(manager);
+			project.getBuilds().add(buildFound);
+
+			projectService.add(project);
+			
 			session.close();
-			System.out
-					.println("Project default was saved into the Project table");
+						
+			System.out.println("Project default was saved into the Project table");
 			LOG.info("Project default was saved into the Project table");
 
 		} catch (Exception ex) {
@@ -259,18 +308,33 @@ public class DefaultDataTables {
 
 			Session session = HibernateUtil.getSessionFactory().openSession();
 
+			//ad admin
 			User userDef = new User();
-			userDef.setFirstName(ServletConstants.DEFAULT_USER_FIRST_NAME);
-			userDef.setLastName(ServletConstants.DEFAULT_USER_LAST_NAME);
-			userDef.setEmailAddress(ServletConstants.DEFAULT_USER_EMAIL_ADDRESS);
-			userDef.setPassword(ServletConstants.DEFAULT_USER_PASSWORD);
+			userDef.setFirstName(ServletConstants.DEFAULT_ADMIN_FIRST_NAME);
+			userDef.setLastName(ServletConstants.DEFAULT_ADMIN_LAST_NAME);
+			userDef.setEmailAddress(ServletConstants.DEFAULT_ADMIN_EMAIL_ADDRESS);
+			userDef.setPassword(ServletConstants.DEFAULT_ADMIN_PASSWORD);
 			Role role = new Role();
 			RoleService roleService = new RoleService();
-			userDef.setRole(roleService.get(ServletConstants.DEFAULT_USER_ROLE));
+			userDef.setRole(roleService.get(ServletConstants.DEFAULT_ADMIN_ROLE));
 
 			role.getUsers().add(userDef);
 
 			UserService userService = new UserService();
+			userService.add(userDef);
+			
+			
+			//add user
+			userDef = new User();
+			userDef.setFirstName(ServletConstants.DEFAULT_USER_FIRST_NAME);
+			userDef.setLastName(ServletConstants.DEFAULT_USER_LAST_NAME);
+			userDef.setEmailAddress(ServletConstants.DEFAULT_USER_EMAIL_ADDRESS);
+			userDef.setPassword(ServletConstants.DEFAULT_USER_PASSWORD);
+			role = new Role();
+			userDef.setRole(roleService.get(ServletConstants.DEFAULT_USER_ROLE));
+
+			role.getUsers().add(userDef);
+
 			userService.add(userDef);
 
 			System.out.println("User default was saved into the USER table");

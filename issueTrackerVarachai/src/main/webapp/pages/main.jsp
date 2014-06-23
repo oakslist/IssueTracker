@@ -37,16 +37,16 @@
 				<input value="Search" onclick="#'" type="button">
 			</div>
 			<c:choose>
-				<c:when test="${user.role eq 'GUEST'}">
+				<c:when test="${user.role.roleName eq 'GUEST'}">
 					<p><font color=&quot#AABBCC&quot>Your are in IssueTracker now<br>
 					Please login or work as a guest.</font></p>
 				</c:when>
-				<c:when test="${user.role eq 'USER'}">
+				<c:when test="${user.role.roleName eq 'USER'}">
 					<div class="submit-issue-btn">
 						<input value="Submit Issue" onclick="location.href='<c:url value='/BeforeSubmitIssueController'/>'" type="button">
 					</div>
 				</c:when>
-				<c:when test="${user.role eq 'ADMINISTRATOR'}">
+				<c:when test="${user.role.roleName eq 'ADMINISTRATOR'}">
 					<div class="submit-issue-btn">
 						<input value="Submit Issue" onclick="location.href='<c:url value='/BeforeSubmitIssueController'/>'" type="button">
 					</div>
@@ -96,7 +96,7 @@
 						<c:forEach items="${issuesList}" var="issue">
 							<tr>
 								<c:choose>
-									<c:when test="${user.role eq 'USER' || user.role eq 'ADMINISTRATOR'}">
+									<c:when test="${user.role.roleName eq 'USER' || user.role.roleName eq 'ADMINISTRATOR'}">
 										<td class="table-id"><a href="javascript:editIssue('${issue.id}')">${issue.id}</a></td>
 									</c:when>
 									<c:otherwise>

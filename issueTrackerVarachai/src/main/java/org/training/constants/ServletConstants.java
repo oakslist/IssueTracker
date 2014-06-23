@@ -8,11 +8,17 @@ public class ServletConstants {
 	public static final boolean IS_CREATE_ALL_TABLES = true;
 	public static final boolean IS_SET_DEFAULT_DATA = true;
 	
-	public static final String DEFAULT_USER_FIRST_NAME = "admin";
-	public static final String DEFAULT_USER_LAST_NAME = "admin";
-	public static final String DEFAULT_USER_EMAIL_ADDRESS = "ad@ad.ad";
-	public static final String DEFAULT_USER_PASSWORD = "ad";
-	public static final UserRoleEnum DEFAULT_USER_ROLE = UserRoleEnum.ADMINISTRATOR;
+	public static final String DEFAULT_ADMIN_FIRST_NAME = "Siarhei";
+	public static final String DEFAULT_ADMIN_LAST_NAME = "Varachai";
+	public static final String DEFAULT_ADMIN_EMAIL_ADDRESS = "ad@ad.ad";
+	public static final String DEFAULT_ADMIN_PASSWORD = "ad";
+	public static final UserRoleEnum DEFAULT_ADMIN_ROLE = UserRoleEnum.ADMINISTRATOR;
+	
+	public static final String DEFAULT_USER_FIRST_NAME = "Ivan";
+	public static final String DEFAULT_USER_LAST_NAME = "Ivanov";
+	public static final String DEFAULT_USER_EMAIL_ADDRESS = "us@us.us";
+	public static final String DEFAULT_USER_PASSWORD = "us";
+	public static final UserRoleEnum DEFAULT_USER_ROLE = UserRoleEnum.USER;
 		
 	public static final String XML_USERS_FILE = "/Users.xml";
 	public static final String XML_PRIVILEGES_FILE = "/RolePrivileges.xml";

@@ -10,9 +10,9 @@ import javax.servlet.http.HttpSession;
 
 import org.training.constants.ServletConstants;
 import org.training.ifaces.AbstractBaseController;
-import org.training.ifaces.IUserDAO;
-import org.training.model.beans.User;
-import org.training.model.factories.UserFactory;
+import org.training.ifaces.hib.IUserDAOHib;
+import org.training.model.beans.hibbeans.User;
+import org.training.model.factories.hib.UserFactoryHib;
 import org.training.model.impls.DaoException;
 
 
@@ -59,7 +59,7 @@ public class LoginController extends AbstractBaseController {
 		
 		
 		//check password and email in bd
-		IUserDAO userDAO = UserFactory.getClassFromFactory();
+		IUserDAOHib userDAO = UserFactoryHib.getClassFromFactory();
 		try {
 			// get exist user
 			User user = userDAO.getExistUser(emailAddress, password);

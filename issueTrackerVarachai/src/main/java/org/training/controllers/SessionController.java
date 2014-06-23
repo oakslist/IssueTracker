@@ -63,14 +63,18 @@ public class SessionController extends AbstractBaseController {
 		try {
 			IIssueDAOHib issueDAO = IssueFactoryHib.getClassFromFactory();
 			User curUser = (User) session.getAttribute(ServletConstants.JSP_USER);
-			if (curUser == null || curUser.getRole().equals(UserRoleEnum.GUEST)) {
+			if (curUser == null || curUser.getRole()
+					.getRoleName().equals(UserRoleEnum.GUEST.toString())) {
 				issuesList = issueDAO.getAllIssues();
 			} else { 
-				if (curUser.getRole().equals(UserRoleEnum.USER) 
-						|| curUser.getRole().equals(UserRoleEnum.ADMINISTRATOR)) { 
+				if (curUser.getRole().getRoleName()
+						.equals(UserRoleEnum.USER.toString()) 
+						|| curUser.getRole().getRoleName()
+						.equals(UserRoleEnum.ADMINISTRATOR.toString())) { 
 					issuesList = issueDAO.getUserIssues(curUser.getUserId());
 				}
 			}
+			
 			//write data in session
 			session.setAttribute(ServletConstants.JSP_ISSUES_LIST, issuesList);
 		} catch (DaoException e) {

@@ -15,7 +15,7 @@
 		<c:when test="${empty user.emailAddress}">
 			<form method="POST" action="<c:url value='/LoginController'/>">
 				<div class="enter-login-header">
-				just USE email: admin pass: admin OR email: user pass: user
+				just USE email: ad@ad.ad pass: ad OR email: us@us.us pass: us
 					<span class="input-name">email:</span><input type="text"
 						name=<%= ServletConstants.JSP_EMAIL_ADDRESS%> size="15">
 					<span class="input-name">password:</span><input type="password"
