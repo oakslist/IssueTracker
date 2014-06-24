@@ -23,7 +23,7 @@ public class CommentService implements ICommentDAOHib {
 	}
 
 	@Override
-	public List<org.training.model.beans.hibbeans.Comment> getExistCommentsByIssueId(
+	public List<Comment> getExistCommentsByIssueId(
 			int issueId) throws DaoException {
 		System.out.println("Set in get comment by issue id");
 		LOG.info("Set in get comment by issue id");
@@ -45,7 +45,7 @@ public class CommentService implements ICommentDAOHib {
 	}
 
 	@Override
-	public boolean addComment(org.training.model.beans.hibbeans.Comment comment)
+	public boolean addComment(Comment comment)
 			throws DaoException {
 		boolean isSet = false;
 		System.out.println("Set in comment");

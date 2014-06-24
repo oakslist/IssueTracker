@@ -225,10 +225,10 @@
 						<div>
 							<div class="header-comment">
 								<div class="add-comment">
-									<span class="left"><c:out value="${comment.addedBy.firstName}"></c:out></span>
+									<span class="left"><c:out value="${comment.addedBy.firstName} ${comment.addedBy.lastName} : ${comment.addedBy.emailAddress}"></c:out></span>
 								</div>
 								<div class="date-comment">
-									<span class="right">date: <c:out value="${comment.addDate}"></c:out></span>
+									<span class="right">date: <c:out value="${comment.addedDate}"></c:out></span>
 								</div>
 							</div>
 						</div>
