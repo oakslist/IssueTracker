@@ -26,7 +26,7 @@
 
 			<h1>User menu</h1>
 			<c:choose>
-				<c:when test="${user.role eq 'ADMINISTRATOR' || user.role eq 'USER'}">
+				<c:when test="${user.role.roleName eq 'ADMINISTRATOR' || user.role.roleName eq 'USER'}">
 					<div class="user-menu">
 						<div class="user-menu-link">
 							<p><a href="<c:url value='/pages/editUser.jsp'/>">Edit user</a></p>

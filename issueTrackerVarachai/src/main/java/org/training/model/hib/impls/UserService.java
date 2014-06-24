@@ -138,8 +138,22 @@ public class UserService implements IUserDAOHib {
 
 	@Override
 	public boolean updateUserPassword(User user) throws DaoException {
-		// TODO Auto-generated method stub
-		return false;
+		System.out.println("Update user password " + user);
+		LOG.info("Update user password " + user);
+		boolean isUpdate = false;
+		Session session = openSession();		
+		try {
+			session.beginTransaction();
+			session.update(user);
+			session.getTransaction().commit();
+			isUpdate = true;
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in update user password");
+		}
+		closeSession(session);
+		return isUpdate;
 	}
 
 	

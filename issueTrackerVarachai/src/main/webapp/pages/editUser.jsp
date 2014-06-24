@@ -30,7 +30,7 @@
 			<c:choose>
 				<c:when test="${not empty editUser}">
 					<c:choose>
-						<c:when test="${user.role eq 'ADMINISTRATOR'}">
+						<c:when test="${user.role.roleName eq 'ADMINISTRATOR'}">
 							<div class="edit-user">
 								<form method="POST" action="<c:url value='/EditUserController'/>">
 									<table class="add-user-table">
@@ -83,7 +83,7 @@
 				<c:otherwise>
 					<c:choose>
 						<c:when
-							test="${user.role eq 'ADMINISTRATOR' || user.role eq 'USER'}">
+							test="${user.role.roleName eq 'ADMINISTRATOR' || user.role.roleName eq 'USER'}">
 							<div class="edit-user">
 								<form method="POST" action="<c:url value='/EditUserController'/>">
 									<table class="add-user-table">
