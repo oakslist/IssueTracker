@@ -106,7 +106,7 @@
 												value="${user.emailAddress}"></td>
 										</tr>
 										<c:choose>
-											<c:when test="${user.role eq 'ADMINISTRATOR'}">
+											<c:when test="${user.role.roleName eq 'ADMINISTRATOR'}">
 												<tr>
 													<td>Role:</td>
 													<td><select class="role" name=<%=ServletConstants.JSP_ROLE%>>

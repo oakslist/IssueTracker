@@ -10,11 +10,14 @@ import javax.servlet.http.HttpSession;
 
 import org.training.constants.ServletConstants;
 import org.training.ifaces.AbstractBaseController;
-import org.training.ifaces.IUserDAO;
-import org.training.model.beans.User;
+import org.training.ifaces.hib.IRoleDAOHib;
+import org.training.ifaces.hib.IUserDAOHib;
 import org.training.model.beans.enums.UserRoleEnum;
-import org.training.model.factories.UserFactory;
+import org.training.model.beans.hibbeans.User;
+import org.training.model.factories.hib.RoleFactoryHib;
+import org.training.model.factories.hib.UserFactoryHib;
 import org.training.model.impls.DaoException;
+import org.training.persistence.HibernateUtil;
 
 /**
  * Servlet implementation class EditUserController
@@ -71,15 +74,23 @@ public class EditUserController extends AbstractBaseController {
 		editUser.setLastName(lastName);
 		editUser.setEmailAddress(emailAddress);
 
-		if (user.getRole().equals(UserRoleEnum.ADMINISTRATOR)) {
+		if (user.getRole().getRoleName().equals(UserRoleEnum.ADMINISTRATOR.toString())) {
 			String role = request.getParameter(ServletConstants.JSP_ROLE);
-			editUser.setRole(UserRoleEnum.valueOf(role));
+			try {
+				IRoleDAOHib roleDAO = RoleFactoryHib.getClassFromFactory();
+				editUser.setRole(roleDAO.getExistRole(UserRoleEnum.valueOf(role)));
+			} catch (Exception e) {
+				HibernateUtil.getSessionFactory().getCurrentSession()
+						.getTransaction().rollback();
+				System.out.println("eror in get role in edit User controller");
+			}
+			
 		}
 
 		
 		try {
-			//save user in db
-			IUserDAO userDAO = UserFactory.getClassFromFactory();
+			//update user in db
+			IUserDAOHib userDAO = UserFactoryHib.getClassFromFactory();
 			boolean isUpdated = userDAO.updateUser(editUser);
 			if (isUpdated == true) {
 				jumpError(ServletConstants.USER_UPDATE_SUCCESSFULLY, request, response);
