@@ -28,7 +28,7 @@
 				
 			<h2>All Users:</h2>
 			<c:choose>
-				<c:when test="${user.role eq 'ADMINISTRATOR' || user.role eq 'USER'}">
+				<c:when test="${user.role.roleName eq 'ADMINISTRATOR' || user.role.roleName eq 'USER'}">
 					<form method="POST" action="<c:url value='/'/>">
 							<table class="users-table">
 							<thead>
@@ -45,18 +45,18 @@
 							<tbody>
 								<c:forEach items="${userList}" var="user">
 									<tr>
-										<td><c:out value="${user.id}"/></td>
+										<td><c:out value="${user.userId}"/></td>
 										<td><c:out value="${user.firstName}"/></td>
 										<td><c:out value="${user.lastName}"/></td>
 										<td><c:out value="${user.emailAddress}"/></td>
-										<td><c:out value="${user.role}"/></td>
+										<td><c:out value="${user.role.roleName}"/></td>
 <%-- 										<td><c:out value="${user.password}"/></td> --%>
 										<td>
 											<div>
-												<a href="javascript:editUser('${user.id}')">Edit user</a>
+												<a href="javascript:editUser('${user.userId}')">Edit user</a>
 											</div>
 											<div>
-												<a href="javascript:editPassword('${user.id}')">Change password</a>
+												<a href="javascript:editPassword('${user.userId}')">Change password</a>
 											</div>
 										</td>
         							</tr>
