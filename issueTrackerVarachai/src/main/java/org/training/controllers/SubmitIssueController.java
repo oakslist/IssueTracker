@@ -2,7 +2,6 @@ package org.training.controllers;
 
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,7 +20,6 @@ import org.training.model.beans.hibbeans.Type;
 import org.training.model.beans.hibbeans.User;
 import org.training.model.factories.hib.IssueFactoryHib;
 import org.training.model.hib.impls.CommonService;
-import org.training.model.hib.impls.IssueService;
 import org.training.model.hib.impls.UserService;
 import org.training.model.impls.DaoException;
 
@@ -91,12 +89,6 @@ public class SubmitIssueController extends AbstractBaseController {
 			Project curProject = commonService.getProjectByNameAndBuild(
 					project, buildFound);
 			issue.setProject(curProject);
-			
-			User user = (User) session.getAttribute(ServletConstants.JSP_USER);
-			if (user != null) {
-				User curCreatedBy = new UserService().getUserById(user
-						.getUserId());
-			}
 			
 			curStatus.getIssues().add(issue);
 			curType.getIssues().add(issue);

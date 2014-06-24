@@ -67,7 +67,7 @@
 									<td>Created By:</td>
 									<td><input type="text" class="summary-select" 
 										name=<%= ServletConstants.JSP_CREATED_BY%> size="15" 
-										value="${issue.createdBy.firstName}" readonly></td>
+										value="${issue.createdBy.firstName} ${issue.createdBy.lastName} : ${issue.createdBy.emailAddress}" readonly></td>
 								</tr>
 								<tr>
 									<td>Modify Date:</td>
@@ -77,9 +77,20 @@
 								</tr>
 								<tr>
 									<td>Modified By:</td>
-									<td><input type="text" class="summary-select" 
-										name=<%= ServletConstants.JSP_MODIFIED_BY%> size="15" 
-										value="${issue.modifiedBy.firstName}" readonly></td>
+									<td>
+									<c:choose>
+										<c:when test="${not empty issue.modifiedBy}">
+											<input type="text" class="summary-select" 
+											name=<%= ServletConstants.JSP_MODIFIED_BY%> size="15" 
+											value="${issue.modifiedBy.firstName} ${issue.modifiedBy.lastName} : ${issue.modifiedBy.emailAddress}" readonly>
+										</c:when>	
+										<c:otherwise>
+											<input type="text" class="summary-select" 
+											name=<%= ServletConstants.JSP_MODIFIED_BY%> size="15" 
+											value="" readonly>
+										</c:otherwise>
+									</c:choose>
+									</td>
 								</tr>
 								<tr>
 									<td>Summary:</td>
@@ -98,7 +109,7 @@
 									<td>
 									<select class="status-select" name=<%= ServletConstants.JSP_STATUS%>>
 										<c:forEach items="${issueStatuses}" var="status">
-        									<option id="status-${status.id}" value="${status.id}">${status.statusName}</option>
+        									<option id="status-${status.id}" value="${status.statusName}">${status.statusName}</option>
         									<script type="text/javascript">
 												if ('${status.statusName}' === '${issue.status.statusName}') {
 													selectedIssue("status-" + '${status.id}');
@@ -113,7 +124,7 @@
 									<td>
 									<select class="resolution-select" name=<%= ServletConstants.JSP_RESOLUTION%>>
 										<c:forEach items="${issueResolutions}" var="resolution">
-        									<option id="resolution-${resolution.id}" value="${resolution.id}">${resolution.resolutionName}</option>
+        									<option id="resolution-${resolution.id}" value="${resolution.resolutionName}">${resolution.resolutionName}</option>
         									<script type="text/javascript">
         										if ('${resolution.resolutionName}' === '${issue.resolution.resolutionName}') {
 													selectedIssue("resolution-" + '${resolution.id}');
@@ -128,7 +139,7 @@
 									<td>
 									<select class="type-select" name=<%= ServletConstants.JSP_TYPE%>>
 										<c:forEach items="${issueTypes}" var="type">
-        									<option id="type-${type.id}" value="${type.id}">${type.typeName}</option>
+        									<option id="type-${type.id}" value="${type.typeName}">${type.typeName}</option>
         									<script type="text/javascript">
         										if ('${type.typeName}' === '${issue.type.typeName}') {
         											selectedIssue("type-" + '${type.id}');
@@ -143,7 +154,7 @@
 									<td>
 									<select class="priority-select" name=<%= ServletConstants.JSP_PRIORITY%>>
 										<c:forEach items="${issuePriorities}" var="priority">
-        									<option id="priority-${priority.id}" value="${priority.id}" class="color-${priority.id}">${priority.priorityName}</option>
+        									<option id="priority-${priority.id}" value="${priority.priorityName}" class="color-${priority.id}">${priority.priorityName}</option>
         									<script type="text/javascript">
         										if ('${priority.priorityName}' === '${issue.priority.priorityName}') {
 													selectedIssue("priority-" + '${priority.id}');
@@ -158,7 +169,7 @@
 									<td>
 									<select class="project-select" name=<%= ServletConstants.JSP_PROJECT%>>
 										<c:forEach items="${issueProjects}" var="project">
-        									<option id="project-${project.id}" value="${project.id}">${project.projectName}</option>
+        									<option id="project-${project.id}" value="${project.projectName}">${project.projectName}</option>
         									<script type="text/javascript">
         										if ('${project.projectName}' === '${issue.project.projectName}') {
 													selectedIssue("project-" + '${project.id}');
@@ -173,7 +184,7 @@
 									<td>
 									<select class="build-select" name=<%= ServletConstants.JSP_BUILD_FOUND%>>
 										<c:forEach items="${issueProjectBuilds}" var="build">
-        									<option id="build-${build.id}" value="${build.id}">${build.buildValue}</option>
+        									<option id="build-${build.id}" value="${build.buildValue}">${build.buildValue}</option>
         									<script type="text/javascript">
         										if ('${build.buildValue}' === '${project.buildFound.buildValue}') {
 													selectedIssue("build-" + '${build.id}');
@@ -188,7 +199,7 @@
 									<td>
 									<select class="assignee-select" name=<%= ServletConstants.JSP_ASSIGNEE%>>
 										<c:forEach items="${issueAssignees}" var="assignee">
-        									<option id="assignee-${assignee.userId}" value="${assignee.userId}">${assignee.firstName}</option>
+        									<option id="assignee-${assignee.userId}" value="${assignee.userId}">${assignee.firstName} ${assignee.lastName} : ${assignee.emailAddress}</option>
         									<script type="text/javascript">
         										if ('${assignee.firstName}' === '${issue.assignee.firstName}') {
 													selectedIssue("assignee-" + '${assignee.userId}');

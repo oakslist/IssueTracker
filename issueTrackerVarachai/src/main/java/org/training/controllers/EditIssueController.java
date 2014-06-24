@@ -1,6 +1,7 @@
 package org.training.controllers;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,10 +11,16 @@ import javax.servlet.http.HttpSession;
 
 import org.training.constants.ServletConstants;
 import org.training.ifaces.AbstractBaseController;
-import org.training.ifaces.IIssueDAO;
-import org.training.model.beans.Issue;
-import org.training.model.beans.User;
-import org.training.model.factories.IssueFactory;
+import org.training.ifaces.hib.IIssueDAOHib;
+import org.training.model.beans.hibbeans.Issue;
+import org.training.model.beans.hibbeans.Priority;
+import org.training.model.beans.hibbeans.Project;
+import org.training.model.beans.hibbeans.Status;
+import org.training.model.beans.hibbeans.Type;
+import org.training.model.beans.hibbeans.User;
+import org.training.model.factories.hib.IssueFactoryHib;
+import org.training.model.hib.impls.CommonService;
+import org.training.model.hib.impls.UserService;
 import org.training.model.impls.DaoException;
 
 /**
@@ -21,21 +28,19 @@ import org.training.model.impls.DaoException;
  */
 
 public class EditIssueController extends AbstractBaseController {
-	
+
 	private static final long serialVersionUID = 1L;
-       
-	protected void doGet(HttpServletRequest request, 
+
+	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		performTask(request, response);
 	}
 
-	
-	protected void doPost(HttpServletRequest request, 
+	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		performTask(request, response);
 	}
 
-	
 	@Override
 	protected void performTask(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -45,49 +50,78 @@ public class EditIssueController extends AbstractBaseController {
 			jumpError(ServletConstants.ERROR_NULL_SESSION, request, response);
 			return;
 		}
-		
-		int id = Integer.parseInt(request.getParameter(ServletConstants.JSP_ISSUE_ID));
+
+		int id = Integer.parseInt(request
+				.getParameter(ServletConstants.JSP_ISSUE_ID));
 		String summary = request.getParameter(ServletConstants.JSP_SUMMARY);
-		String description = request.getParameter(ServletConstants.JSP_DESCRIPTION);
+		String description = request
+				.getParameter(ServletConstants.JSP_DESCRIPTION);
 		String status = request.getParameter(ServletConstants.JSP_STATUS);
 		String type = request.getParameter(ServletConstants.JSP_TYPE);
 		String priority = request.getParameter(ServletConstants.JSP_PRIORITY);
-		String resolution = request.getParameter(ServletConstants.JSP_RESOLUTION);
+		String resolution = request
+				.getParameter(ServletConstants.JSP_RESOLUTION);
 		String project = request.getParameter(ServletConstants.JSP_PROJECT);
-		String buildFound = request.getParameter(ServletConstants.JSP_BUILD_FOUND);
-		int assigneeId = Integer.parseInt(request.getParameter(ServletConstants.JSP_ASSIGNEE));
+		String buildFound = request
+				.getParameter(ServletConstants.JSP_BUILD_FOUND);
+		int assigneeId = Integer.parseInt(request
+				.getParameter(ServletConstants.JSP_ASSIGNEE));
 
-		String inputResult = getInputResult(summary, description, status, type, priority,
-				project, buildFound);
-		if(inputResult != null) {
-			jump(ServletConstants.JUMP_SUBMIT_ISSUE_PAGE, inputResult, request, response);
+		String inputResult = getInputResult(summary, description, status, type,
+				priority, project, buildFound);
+		if (inputResult != null) {
+			jump(ServletConstants.JUMP_SUBMIT_ISSUE_PAGE, inputResult, request,
+					response);
 			return;
 		}
-		
-		Issue issue = new Issue();
-		issue.setId(id);
-		issue.setSummary(summary);
-		issue.setDescription(description);
-		issue.setStatus(status);
-		issue.setType(type);
-		issue.setPriority(priority);
-		issue.setResolution(resolution);
-		issue.setProject(project);
-		issue.setBuildFound(buildFound);
-		issue.setAssigneeId(assigneeId);
-		User user = (User) session.getAttribute(ServletConstants.JSP_USER);
-		issue.setModifyDate(new java.sql.Date(System.currentTimeMillis()));
-		issue.setModifiedById(user.getId());
-		
+
 		try {
-			//save issue in db
-			IIssueDAO issueDAO = IssueFactory.getClassFromFactory();
+			// set issue
+			IIssueDAOHib issueDAO = IssueFactoryHib.getClassFromFactory();
+			Issue issue = issueDAO.getIssueById(id);
+			
+			issue.setSummary(summary);
+			issue.setDescription(description);
+			User curAssignee = new UserService().getUserById(assigneeId);
+			issue.setAssignee(curAssignee);
+			User modifiedBy = (User) session
+					.getAttribute(ServletConstants.JSP_USER);
+			User modifiedUser = new UserService().getUserById(modifiedBy
+					.getUserId());
+			issue.setCreatedBy(modifiedUser);
+			Calendar calendar = Calendar.getInstance();
+			issue.setModifyDate(calendar.getTime());
+
+			CommonService commonService = new CommonService();
+			Type curType = commonService.getTypeByName(type);
+			issue.setType(curType);
+
+			Status curStatus = commonService.getStatusByName(status);
+			issue.setStatus(curStatus);
+			
+//			Resolution
+
+			Priority curPriority = commonService.getPriorityByName(priority);
+			issue.setPriority(curPriority);
+
+			Project curProject = commonService.getProjectByNameAndBuild(
+					project, buildFound);
+			issue.setProject(curProject);
+
+			curStatus.getIssues().add(issue);
+			curType.getIssues().add(issue);
+			curPriority.getIssues().add(issue);
+			curProject.getIssues().add(issue);
+
+			// save issue in db
 			boolean isUpdated = issueDAO.updateIssue(issue);
 			if (isUpdated == true) {
-				jumpError(ServletConstants.ISSUE_UPDATE_SUCCESSFULLY, request, response);
+				jumpError(ServletConstants.ISSUE_UPDATE_SUCCESSFULLY, request,
+						response);
 			} else {
-				//  user not found
-				jumpError(ServletConstants.ERROR_ISSUE_NOT_UPDATE, request, response);
+				// user not found
+				jumpError(ServletConstants.ERROR_ISSUE_NOT_UPDATE, request,
+						response);
 			}
 		} catch (DaoException e) {
 			jumpError(e.getMessage(), request, response);
@@ -110,10 +144,11 @@ public class EditIssueController extends AbstractBaseController {
 			HttpServletResponse response) throws ServletException, IOException {
 		jump(ServletConstants.JUMP_INDEX_PAGE, message, request, response);
 	}
-	
-	private String getInputResult(String summary, String description, String status, 
-			String type, String priority, String project, String buildFound) {
-		if(summary == null || summary.equals("")) {
+
+	private String getInputResult(String summary, String description,
+			String status, String type, String priority, String project,
+			String buildFound) {
+		if (summary == null || summary.equals("")) {
 			return ServletConstants.ERROR_SUMMARY_EMPTY;
 		}
 		if (description == null || description.equals("")) {

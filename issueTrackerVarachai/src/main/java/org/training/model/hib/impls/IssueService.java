@@ -23,25 +23,6 @@ public class IssueService implements IIssueDAOHib {
 		session.close();
 	}
 	
-//	public boolean addIssue2(Issue issue) {
-//		boolean isSet = false;
-//		System.out.println("Add issue");
-//		LOG.info("Add issue");
-//		Session session = openSession();
-//		try {
-//			session.beginTransaction();
-//			session.save(issue);
-//			session.getTransaction().commit();
-//			isSet = true;
-//		} catch (Exception e) {
-//			HibernateUtil.getSessionFactory().getCurrentSession()
-//					.getTransaction().rollback();
-//			System.out.println("eror in create new issue " + e);
-//		}
-//		closeSession(session);
-//		return isSet;
-//	}
-
 	@Override
 	public List<Issue> getAllIssues() throws DaoException {
 		System.out.println("get All Issues");
@@ -130,8 +111,22 @@ public class IssueService implements IIssueDAOHib {
 
 	@Override
 	public boolean updateIssue(Issue issue) throws DaoException {
-		// TODO Auto-generated method stub
-		return false;
+		boolean isUpdate = false;
+		System.out.println("Update issue");
+		LOG.info("Update issue");
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			session.update(issue);
+			session.getTransaction().commit();
+			isUpdate = true;
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in update issue " + e);
+		}
+		closeSession(session);
+		return isUpdate;
 	}
 
 
