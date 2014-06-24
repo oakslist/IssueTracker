@@ -1,6 +1,7 @@
 package org.training.controllers;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -71,6 +72,11 @@ public class SubmitIssueController extends AbstractBaseController {
 			issue.setDescription(description);
 			User curAssignee = new UserService().getUserById(assignee);
 			issue.setAssignee(curAssignee);
+			User createdBy = (User) session.getAttribute(ServletConstants.JSP_USER);
+			User createdUser = new UserService().getUserById(createdBy.getUserId());
+			issue.setCreatedBy(createdUser);
+			Calendar calendar = Calendar.getInstance();
+			issue.setCreateDate(calendar.getTime());
 
 			CommonService commonService = new CommonService();
 			Type curType = commonService.getTypeByName(type);
@@ -96,9 +102,6 @@ public class SubmitIssueController extends AbstractBaseController {
 			curType.getIssues().add(issue);
 			curPriority.getIssues().add(issue);
 			curProject.getIssues().add(issue);
-
-			IssueService issueService = new IssueService();
-			issueService.addIssue(issue);
 
 			// set issue in db
 			IIssueDAOHib issueDAO = IssueFactoryHib.getClassFromFactory();

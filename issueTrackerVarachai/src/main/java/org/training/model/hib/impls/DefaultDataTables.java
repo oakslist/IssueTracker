@@ -3,11 +3,12 @@ package org.training.model.hib.impls;
 //http://habrahabr.ru/post/29694/
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -136,6 +137,10 @@ public class DefaultDataTables {
 			issue.setDescription("It's the issue description");
 			User assignee = new UserService().getUserByEmail(ServletConstants.DEFAULT_USER_EMAIL_ADDRESS);
 			issue.setAssignee(assignee);
+			User createdUser = new UserService().getUserByEmail(ServletConstants.DEFAULT_USER_EMAIL_ADDRESS);
+			issue.setCreatedBy(createdUser);
+			Calendar calendar = Calendar.getInstance();
+			issue.setCreateDate(calendar.getTime());
 			
 			//find and set data from exist data
 			CommonService commonService = new CommonService();
@@ -162,16 +167,17 @@ public class DefaultDataTables {
 
 
 			IssueService issueService = new IssueService();
-			issueService.addIssue(issue);
+			issueService.setIssue(issue);
 					
-
-			
 			//issue for admin
 			issue = new Issue();
 			issue.setSummary("It's the issue for admin"); 
 			issue.setDescription("It's the issue for admin description");
 			assignee = new UserService().getUserByEmail(ServletConstants.DEFAULT_ADMIN_EMAIL_ADDRESS);
 			issue.setAssignee(assignee);
+			createdUser = new UserService().getUserByEmail(ServletConstants.DEFAULT_ADMIN_EMAIL_ADDRESS);
+			issue.setCreatedBy(createdUser);
+			issue.setCreateDate(calendar.getTime());
 			
 			//find and set data from exist data
 			status = commonService.getStatusByName("Assigned");
@@ -195,12 +201,8 @@ public class DefaultDataTables {
 			resolution.getIssues().add(issue);
 			project.getIssues().add(issue);
 
-			issueService.addIssue(issue);
+			issueService.setIssue(issue);
 			
-			
-			
-//			User createdUser = new UserService().getUserByEmail(ServletConstants.DEFAULT_USER_EMAIL_ADDRESS);
-//			issue.setCreatedBy(createdUser);
 			System.out.println(issue);
 			session.close();
 			System.out.println("Issue default was saved into the Issue table");

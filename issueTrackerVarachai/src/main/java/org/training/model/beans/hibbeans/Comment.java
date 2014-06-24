@@ -45,7 +45,7 @@ public class Comment extends DefaultTableClass implements Serializable {
 		this.id = id;
 	}
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID", nullable = false)
 	public User getAddedBy() {
 		return addedBy;
@@ -55,8 +55,8 @@ public class Comment extends DefaultTableClass implements Serializable {
 		this.addedBy = addedBy;
 	}
 	
-	@Column(name = "ADDED_DATE", nullable = false, columnDefinition = "date default sysdate")
-    @Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "ADDED_DATE", nullable = false)
+    @Temporal(TemporalType.DATE)
 	public Date getAddedDate() {
 		return addedDate;
 	}
@@ -65,7 +65,7 @@ public class Comment extends DefaultTableClass implements Serializable {
 		this.addedDate = addedDate;
 	}
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ISSUE_ID", nullable = false)
 	public Issue getIssue() {
 		return issue;

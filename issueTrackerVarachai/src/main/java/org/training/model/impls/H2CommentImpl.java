@@ -45,7 +45,7 @@ public class H2CommentImpl extends AbstractBaseDB implements ICommentDAO {
 	}
 
 	@Override
-	public boolean setCommentByIssueId(Comment comment) throws DaoException {
+	public boolean setComment(Comment comment) throws DaoException {
 		Connection connection = null;
 		PreparedStatement stmt = null;
 		ResultSet resultSet = null;

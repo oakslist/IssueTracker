@@ -66,7 +66,7 @@ public class AddIssueCommentController extends AbstractBaseController {
 		try {
 			//set comment in db
 			ICommentDAO commentDAO = CommentFactory.getClassFromFactory();
-			boolean isSet = commentDAO.setCommentByIssueId(comment);
+			boolean isSet = commentDAO.setComment(comment);
 			session.setAttribute(ServletConstants.JSP_COMMENT_ISSUE_ID, comment.getIssueId());
 			if (isSet == true) {
 				jumpError(ServletConstants.COMMENT_ADD_SUCCESSFULLY, request, response);

@@ -8,6 +8,6 @@ import org.training.model.impls.DaoException;
 public interface ICommentDAO {
 	
 	public List<Comment> getCommentsByIssueId(int issueId) throws DaoException;
-	public boolean setCommentByIssueId(Comment comment) throws DaoException;
+	public boolean setComment(Comment comment) throws DaoException;
 	
 }

@@ -23,24 +23,24 @@ public class IssueService implements IIssueDAOHib {
 		session.close();
 	}
 	
-	public boolean addIssue(Issue issue) {
-		boolean isSet = false;
-		System.out.println("Add issue");
-		LOG.info("Add issue");
-		Session session = openSession();
-		try {
-			session.beginTransaction();
-			session.save(issue);
-			session.getTransaction().commit();
-			isSet = true;
-		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
-					.getTransaction().rollback();
-			System.out.println("eror in create new issue " + e);
-		}
-		closeSession(session);
-		return isSet;
-	}
+//	public boolean addIssue2(Issue issue) {
+//		boolean isSet = false;
+//		System.out.println("Add issue");
+//		LOG.info("Add issue");
+//		Session session = openSession();
+//		try {
+//			session.beginTransaction();
+//			session.save(issue);
+//			session.getTransaction().commit();
+//			isSet = true;
+//		} catch (Exception e) {
+//			HibernateUtil.getSessionFactory().getCurrentSession()
+//					.getTransaction().rollback();
+//			System.out.println("eror in create new issue " + e);
+//		}
+//		closeSession(session);
+//		return isSet;
+//	}
 
 	@Override
 	public List<Issue> getAllIssues() throws DaoException {
@@ -65,7 +65,6 @@ public class IssueService implements IIssueDAOHib {
 	public List<Issue> getUserIssues(int userId) throws DaoException {
 		System.out.println("get user Issues by id");
 		LOG.info("get user Issues by id");
-		System.out.println("userId = " + userId);
 		List<Issue> list = null;
 		Session session = openSession();
 		try {
@@ -90,15 +89,43 @@ public class IssueService implements IIssueDAOHib {
 	}
 
 	@Override
-	public Issue getIssue(int number) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+	public Issue getIssueById(int issueId) throws DaoException {
+		System.out.println("get issue by id");
+		LOG.info("get issue by id");
+		Issue issue = null;
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			issue = (Issue) session.createQuery("from Issue i WHERE i.id = ?")
+					.setInteger(0, issueId).uniqueResult();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in get issue by id " + e);
+		}
+		closeSession(session);
+		return issue;
 	}
 
 	@Override
 	public boolean setIssue(Issue issue) throws DaoException {
-		// TODO Auto-generated method stub
-		return false;
+		boolean isSet = false;
+		System.out.println("Add issue");
+		LOG.info("Add issue");
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			session.save(issue);
+			session.getTransaction().commit();
+			isSet = true;
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in create new issue " + e);
+		}
+		closeSession(session);
+		return isSet;
 	}
 
 	@Override

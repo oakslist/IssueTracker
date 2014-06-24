@@ -12,18 +12,17 @@ import javax.servlet.http.HttpSession;
 
 import org.training.constants.ServletConstants;
 import org.training.ifaces.AbstractBaseController;
-import org.training.ifaces.ICommentDAO;
-import org.training.ifaces.IIssueDAO;
-import org.training.ifaces.ITableDataDAO;
-import org.training.ifaces.IUserDAO;
-import org.training.model.beans.Comment;
-import org.training.model.beans.Issue;
-import org.training.model.beans.User;
+import org.training.ifaces.hib.ICommentDAOHib;
+import org.training.ifaces.hib.IIssueDAOHib;
+import org.training.ifaces.hib.ITableDataDAOHib;
+import org.training.model.beans.hibbeans.Comment;
+import org.training.model.beans.hibbeans.Issue;
 import org.training.model.factories.CommentFactory;
-import org.training.model.factories.IssueFactory;
-import org.training.model.factories.TableDataFactory;
-import org.training.model.factories.UserFactory;
+import org.training.model.factories.hib.CommentFactoryHib;
+import org.training.model.factories.hib.IssueFactoryHib;
+import org.training.model.factories.hib.TableDataFactoryHib;
 import org.training.model.impls.DaoException;
+
 
 /**
  * Servlet implementation class BeforeEditIssueController
@@ -64,20 +63,12 @@ public class BeforeEditIssueController extends AbstractBaseController {
 			session.removeAttribute(ServletConstants.JSP_COMMENT_ISSUE_ID);
 		}
 		
+				
 		// get data from db
 		try {
-			ITableDataDAO tableDAO = TableDataFactory.getClassFromFactory();
-			IIssueDAO issueDAO = IssueFactory.getClassFromFactory();
-			Issue issue = issueDAO.getIssue(issueEditId);
-			IUserDAO userDAO = UserFactory.getClassFromFactory();
-			if (issue.getModifiedById() != 0) {
-				User user = userDAO.getUserById(issue.getModifiedById());
-				issue.setModifiedBy(user.getFirstName() + " " + user.getLastName());
-			}
-			User user = userDAO.getUserById(issue.getAssigneeId());
-			issue.setAssigneeId(user.getId());
-			issue.setAssignee(user.getEmailAddress() + " : " 
-					+ user.getFirstName() + " " + user.getLastName());
+			ITableDataDAOHib tableDAO = TableDataFactoryHib.getClassFromFactory();
+			IIssueDAOHib issueDAO = IssueFactoryHib.getClassFromFactory();
+			Issue issue = issueDAO.getIssueById(issueEditId);
 			
 			session.setAttribute(ServletConstants.JSP_ISSUE, issue);
 			session.setAttribute(ServletConstants.JSP_TYPES_LIST, 
@@ -91,16 +82,17 @@ public class BeforeEditIssueController extends AbstractBaseController {
 			session.setAttribute(ServletConstants.JSP_PROJECTS_LIST,
 					tableDAO.getProjects());
 			session.setAttribute(ServletConstants.JSP_PROJECT_BUILDS_LIST,
-					tableDAO.getBuildFound());
+					tableDAO.getBuildFounds());
 			session.setAttribute(ServletConstants.JSP_ASSIGNEES_LIST,
 					tableDAO.getAssignee());
 			//get all comments relate to issue
-			ICommentDAO commentDAO = CommentFactory.getClassFromFactory();
+			ICommentDAOHib commentDAO = CommentFactoryHib.getClassFromFactory();
 			List<Comment> comments = new ArrayList<Comment>();
-			comments = commentDAO.getCommentsByIssueId(issueEditId);
+			comments = commentDAO.getExistCommentsByIssueId(issueEditId);
 			
 			session.setAttribute(ServletConstants.JSP_COMMENT_LIST, comments);
-					
+				
+			System.out.println(issue);
 			jumpPage(ServletConstants.JUMP_EDIT_ISSUE_PAGE, request, response);
 		} catch (DaoException e) {
 			jumpError(e.getMessage(), request, response);

@@ -160,49 +160,45 @@ public class Issue extends DefaultTableClass implements Serializable {
 
 //	@Column(name = "CREATED_DATE", nullable = false, updatable = false, columnDefinition = "date default sysdate")
 //  @Temporal(TemporalType.DATE)
-	@Temporal(TemporalType.DATE)
-	@Column(name = "CREATED_DATE", insertable = false)
+//	@Temporal(TemporalType.DATE)
+	@Column(name = "CREATED_DATE", updatable = false, nullable = false)
 	public Date getCreateDate() {
 		return createDate;
 	}
 
 	public void setCreateDate(Date createDate) {
-		if (this.createDate == null) { 
-			this.createDate = new Date(); 
-		}
 		this.createDate = createDate;
 	}
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "CREATED_BY", nullable = false)
-//	public User getCreatedBy() {
-//		return createdBy;
-//	}
-//
-//	public void setCreatedBy(User createdBy) {
-//		this.createdBy = createdBy;
-//	}
-//
-//	@Column(name = "MODIFY_DATE", nullable = true)
-//    @Temporal(TemporalType.TIMESTAMP)
-//	public Date getModifyDate() {
-//		return modifyDate;
-//	}
-//
-//	public void setModifyDate(Date modifyDate) {
-//		this.modifyDate = modifyDate;
-//	}
-//
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "MODIFIED_BY", nullable = true)
-//	public User getModifiedBy() {
-//		return modifiedBy;
-//	}
-//
-//	public void setModifiedBy(User modifiedBy) {
-//		this.modifiedBy = modifiedBy;
-//	}
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "CREATED_BY", nullable = false)
+	public User getCreatedBy() {
+		return createdBy;
+	}
 
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	@Column(name = "MODIFY_DATE", nullable = true)
+//    @Temporal(TemporalType.DATE)
+	public Date getModifyDate() {
+		return modifyDate;
+	}
+
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "MODIFIED_BY", nullable = true)
+	public User getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(User modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
 
 	@Override
 	public String toString() {
@@ -214,6 +210,8 @@ public class Issue extends DefaultTableClass implements Serializable {
 				+ ", modifyDate=" + modifyDate + ", modifiedBy=" + modifiedBy
 				+ "]";
 	}
-	
+
+
+
 
 }
