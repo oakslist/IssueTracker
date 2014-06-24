@@ -18,7 +18,7 @@ public interface ITableDataDAOHib {
 	public List<Resolution> getResolutions() throws DaoException;
 	public List<Priority> getPriorities() throws DaoException;
 	public List<Project> getProjects() throws DaoException;
-	public List<BuildFound> getBuildFound(String projectNumber) throws DaoException;
+	public BuildFound getBuildFound(Project project, String build) throws DaoException;
 	public List<BuildFound> getBuildFounds() throws DaoException;
 	public List<User> getAssignee() throws DaoException;
 	

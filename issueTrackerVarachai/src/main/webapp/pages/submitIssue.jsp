@@ -58,7 +58,7 @@
 									<td>
 									<select class="status-select" name=<%= ServletConstants.JSP_STATUS%>>
 										<c:forEach items="${issueStatuses}" var="status">
-        									<option value="${status.id}">${status.statusName}</option>
+        									<option value="${status.statusName}">${status.statusName}</option>
     									</c:forEach>
    									</select>
    									</td>
@@ -68,7 +68,7 @@
 									<td>
 									<select class="type-select" name=<%= ServletConstants.JSP_TYPE%>>
 										<c:forEach items="${issueTypes}" var="type">
-        									<option value="${type.id}">${type.typeName}</option>
+        									<option value="${type.typeName}">${type.typeName}</option>
     									</c:forEach>
    									</select>
    									</td>
@@ -78,7 +78,7 @@
 									<td>
 									<select class="priority-select" name=<%= ServletConstants.JSP_PRIORITY%>>
 										<c:forEach items="${issuePriorities}" var="priority">
-        									<option value="${priority.id}" class="color-${priority.id}">${priority.priorityName}</option>
+        									<option value="${priority.priorityName}" class="color-${priority.priorityName}">${priority.priorityName}</option>
     									</c:forEach>
    									</select>
    									</td>
@@ -88,7 +88,7 @@
 									<td>
 									<select class="project-select" name=<%= ServletConstants.JSP_PROJECT%>>
 										<c:forEach items="${issueProjects}" var="project">
-        									<option value="${project.id}">${project.projectName}</option>
+        									<option value="${project.projectName}">${project.projectName}</option>
     									</c:forEach>
    									</select>
    									</td>
@@ -98,7 +98,7 @@
 									<td>
 									<select class="build-select" name=<%= ServletConstants.JSP_BUILD_FOUND%>>
 										<c:forEach items="${issueProjectBuilds}" var="build">
-        									<option value="${build.id}">${build.buildValue}</option>
+        									<option value="${build.buildValue}">${build.buildValue}</option>
     									</c:forEach>
    									</select>
    									</td>

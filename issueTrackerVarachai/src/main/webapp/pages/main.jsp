@@ -103,7 +103,7 @@
 										<td class="table-id">${issue.id}</td>
 									</c:otherwise>
 								</c:choose>	
-								<td class="color-${issue.priority}">${issue.priority.priorityName}</td>
+								<td class="color-${issue.priority.priorityName}">${issue.priority.priorityName}</td>
 								<td>${issue.assignee.firstName} ${issue.assignee.lastName} ${issue.assignee.emailAddress}</td>
 								<td>${issue.type.typeName}</td>
 								<td>${issue.status.statusName}</td>

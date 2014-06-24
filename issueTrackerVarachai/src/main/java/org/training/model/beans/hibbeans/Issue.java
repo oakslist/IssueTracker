@@ -92,7 +92,7 @@ public class Issue extends DefaultTableClass implements Serializable {
 //	@ManyToOne
 //	@JoinColumn(name = "RESOLUTION_ID")
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "RESOLUTION_ID", nullable = false)
+	@JoinColumn(name = "RESOLUTION_ID", nullable = true)
 	public Resolution getResolution() {
 		return resolution;
 	}
@@ -160,7 +160,7 @@ public class Issue extends DefaultTableClass implements Serializable {
 
 //	@Column(name = "CREATED_DATE", nullable = false, updatable = false, columnDefinition = "date default sysdate")
 //  @Temporal(TemporalType.DATE)
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(name = "CREATED_DATE", insertable = false)
 	public Date getCreateDate() {
 		return createDate;

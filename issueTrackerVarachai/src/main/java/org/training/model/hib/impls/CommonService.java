@@ -1,9 +1,7 @@
 package org.training.model.hib.impls;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -217,6 +215,31 @@ public class CommonService implements ITableDataDAOHib {
 		closeSession(session);
 		return project;
 	}
+	
+	public Project getProjectByNameAndBuild(String name, String buildValue) {
+		System.out.println("Get data by name and build value from project");
+		LOG.info("Get data by name and build value from project");
+		Project project = new Project();
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			String sql = "SELECT p FROM Project p WHERE p.projectName = ?";
+			project = (Project) session.createQuery(sql)
+				   .setString(0, name).uniqueResult();
+			if (project == null) {
+				session.getTransaction().commit();
+				closeSession(session);
+				return null;
+			}
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in Get data by name and build value from project " + e);
+		}
+		closeSession(session);
+		return project;
+	}
 
 	@Override
 	public List<Status> getStatuses() throws DaoException {
@@ -339,13 +362,6 @@ public class CommonService implements ITableDataDAOHib {
 	}
 
 	@Override
-	public List<BuildFound> getBuildFound(String projectNumber)
-			throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<BuildFound> getBuildFounds() throws DaoException {
 		System.out.println("Get all buildFounds");
 		LOG.info("Get all buildFounds");
@@ -391,6 +407,27 @@ public class CommonService implements ITableDataDAOHib {
 		}
 		closeSession(session);
 		return assignees;
+	}
+
+	@Override
+	public BuildFound getBuildFound(Project project, String build)
+			throws DaoException {
+		System.out.println("Get project's buildFound");
+		LOG.info("Get project's buildFound");
+		BuildFound buildFound = new BuildFound();
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			buildFound = (BuildFound) session.createQuery("from BuildFound b").list();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in Get project's buildFound " + e);
+		}
+		closeSession(session);
+		return buildFound;
+
 	}
 
 	
