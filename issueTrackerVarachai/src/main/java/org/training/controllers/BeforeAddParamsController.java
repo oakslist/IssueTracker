@@ -10,31 +10,27 @@ import javax.servlet.http.HttpSession;
 
 import org.training.constants.ServletConstants;
 import org.training.ifaces.AbstractBaseController;
-import org.training.ifaces.hib.IUserDAOHib;
-import org.training.model.beans.hibbeans.User;
-import org.training.model.factories.hib.UserFactoryHib;
+import org.training.ifaces.hib.ITableDataDAOHib;
+import org.training.model.factories.hib.TableDataFactoryHib;
 import org.training.model.impls.DaoException;
 
 /**
- * Servlet implementation class EditDifferentUserController
+ * Servlet implementation class BeforeAddParamsController
  */
-
-public class EditDifferentUserController extends AbstractBaseController {
+public class BeforeAddParamsController extends AbstractBaseController {
 	
 	private static final long serialVersionUID = 1L;
-    
-	protected void doGet(HttpServletRequest request, 
+
+	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		performTask(request, response);
 	}
 
-	
-	protected void doPost(HttpServletRequest request, 
+	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		performTask(request, response);
 	}
 
-	
 	@Override
 	protected void performTask(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -44,18 +40,18 @@ public class EditDifferentUserController extends AbstractBaseController {
 			jumpError(ServletConstants.ERROR_NULL_SESSION, request, response);
 			return;
 		}
-				
-		int editUserId = Integer.parseInt(request.getParameter("hidden2"));
-		
+
+		// get data from db
 		try {
-			//get user from db
-			IUserDAOHib userDAO = UserFactoryHib.getClassFromFactory();
-			User user = userDAO.getUserById(editUserId);
-			session.setAttribute(ServletConstants.JSP_EDIT_USER_BY_ID, user);
-			jump(ServletConstants.JUMP_EDIT_USER_PAGE, request, response);
+			ITableDataDAOHib tableDAO = TableDataFactoryHib
+					.getClassFromFactory();
+			session.setAttribute(ServletConstants.JSP_ADD_PROJECT_MANAGERS,
+					tableDAO.getUsers());
+			jumpPage(ServletConstants.JUMP_ADD_PARAMS_PAGE, request, response);
 		} catch (DaoException e) {
 			jumpError(e.getMessage(), request, response);
 		}
+
 	}
 
 	protected void jump(String url, String message, HttpServletRequest request,
@@ -72,7 +68,7 @@ public class EditDifferentUserController extends AbstractBaseController {
 
 	protected void jumpError(String message, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		jump(ServletConstants.JUMP_INDEX_PAGE, message, request, response);
+		jump(ServletConstants.JUMP_EDIT_ISSUE_PAGE, message, request, response);
 	}
 
 }

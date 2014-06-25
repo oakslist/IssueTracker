@@ -70,10 +70,29 @@
 		<servlet-class>org.training.controllers.AddIssueCommentController</servlet-class>
 	</servlet>
 	<servlet>
-	<servlet-name>AppServlet</servlet-name>
-		<servlet-class>org.training.constants.AppServlet</servlet-class>
+		<servlet-name>AddParamsController</servlet-name>
+		<servlet-class>org.training.controllers.AddParamsController</servlet-class>
 	</servlet>
-	
+	<servlet>
+		<servlet-name>BeforeAddParamsController</servlet-name>
+		<servlet-class>org.training.controllers.BeforeAddParamsController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>BeforeShowStatusesController</servlet-name>
+		<servlet-class>org.training.controllers.showtabs.BeforeShowStatusesController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>BeforeEditStatusController</servlet-name>
+		<servlet-class>org.training.controllers.showtabs.BeforeEditStatusController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>EditStatusController</servlet-name>
+		<servlet-class>org.training.controllers.showtabs.EditStatusController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>BeforeShowAllIssues</servlet-name>
+		<servlet-class>org.training.controllers.showtabs.BeforeShowAllIssues</servlet-class>
+	</servlet>
 	
 	<servlet-mapping>
 		<servlet-name>SessionController</servlet-name>
@@ -132,8 +151,29 @@
 		<url-pattern>/AddIssueCommentController</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>AppServlet</servlet-name>
-		<url-pattern>/AppServlet</url-pattern>
+		<servlet-name>AddParamsController</servlet-name>
+		<url-pattern>/AddParamsController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BeforeAddParamsController</servlet-name>
+		<url-pattern>/BeforeAddParamsController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BeforeShowStatusesController</servlet-name>
+		<url-pattern>/BeforeShowStatusesController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BeforeEditStatusController</servlet-name>
+		<url-pattern>/BeforeEditStatusController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EditStatusController</servlet-name>
+		<url-pattern>/EditStatusController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BeforeShowAllIssues</servlet-name>
+		<url-pattern>/BeforeShowAllIssues</url-pattern>
 	</servlet-mapping>
 	
+
 </web-app>

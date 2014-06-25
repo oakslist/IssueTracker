@@ -28,7 +28,8 @@ public class CommonService implements ITableDataDAOHib {
 	private void closeSession(Session session) {
 		session.close();
 	}
-	
+
+
 	public boolean setStatus(Status status) {
 		boolean isSet = false;
 		System.out.println("Set in status");
@@ -43,6 +44,86 @@ public class CommonService implements ITableDataDAOHib {
 			HibernateUtil.getSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in set status " + e);
+		}
+		closeSession(session);
+		return isSet;
+	}
+	
+	@Override
+	public boolean setType(Type type) throws DaoException {
+		boolean isSet = false;
+		System.out.println("Set in type");
+		LOG.info("Set in type");
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			session.save(type);
+			session.getTransaction().commit();
+			isSet = true;
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in set type " + e);
+		}
+		closeSession(session);
+		return isSet;
+	}
+
+	@Override
+	public boolean setResolution(Resolution resolution) throws DaoException {
+		boolean isSet = false;
+		System.out.println("Set in resolution");
+		LOG.info("Set in resolution");
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			session.save(resolution);
+			session.getTransaction().commit();
+			isSet = true;
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in set resolution " + e);
+		}
+		closeSession(session);
+		return isSet;
+	}
+
+	@Override
+	public boolean setPriority(Priority priority) throws DaoException {
+		boolean isSet = false;
+		System.out.println("Set in priority");
+		LOG.info("Set in priority");
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			session.save(priority);
+			session.getTransaction().commit();
+			isSet = true;
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in set priority " + e);
+		}
+		closeSession(session);
+		return isSet;
+	}
+	
+	@Override
+	public boolean setProject(Project project) throws DaoException {
+		boolean isSet = false;
+		System.out.println("Set in project");
+		LOG.info("Set in project");
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			session.save(project);
+			session.getTransaction().commit();
+			isSet = true;
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in Set in project " + e);
 		}
 		closeSession(session);
 		return isSet;
@@ -116,6 +197,32 @@ public class CommonService implements ITableDataDAOHib {
 		return status;
 	}
 	
+	@Override
+	public Status getStatusById(int statusId) {
+		System.out.println("Get data by id from status");
+		LOG.info("Get data by id from status");
+		Status status = new Status();
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			status = (Status) session.createQuery(
+				    "from Status s where s.id = ?")
+				   .setInteger(0, statusId).uniqueResult();
+			if (status == null) {
+				session.getTransaction().commit();
+				closeSession(session);
+				return null;
+			}
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in Get data by id from status " + e);
+		}
+		closeSession(session);
+		return status;
+	}
+	
 	public Type getTypeByName(String name) {
 		System.out.println("Get data by name from type");
 		LOG.info("Get data by name from type");
@@ -136,6 +243,32 @@ public class CommonService implements ITableDataDAOHib {
 			HibernateUtil.getSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get data from type " + e);
+		}
+		closeSession(session);
+		return type;
+	}
+	
+	@Override
+	public Type getTypeById(int typeId) {
+		System.out.println("Get data by id from type");
+		LOG.info("Get data by id from type");
+		Type type = new Type();
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			type = (Type) session.createQuery(
+				    "from Type t where t.id = ?")
+				   .setInteger(0, typeId).uniqueResult();
+			if (type == null) {
+				session.getTransaction().commit();
+				closeSession(session);
+				return null;
+			}
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in Get data by id from type " + e);
 		}
 		closeSession(session);
 		return type;
@@ -166,6 +299,32 @@ public class CommonService implements ITableDataDAOHib {
 		return priority;
 	}
 	
+	@Override
+	public Priority getPriorityById(int priorityId) {
+		System.out.println("Get data by id from priority");
+		LOG.info("Get data by id from priority");
+		Priority priority = new Priority();
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			priority = (Priority) session.createQuery(
+				    "from Priority p where p.id = ?")
+				   .setInteger(0, priorityId).uniqueResult();
+			if (priority == null) {
+				session.getTransaction().commit();
+				closeSession(session);
+				return null;
+			}
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in Get data by id from type " + e);
+		}
+		closeSession(session);
+		return priority;
+	}
+	
 	public Resolution getResolutionByName(String name) {
 		System.out.println("Get data by name from resolution");
 		LOG.info("Get data by name from resolution");
@@ -191,6 +350,32 @@ public class CommonService implements ITableDataDAOHib {
 		return resolution;
 	}
 	
+	@Override
+	public Resolution getResolutionById(int resolutionId) {
+		System.out.println("Get data by id from resolution");
+		LOG.info("Get data by id from resolution");
+		Resolution resolution = new Resolution();
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			resolution = (Resolution) session.createQuery(
+				    "from Resolution r where r.id = ?")
+				   .setInteger(0, resolutionId).uniqueResult();
+			if (resolution == null) {
+				session.getTransaction().commit();
+				closeSession(session);
+				return null;
+			}
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in Get data by id from resolution " + e);
+		}
+		closeSession(session);
+		return resolution;
+	}
+	
 	public Project getProjectByName(String name) {
 		System.out.println("Get data by name from project");
 		LOG.info("Get data by name from project");
@@ -211,6 +396,32 @@ public class CommonService implements ITableDataDAOHib {
 			HibernateUtil.getSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get data from project " + e);
+		}
+		closeSession(session);
+		return project;
+	}
+	
+	@Override
+	public Project getProjectById(int projectId) {
+		System.out.println("Get data by id from project");
+		LOG.info("Get data by id from project");
+		Project project = new Project();
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			project = (Project) session.createQuery(
+				    "from Project r where r.id = ?")
+				   .setInteger(0, projectId).uniqueResult();
+			if (project == null) {
+				session.getTransaction().commit();
+				closeSession(session);
+				return null;
+			}
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in Get data by id from project " + e);
 		}
 		closeSession(session);
 		return project;
@@ -386,15 +597,15 @@ public class CommonService implements ITableDataDAOHib {
 	}
 
 	@Override
-	public List<User> getAssignee() throws DaoException {
-		System.out.println("Get all assignees");
-		LOG.info("Get all assignees");
-		List<User> assignees = new ArrayList<User>();
+	public List<User> getUsers() throws DaoException {
+		System.out.println("Get all users");
+		LOG.info("Get all users");
+		List<User> users = new ArrayList<User>();
 		Session session = openSession();
 		try {
 			session.beginTransaction();
-			assignees = (List<User>) session.createQuery("from User").list();
-			if (assignees.isEmpty()) {
+			users = (List<User>) session.createQuery("from User").list();
+			if (users.isEmpty()) {
 				session.getTransaction().commit();
 				closeSession(session);
 				return null;
@@ -403,10 +614,10 @@ public class CommonService implements ITableDataDAOHib {
 		} catch (Exception e) {
 			HibernateUtil.getSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
-			System.out.println("eror in Get all assignees " + e);
+			System.out.println("eror in Get all users " + e);
 		}
 		closeSession(session);
-		return assignees;
+		return users;
 	}
 
 	@Override
@@ -430,8 +641,64 @@ public class CommonService implements ITableDataDAOHib {
 
 	}
 
-	
+	@Override
+	public boolean updateStatus(Status status) throws DaoException {
+		boolean isUpdate = false;
+		System.out.println("Update in status");
+		LOG.info("Update in status");
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			session.update(status);
+			session.getTransaction().commit();
+			isUpdate = true;
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in Update status " + e);
+		}
+		closeSession(session);
+		return isUpdate;
+	}
 
-	
+	@Override
+	public boolean updateType(Type type) throws DaoException {
+		return update(type);
+	}
+
+	@Override
+	public boolean updateResolution(Resolution resolution) throws DaoException {
+		return update(resolution);
+	}
+
+	@Override
+	public boolean updatePriority(Priority priority) throws DaoException {
+		return update(priority);
+	}
+
+	@Override
+	public boolean updateProject(Project project) throws DaoException {
+		return update(project);
+	}
+
+	private boolean update(DefaultTableClass temp) throws DaoException {
+		boolean isUpdate = false;
+		System.out.println("Update in " + temp.getClass().getSimpleName());
+		LOG.info("Update in resolution" + temp.getClass().getSimpleName());
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			session.update(temp);
+			session.getTransaction().commit();
+			isUpdate = true;
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in Update " + temp.getClass().getSimpleName() 
+					+ " " + e);
+		}
+		closeSession(session);
+		return isUpdate;
+	}
 		
 }

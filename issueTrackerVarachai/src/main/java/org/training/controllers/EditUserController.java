@@ -92,6 +92,7 @@ public class EditUserController extends AbstractBaseController {
 			//update user in db
 			IUserDAOHib userDAO = UserFactoryHib.getClassFromFactory();
 			boolean isUpdated = userDAO.updateUser(editUser);
+			session.removeAttribute(ServletConstants.JSP_EDIT_DIFF_USER_BY_ID);
 			if (isUpdated == true) {
 				jumpError(ServletConstants.USER_UPDATE_SUCCESSFULLY, request, response);
 			} else {

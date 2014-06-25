@@ -42,7 +42,7 @@
 		<div class="pages-header">
 			<ul>
 				<li class="home-page"><a href="<c:url value='/index.jsp'/>">HOME</a></li>
-				<li class="defects-page"><a href="#">ISSUES</a></li>
+				<li class="defects-page"><a href="<c:url value='/BeforeShowAllIssues'/>">ISSUES</a></li>
 			</ul>
 			
 		</div>			

@@ -53,11 +53,29 @@ public class ServletConstants {
 	public static final String JSP_ISSUE = "issue";
 	public static final String JSP_ISSUE_ID = "issueId";
 	public static final String JSP_EDIT_USER_BY_ID = "editUser";
+	public static final String JSP_EDIT_DIFF_USER_BY_ID = "editDiffUser";
 	public static final String JSP_EDIT_PASSWORD_BY_ID = "editPassword";
 	public static final String JSP_COMMENT = "comment";
 	public static final String JSP_COMMENT_ISSUE_ID = "commentIssueId";
+	public static final String JSP_EDIT_STATUS = "editStatus";
+	public static final String JSP_EDIT_TYPE = "editType";
+	public static final String JSP_EDIT_PRIORITY = "editPriority";
+	public static final String JSP_EDIT_RESOLUTION = "editResolution";
+	public static final String JSP_EDIT_PROJECT = "editProject";
+
+
+	public static final String JSP_ADD_STATUS = "addStatus";
+	public static final String JSP_ADD_TYPE = "addType";
+	public static final String JSP_ADD_RESOLUTION = "addResolution";
+	public static final String JSP_ADD_PRIORITY = "addPriority";
+	public static final String JSP_ADD_PROJECT_NAME = "addProjectName";
+	public static final String JSP_ADD_PROJECT_DESCRIPTION = "addProjectDescription";
+	public static final String JSP_ADD_PROJECT_BUILD = "addProjectBuild";
+	public static final String JSP_ADD_PROJECT_MANAGERS = "addProjectManagers";
+	public static final String JSP_ADD_BUILD_FOUND = "addBuildFound";
 
 	
+	public static final String JSP_ALL_ISSUES_LIST = "AllIssuesList";
 	public static final String JSP_TYPES_LIST = "issueTypes";
 	public static final String JSP_STATUSES_LIST = "issueStatuses";
 	public static final String JSP_RESOLUTIONS_LIST = "issueResolutions";
@@ -86,6 +104,8 @@ public class ServletConstants {
 	public static final String ERROR_PROJECT_EMPTY = "Project is empty.";
 	public static final String ERROR_BUILD_FOUND_EMPTY = "Build Found is empty.";
 	public static final String ERROR_COMMENT_EMPTY = "Comment is empty.";
+	public static final String ERROR_ADD_PARAMS_EMPTY = "All necessary params is empty.";
+	public static final String ERROR_STATUS_NAME_EMPTY = "Status name is empty.";
 	
 	public static final String ERROR_ISSUE_NOT_ADD = "Issue not add.";
 	public static final String ERROR_USER_NOT_ADD = "User not add.";
@@ -93,12 +113,16 @@ public class ServletConstants {
 	public static final String ERROR_USER_NOT_UPDATE = "User not update.";
 	public static final String ERROR_PASSWORD_NOT_UPDATE = "Password not update.";
 	public static final String ERROR_COMMENT_NOT_ADD = "Comment not add.";
+	public static final String ERROR_STATUS_NOT_UPDATE = "Status not update.";
+	
 	public static final String ISSUE_ADD_SUCCESSFULLY = "Issue was added successfully.";
 	public static final String USER_ADD_SUCCESSFULLY = "USER was added successfully.";
 	public static final String ISSUE_UPDATE_SUCCESSFULLY = "Issue was updated successfully.";
 	public static final String USER_UPDATE_SUCCESSFULLY = "User was updated successfully.";
+	public static final String STATUS_UPDATE_SUCCESSFULLY = "Status was updated successfully.";
 	public static final String PASSWORD_UPDATE_SUCCESSFULLY = "Password was updated successfully.";
 	public static final String COMMENT_ADD_SUCCESSFULLY = "Comment was added successfully.";
+	public static final String PARAMS_ADD_SUCCESSFULLY = "Params was added successfully.";
 		
 	public static final String LOGIN_VALID = "login ok";
 	public static final String LOGIN_INVALID = "error: invalid username or password!";
@@ -117,8 +141,13 @@ public class ServletConstants {
 	public static final String JUMP_EDIT_PASSWORD_PAGE = "/pages/editPassword.jsp";
 	public static final String JUMP_ADD_USER_PAGE = "/pages/addUser.jsp";
 	public static final String JUMP_EDIT_ISSUE_PAGE = "/pages/editIssue.jsp";
+	public static final String JUMP_ADD_PARAMS_PAGE = "/pages/addParams.jsp";
+	public static final String JUMP_SHOW_STATUSES_PAGE = "/pages/show/showStatuses.jsp";
 	public static final String JUMP_SEARCH_USER_PAGE = "/pages/searchUser.jsp";
 	public static final String JUMP_BEFORE_EDIT_ISSUE_CONTROLLER = "/BeforeEditIssueController";
+	public static final String JUMP_SHOW_STATUS_PAGE = "/pages/show/showStatuses.jsp";
+	public static final String JUMP_SHOW_ALL_ISSUES_PAGE = "/pages/show/showIssues.jsp";
+	public static final String JUMP_EDIT_STATUS_PAGE = "/pages/show/editStatus.jsp";
 
 
 }

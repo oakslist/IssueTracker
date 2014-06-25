@@ -54,18 +54,18 @@
 						<div class="pages-link-admin">
 							<p>Pages:</p>
 							<a href="<c:url value='#'/>">Projects</a> 
-							<a href="<c:url value='#'/>">Statuses</a> 
+							<a href="<c:url value='/BeforeShowStatusesController'/>">Statuses</a> 
 							<a href="<c:url value='#'/>">Resolutions</a> 
 							<a href="<c:url value='#'/>">Priorities</a> 
 							<a href="<c:url value='#'/>">Types</a>
 						</div>
 						<div class="add-pages-link-admin">
 							<p>Add Pages:</p>
-							<a href="<c:url value='#'/>">Add Project</a> 
-							<a href="<c:url value='#'/>">Add Status</a> 
-							<a href="<c:url value='#'/>">Add Resolution</a> 
-							<a href="<c:url value='#'/>">Add Priority</a> 
-							<a href="<c:url value='#'/>">Add Type</a>
+							<a href="<c:url value='/BeforeAddParamsController'/>">Add Project</a> 
+							<a href="<c:url value='/BeforeAddParamsController'/>">Add Status</a> 
+							<a href="<c:url value='/BeforeAddParamsController'/>">Add Resolution</a> 
+							<a href="<c:url value='/BeforeAddParamsController'/>">Add Priority</a> 
+							<a href="<c:url value='/BeforeAddParamsController'/>">Add Type</a>
 						</div>
 						<div class="pages-link-user-admin">
 							<p>Work with User:</p>

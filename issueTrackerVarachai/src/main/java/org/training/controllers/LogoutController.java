@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import org.training.constants.ServletConstants;
 import org.training.ifaces.AbstractBaseController;
-import org.training.model.beans.User;
 
 /**
  * Servlet implementation class ExitController

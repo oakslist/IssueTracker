@@ -17,7 +17,6 @@ import org.training.ifaces.hib.IIssueDAOHib;
 import org.training.ifaces.hib.ITableDataDAOHib;
 import org.training.model.beans.hibbeans.Comment;
 import org.training.model.beans.hibbeans.Issue;
-import org.training.model.factories.CommentFactory;
 import org.training.model.factories.hib.CommentFactoryHib;
 import org.training.model.factories.hib.IssueFactoryHib;
 import org.training.model.factories.hib.TableDataFactoryHib;
@@ -84,7 +83,7 @@ public class BeforeEditIssueController extends AbstractBaseController {
 			session.setAttribute(ServletConstants.JSP_PROJECT_BUILDS_LIST,
 					tableDAO.getBuildFounds());
 			session.setAttribute(ServletConstants.JSP_ASSIGNEES_LIST,
-					tableDAO.getAssignee());
+					tableDAO.getUsers());
 			//get all comments relate to issue
 			ICommentDAOHib commentDAO = CommentFactoryHib.getClassFromFactory();
 			List<Comment> comments = new ArrayList<Comment>();
@@ -92,7 +91,6 @@ public class BeforeEditIssueController extends AbstractBaseController {
 			
 			session.setAttribute(ServletConstants.JSP_COMMENT_LIST, comments);
 				
-			System.out.println(issue);
 			jumpPage(ServletConstants.JUMP_EDIT_ISSUE_PAGE, request, response);
 		} catch (DaoException e) {
 			jumpError(e.getMessage(), request, response);

@@ -5,7 +5,6 @@ package org.training.model.hib.impls;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -257,7 +256,7 @@ public class DefaultDataTables {
 			LOG.info("=== Create default data in the Project ===");
 			Session session = HibernateUtil.getSessionFactory().openSession();
 
-			//add issue1
+			//add project1
 			BuildFound buildFound = new BuildFound();
 			buildFound.setBuildValue("1.0.1");
 
@@ -272,10 +271,10 @@ public class DefaultDataTables {
 			project.setManager(manager);
 			project.getBuilds().add(buildFound);
 
-			ProjectService projectService = new ProjectService();
-			projectService.add(project);
+			CommonService commonService = new CommonService();
+			commonService.setProject(project);
 			
-			//add issue2
+			//add project2
 			buildFound = new BuildFound();
 			buildFound.setBuildValue("1.0.2");
 
@@ -289,7 +288,7 @@ public class DefaultDataTables {
 			project.setManager(manager);
 			project.getBuilds().add(buildFound);
 
-			projectService.add(project);
+			commonService.setProject(project);
 			
 			session.close();
 						

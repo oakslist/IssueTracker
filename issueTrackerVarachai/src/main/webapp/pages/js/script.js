@@ -23,6 +23,16 @@ function edit(id, curLink) {
 	document.forms[0].submit();
 }
 
+function editStatus(id) {
+//	var statusId = statusId;
+//	var link = "BeforeEditStatusController";
+//	edit(statusId, link);
+	var statusId = id;
+	var curStatus = document.getElementById("hidden3");
+	curStatus.value = statusId;
+	document.forms[0].submit();
+}
+
 function editUser(id) {
 	var userId = id;
 	var link = "EditDifferentUserController";
@@ -33,5 +43,12 @@ function editPassword(id) {
 	var userId = id;
 	var link = "EditDifferentUserPasswordController";
 	edit(userId, link);
+}
+
+function editIssue(value) {
+	var id = value;
+	var curIssue = document.getElementById("hidden1");
+	curIssue.value = id;
+	document.forms[0].submit();
 }
 

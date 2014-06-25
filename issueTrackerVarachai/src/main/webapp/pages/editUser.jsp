@@ -58,7 +58,7 @@
 													<c:forEach items="<%=UserRoleEnum.values()%>" var="role">
 														<option id="${role.userRole}" value="${role.userRole}">${role.userRole}</option>
 														<script type="text/javascript">
-															if ('${role.userRole}' === '${editUser.role}') {
+															if ('${role.userRole}' === '${editUser.role.roleName}') {
 																selectedOption('${role.userRole}');
 															}
 														</script>
@@ -113,7 +113,7 @@
 															<c:forEach items="<%=UserRoleEnum.values()%>" var="role">
 																<option id="${role.userRole}" value="${role.userRole}">${role.userRole}</option>
 																<script type="text/javascript">
-																	if ('${role.userRole}' === '${user.role}') {
+																	if ('${role.userRole}' === '${user.role.roleName}') {
 																		selectedOption('${role.userRole}');
 																	}
 																</script>

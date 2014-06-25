@@ -18,6 +18,7 @@ import org.training.model.impls.DaoException;
  * Servlet implementation class BeforeSubmitIssueController
  */
 public class BeforeSubmitIssueController extends AbstractBaseController {
+	
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, 
@@ -51,7 +52,7 @@ public class BeforeSubmitIssueController extends AbstractBaseController {
 			session.setAttribute(ServletConstants.JSP_PRIORITIES_LIST, tableDAO.getPriorities());
 			session.setAttribute(ServletConstants.JSP_PROJECTS_LIST, tableDAO.getProjects());
 			session.setAttribute(ServletConstants.JSP_PROJECT_BUILDS_LIST, tableDAO.getBuildFounds());
-			session.setAttribute(ServletConstants.JSP_ASSIGNEES_LIST, tableDAO.getAssignee());
+			session.setAttribute(ServletConstants.JSP_ASSIGNEES_LIST, tableDAO.getUsers());
 			jumpPage(ServletConstants.JUMP_SUBMIT_ISSUE_PAGE, request, response);
 		} catch (DaoException e) {
 			jumpError(e.getMessage(), request, response);

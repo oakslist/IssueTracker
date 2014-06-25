@@ -1,4 +1,4 @@
-package org.training.controllers;
+package org.training.controllers.showtabs;
 
 import java.io.IOException;
 
@@ -10,18 +10,18 @@ import javax.servlet.http.HttpSession;
 
 import org.training.constants.ServletConstants;
 import org.training.ifaces.AbstractBaseController;
-import org.training.ifaces.hib.IUserDAOHib;
-import org.training.model.beans.hibbeans.User;
-import org.training.model.factories.hib.UserFactoryHib;
+import org.training.ifaces.hib.ITableDataDAOHib;
+import org.training.model.beans.hibbeans.Status;
+import org.training.model.factories.hib.TableDataFactoryHib;
 import org.training.model.impls.DaoException;
 
 /**
- * Servlet implementation class EditDifferentUserController
+ * Servlet implementation class EditStatusController
  */
 
-public class EditDifferentUserController extends AbstractBaseController {
+public class BeforeEditStatusController extends AbstractBaseController {
 	
-	private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
     
 	protected void doGet(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
@@ -45,14 +45,14 @@ public class EditDifferentUserController extends AbstractBaseController {
 			return;
 		}
 				
-		int editUserId = Integer.parseInt(request.getParameter("hidden2"));
+		int editStatusId = Integer.parseInt(request.getParameter("hidden3"));
 		
 		try {
-			//get user from db
-			IUserDAOHib userDAO = UserFactoryHib.getClassFromFactory();
-			User user = userDAO.getUserById(editUserId);
-			session.setAttribute(ServletConstants.JSP_EDIT_USER_BY_ID, user);
-			jump(ServletConstants.JUMP_EDIT_USER_PAGE, request, response);
+			// get status from db
+			ITableDataDAOHib tableDataDAO = TableDataFactoryHib.getClassFromFactory();
+			Status status = tableDataDAO.getStatusById(editStatusId);
+			session.setAttribute(ServletConstants.JSP_EDIT_STATUS, status);
+			jump(ServletConstants.JUMP_EDIT_STATUS_PAGE, request, response);
 		} catch (DaoException e) {
 			jumpError(e.getMessage(), request, response);
 		}
