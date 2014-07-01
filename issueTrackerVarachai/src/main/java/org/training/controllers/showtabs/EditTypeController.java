@@ -48,7 +48,7 @@ public class EditTypeController extends AbstractBaseController {
 
 		String inputResult = getInputResult(typeName);
 		if(inputResult != null) {
-			jump(ServletConstants.JSP_EDIT_TYPE, inputResult, request, response);
+			jump(ServletConstants.JUMP_EDIT_TYPE_PAGE, inputResult, request, response);
 			return;
 		}
 		

@@ -105,7 +105,6 @@
 		<servlet-name>BeforeShowTypesController</servlet-name>
 		<servlet-class>org.training.controllers.showtabs.BeforeShowTypesController</servlet-class>
 	</servlet>
-	
 	<servlet>
 		<servlet-name>BeforeEditResolutionController</servlet-name>
 		<servlet-class>org.training.controllers.showtabs.BeforeEditResolutionController</servlet-class>
@@ -120,6 +119,20 @@
 	</servlet>
 	
 	
+	<servlet>
+		<servlet-name>EditPriorityController</servlet-name>
+		<servlet-class>org.training.controllers.showtabs.EditPriorityController</servlet-class>
+	</servlet>	
+	<servlet>
+		<servlet-name>BeforeEditPriorityController</servlet-name>
+		<servlet-class>org.training.controllers.showtabs.BeforeEditPriorityController</servlet-class>
+	</servlet>	
+	<servlet>
+		<servlet-name>BeforeShowPrioritiesController</servlet-name>
+		<servlet-class>org.training.controllers.showtabs.BeforeShowPrioritiesController</servlet-class>
+	</servlet>
+	
+
 	<servlet-mapping>
 		<servlet-name>SessionController</servlet-name>
 		<url-pattern>/SessionController</url-pattern>
@@ -212,7 +225,6 @@
 		<servlet-name>BeforeShowTypesController</servlet-name>
 		<url-pattern>/BeforeShowTypesController</url-pattern>
 	</servlet-mapping>
-	
 	<servlet-mapping>
 		<servlet-name>BeforeEditResolutionController</servlet-name>
 		<url-pattern>/BeforeEditResolutionController</url-pattern>
@@ -224,6 +236,19 @@
 	<servlet-mapping>
 		<servlet-name>BeforeShowResolutionsController</servlet-name>
 		<url-pattern>/BeforeShowResolutionsController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>BeforeShowPrioritiesController</servlet-name>
+		<url-pattern>/BeforeShowPrioritiesController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EditPriorityController</servlet-name>
+		<url-pattern>/EditPriorityController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BeforeEditPriorityController</servlet-name>
+		<url-pattern>/BeforeEditPriorityController</url-pattern>
 	</servlet-mapping>
 	
 

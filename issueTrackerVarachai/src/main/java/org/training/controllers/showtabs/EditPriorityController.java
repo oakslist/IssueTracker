@@ -11,15 +11,15 @@ import javax.servlet.http.HttpSession;
 import org.training.constants.ServletConstants;
 import org.training.ifaces.AbstractBaseController;
 import org.training.ifaces.hib.ITableDataDAOHib;
-import org.training.model.beans.hibbeans.Resolution;
+import org.training.model.beans.hibbeans.Priority;
 import org.training.model.factories.hib.TableDataFactoryHib;
 import org.training.model.impls.DaoException;
 
 /**
- * Servlet implementation class EditResolutionController
+ * Servlet implementation class EditPriorityController
  */
 
-public class EditResolutionController extends AbstractBaseController {
+public class EditPriorityController extends AbstractBaseController {
 	
 	private static final long serialVersionUID = 1L;
     
@@ -45,26 +45,26 @@ public class EditResolutionController extends AbstractBaseController {
 			return;
 		}
 		
-		String resolutionName = request.getParameter(ServletConstants.JSP_EDIT_RESOLUTION);
+		String priorityName = request.getParameter(ServletConstants.JSP_EDIT_PRIORITY);
 
-		String inputResult = getInputResult(resolutionName);
+		String inputResult = getInputResult(priorityName);
 		if(inputResult != null) {
-			jump(ServletConstants.JUMP_EDIT_RESOLUTION_PAGE, inputResult, request, response);
+			jump(ServletConstants.JUMP_EDIT_PRIORITY_PAGE, inputResult, request, response);
 			return;
 		}
 		
 		try {
-			//update resolution in db
+			//update priority in db
 			ITableDataDAOHib tableDataDAO = TableDataFactoryHib.getClassFromFactory();
-			Resolution resolution = (Resolution) session.getAttribute(ServletConstants.JSP_EDIT_RESOLUTION);
-			resolution.setResolutionName(resolutionName);
-			boolean isUpdated = tableDataDAO.updateResolution(resolution);
-			session.removeAttribute(ServletConstants.JSP_EDIT_RESOLUTION);
+			Priority priority = (Priority) session.getAttribute(ServletConstants.JSP_EDIT_PRIORITY);
+			priority.setPriorityName(priorityName);
+			boolean isUpdated = tableDataDAO.updatePriority(priority);
+			session.removeAttribute(ServletConstants.JSP_EDIT_PRIORITY);
 			if (isUpdated == true) {
-				jumpError(ServletConstants.RESOLUTION_UPDATE_SUCCESSFULLY, request, response);
+				jumpError(ServletConstants.PRIORITY_UPDATE_SUCCESSFULLY, request, response);
 			} else {
-				//  resolution not update
-				jumpError(ServletConstants.ERROR_RESOLUTION_NOT_UPDATE, request, response);
+				//  priority not update
+				jumpError(ServletConstants.ERROR_PRIORITY_NOT_UPDATE, request, response);
 			}
 		} catch (DaoException e) {
 			jumpError(e.getMessage(), request, response);
@@ -88,9 +88,9 @@ public class EditResolutionController extends AbstractBaseController {
 		jump(ServletConstants.JUMP_MAIN_PAGE, message, request, response);
 	}
 
-	private String getInputResult(String resolutionStr) {
-		if(resolutionStr == null || resolutionStr.equals("")) {
-			return ServletConstants.ERROR_RESOLUTION_NAME_EMPTY;
+	private String getInputResult(String priorityStr) {
+		if(priorityStr == null || priorityStr.equals("")) {
+			return ServletConstants.ERROR_PRIORITY_NAME_EMPTY;
 		}
 		return null;
 	}
