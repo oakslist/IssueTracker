@@ -88,7 +88,7 @@ public class EditIssueController extends AbstractBaseController {
 					.getAttribute(ServletConstants.JSP_USER);
 			User modifiedUser = new UserService().getUserById(modifiedBy
 					.getUserId());
-			issue.setCreatedBy(modifiedUser);
+			issue.setModifiedBy(modifiedUser);
 			Calendar calendar = Calendar.getInstance();
 			issue.setModifyDate(calendar.getTime());
 

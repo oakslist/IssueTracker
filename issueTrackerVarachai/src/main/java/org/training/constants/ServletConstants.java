@@ -62,6 +62,13 @@ public class ServletConstants {
 	public static final String JSP_EDIT_PRIORITY = "editPriority";
 	public static final String JSP_EDIT_RESOLUTION = "editResolution";
 	public static final String JSP_EDIT_PROJECT = "editProject";
+	public static final String JSP_EDIT_PROJECT_BUILDS = "editProjectBuilds";
+	public static final String JSP_EDIT_PROJECT_MANAGERS = "editProjectManagers";
+	public static final String JSP_EDIT_PROJECT_NAME = "editProjectName";
+	public static final String JSP_EDIT_PROJECT_DESCRIPTION = "editProjectDescription";
+	public static final String JSP_EDIT_PROJECT_BUILD = "editProjectBuild";
+	public static final String JSP_EDIT_PROJECT_MANAGER = "editProjectManager";
+	public static final String JSP_ADD_BUILD = "addBuild";
 
 
 	public static final String JSP_ADD_STATUS = "addStatus";
@@ -109,6 +116,11 @@ public class ServletConstants {
 	public static final String ERROR_TYPE_NAME_EMPTY = "Type name is empty.";
 	public static final String ERROR_RESOLUTION_NAME_EMPTY = "Resolution name is empty.";
 	public static final String ERROR_PRIORITY_NAME_EMPTY = "Priority name is empty.";
+	public static final String ERROR_PROJECT_NAME_EMPTY = "Project name is empty.";
+	public static final String ERROR_PROJECT_DESCRIPTION_EMPTY = "Project description is empty.";
+	public static final String ERROR_PROJECT_BUILD_EMPTY = "Project build is empty.";
+	public static final String ERROR_PROJECT_MANAGER_EMPTY = "Project manager is empty.";
+	public static final String ERROR_ADD_BUILD_EMPTY = "New project build is empty.";
 	
 	public static final String ERROR_ISSUE_NOT_ADD = "Issue not add.";
 	public static final String ERROR_USER_NOT_ADD = "User not add.";
@@ -120,6 +132,8 @@ public class ServletConstants {
 	public static final String ERROR_TYPE_NOT_UPDATE = "Type not update.";
 	public static final String ERROR_RESOLUTION_NOT_UPDATE = "Resolution not update.";
 	public static final String ERROR_PRIORITY_NOT_UPDATE = "Priority not update.";
+	public static final String ERROR_PROJECT_NOT_UPDATE = "Project not update.";
+	public static final String ERROR_BUILD_NOT_ADD = "Build not add.";
 	
 	public static final String ISSUE_ADD_SUCCESSFULLY = "Issue was added successfully.";
 	public static final String USER_ADD_SUCCESSFULLY = "USER was added successfully.";
@@ -129,9 +143,12 @@ public class ServletConstants {
 	public static final String TYPE_UPDATE_SUCCESSFULLY = "Type was updated successfully.";
 	public static final String RESOLUTION_UPDATE_SUCCESSFULLY = "Resolution was updated successfully.";
 	public static final String PRIORITY_UPDATE_SUCCESSFULLY = "Priority was updated successfully.";
+	public static final String PROJECT_UPDATE_SUCCESSFULLY = "Project was updated successfully.";
+	public static final String PROJECT_EDIT_DATA_EQUAL = "Didn't update. Project name, description and manager are the same.";
 	public static final String PASSWORD_UPDATE_SUCCESSFULLY = "Password was updated successfully.";
 	public static final String COMMENT_ADD_SUCCESSFULLY = "Comment was added successfully.";
 	public static final String PARAMS_ADD_SUCCESSFULLY = "Params was added successfully.";
+	public static final String BUILD_ADD_SUCCESSFULLY = "Build was added successfully.";
 		
 	public static final String LOGIN_VALID = "login ok";
 	public static final String LOGIN_INVALID = "error: invalid username or password!";
@@ -158,11 +175,15 @@ public class ServletConstants {
 	public static final String JUMP_SHOW_TYPE_PAGE = "/pages/show/showTypes.jsp";
 	public static final String JUMP_SHOW_RESOLUTION_PAGE = "/pages/show/showResolutions.jsp";
 	public static final String JUMP_SHOW_PRIORITY_PAGE = "/pages/show/showPriorities.jsp";
+	public static final String JUMP_SHOW_PROJECT_PAGE = "/pages/show/showProjects.jsp";
 	public static final String JUMP_SHOW_ALL_ISSUES_PAGE = "/pages/show/showIssues.jsp";
 	public static final String JUMP_EDIT_STATUS_PAGE = "/pages/show/editStatus.jsp";
 	public static final String JUMP_EDIT_TYPE_PAGE = "/pages/show/editType.jsp";
 	public static final String JUMP_EDIT_RESOLUTION_PAGE = "/pages/show/editResolution.jsp";
 	public static final String JUMP_EDIT_PRIORITY_PAGE = "/pages/show/editPriority.jsp";
+	public static final String JUMP_EDIT_PROJECT_PAGE = "/pages/show/editProject.jsp";
+	public static final String JUMP_ADD_BUILD_PAGE = "/pages/show/addProjectBuild.jsp";
+	public static final String JUMP_BEFORE_EDIT_PROJECT_PAGE = "/BeforeEditProjectController";
 
 
 }

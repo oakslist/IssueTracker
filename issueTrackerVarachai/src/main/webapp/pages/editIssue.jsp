@@ -100,9 +100,9 @@
 								</tr>
 								<tr>
 									<td>Description:</td>
-									<td><input type="text" class="description-select" 
-										name=<%= ServletConstants.JSP_DESCRIPTION%> size="15"
-										value="${issue.description}"></td>
+									<td><textarea class="description-select" 
+										name=<%= ServletConstants.JSP_DESCRIPTION%> cols="50" rows="4">${issue.description}</textarea>
+									</td>
 								</tr>
 								<tr>
 									<td>Status:</td>

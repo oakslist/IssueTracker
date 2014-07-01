@@ -53,7 +53,7 @@
 					<div class="admin-links">
 						<div class="pages-link-admin">
 							<p>Pages:</p>
-							<a href="<c:url value='#'/>">Projects</a> 
+							<a href="<c:url value='/BeforeShowProjectsController'/>">Projects</a> 
 							<a href="<c:url value='/BeforeShowStatusesController'/>">Statuses</a> 
 							<a href="<c:url value='/BeforeShowResolutionsController'/>">Resolutions</a> 
 							<a href="<c:url value='/BeforeShowPrioritiesController'/>">Priorities</a> 

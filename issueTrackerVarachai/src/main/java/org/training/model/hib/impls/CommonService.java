@@ -29,7 +29,6 @@ public class CommonService implements ITableDataDAOHib {
 		session.close();
 	}
 
-
 	public boolean setStatus(Status status) {
 		boolean isSet = false;
 		System.out.println("Set in status");
@@ -699,6 +698,57 @@ public class CommonService implements ITableDataDAOHib {
 		}
 		closeSession(session);
 		return isUpdate;
+	}
+
+	@Override
+	public List<BuildFound> getBuildsByProjectId(int projectId) throws DaoException {
+		System.out.println("Get all buildFounds by project");
+		LOG.info("Get all buildFounds by project");
+		List<BuildFound> buildFounds = new ArrayList<BuildFound>();
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			String sql = "SELECT p.builds FROM Project p WHERE p.id = ?";
+			buildFounds = (List<BuildFound>) session.createQuery(sql)
+					   .setInteger(0, projectId).list();
+			if (buildFounds.isEmpty()) {
+				session.getTransaction().commit();
+				closeSession(session);
+				return null;
+			}
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in Get all buildFounds by project " + e);
+		}
+		closeSession(session);
+		return buildFounds;
+	}
+
+	@Override
+	public boolean setBuild(Project project, String buildValue)
+			throws DaoException {
+		System.out.println("Set build " + buildValue + " in " + project.getProjectName());
+		LOG.info("Set build " + buildValue + " in " + project.getProjectName());
+		BuildFound buildFound = new BuildFound();
+		buildFound.setBuildValue(buildValue);
+		project.getBuilds().add(buildFound);
+		boolean isSet = false;		
+		Session session = openSession();
+		try {
+			session.beginTransaction();
+			session.update(project);
+			session.getTransaction().commit();
+			isSet = true;
+		} catch (Exception e) {
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.getTransaction().rollback();
+			System.out.println("eror in Set build " + buildValue + " in " 
+					+ project.getProjectName() + " " + e);
+		}
+		closeSession(session);		
+		return isSet;
 	}
 		
 }

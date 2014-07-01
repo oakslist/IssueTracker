@@ -117,21 +117,35 @@
 		<servlet-name>BeforeShowResolutionsController</servlet-name>
 		<servlet-class>org.training.controllers.showtabs.BeforeShowResolutionsController</servlet-class>
 	</servlet>
-	
-	
 	<servlet>
 		<servlet-name>EditPriorityController</servlet-name>
 		<servlet-class>org.training.controllers.showtabs.EditPriorityController</servlet-class>
-	</servlet>	
+	</servlet>
 	<servlet>
 		<servlet-name>BeforeEditPriorityController</servlet-name>
 		<servlet-class>org.training.controllers.showtabs.BeforeEditPriorityController</servlet-class>
-	</servlet>	
+	</servlet>
 	<servlet>
 		<servlet-name>BeforeShowPrioritiesController</servlet-name>
 		<servlet-class>org.training.controllers.showtabs.BeforeShowPrioritiesController</servlet-class>
 	</servlet>
-	
+	<servlet>
+		<servlet-name>EditProjectController</servlet-name>
+		<servlet-class>org.training.controllers.showtabs.EditProjectController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>BeforeEditProjectController</servlet-name>
+		<servlet-class>org.training.controllers.showtabs.BeforeEditProjectController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>BeforeShowProjectsController</servlet-name>
+		<servlet-class>org.training.controllers.showtabs.BeforeShowProjectsController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AddBuildController</servlet-name>
+		<servlet-class>org.training.controllers.showtabs.AddBuildController</servlet-class>
+	</servlet>
+
 
 	<servlet-mapping>
 		<servlet-name>SessionController</servlet-name>
@@ -237,7 +251,6 @@
 		<servlet-name>BeforeShowResolutionsController</servlet-name>
 		<url-pattern>/BeforeShowResolutionsController</url-pattern>
 	</servlet-mapping>
-	
 	<servlet-mapping>
 		<servlet-name>BeforeShowPrioritiesController</servlet-name>
 		<url-pattern>/BeforeShowPrioritiesController</url-pattern>
@@ -250,6 +263,22 @@
 		<servlet-name>BeforeEditPriorityController</servlet-name>
 		<url-pattern>/BeforeEditPriorityController</url-pattern>
 	</servlet-mapping>
-	
+	<servlet-mapping>
+		<servlet-name>EditProjectController</servlet-name>
+		<url-pattern>/EditProjectController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BeforeEditProjectController</servlet-name>
+		<url-pattern>/BeforeEditProjectController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BeforeShowProjectsController</servlet-name>
+		<url-pattern>/BeforeShowProjectsController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AddBuildController</servlet-name>
+		<url-pattern>/AddBuildController</url-pattern>
+	</servlet-mapping>
+
 
 </web-app>

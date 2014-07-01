@@ -20,6 +20,7 @@ public interface ITableDataDAOHib {
 	public List<Project> getProjects() throws DaoException;
 	public BuildFound getBuildFound(Project project, String build) throws DaoException;
 	public List<BuildFound> getBuildFounds() throws DaoException;
+	public List<BuildFound> getBuildsByProjectId(int projectId) throws DaoException;
 	public List<User> getUsers() throws DaoException;
 	
 	public boolean setStatus(Status status) throws DaoException;
@@ -27,6 +28,7 @@ public interface ITableDataDAOHib {
 	public boolean setResolution(Resolution resolution) throws DaoException;
 	public boolean setPriority(Priority priority) throws DaoException;
 	public boolean setProject(Project project) throws DaoException;
+	public boolean setBuild(Project project, String buildValue) throws DaoException;
 	
 	public Status getStatusById(int statusId) throws DaoException;
 	public Type getTypeById(int typeId) throws DaoException;

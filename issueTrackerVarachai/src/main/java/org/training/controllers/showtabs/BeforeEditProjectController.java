@@ -1,0 +1,96 @@
+package org.training.controllers.showtabs;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.training.constants.ServletConstants;
+import org.training.ifaces.AbstractBaseController;
+import org.training.ifaces.hib.ITableDataDAOHib;
+import org.training.ifaces.hib.IUserDAOHib;
+import org.training.model.beans.hibbeans.BuildFound;
+import org.training.model.beans.hibbeans.Project;
+import org.training.model.beans.hibbeans.User;
+import org.training.model.factories.hib.TableDataFactoryHib;
+import org.training.model.factories.hib.UserFactoryHib;
+import org.training.model.impls.DaoException;
+
+/**
+ * Servlet implementation class BeforeEditProjectController
+ */
+
+public class BeforeEditProjectController extends AbstractBaseController {
+	
+	private static final long serialVersionUID = 1L;
+    
+	protected void doGet(HttpServletRequest request, 
+			HttpServletResponse response) throws ServletException, IOException {
+		performTask(request, response);
+	}
+
+	
+	protected void doPost(HttpServletRequest request, 
+			HttpServletResponse response) throws ServletException, IOException {
+		performTask(request, response);
+	}
+
+	
+	@Override
+	protected void performTask(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			jumpError(ServletConstants.ERROR_NULL_SESSION, request, response);
+			return;
+		}
+
+		int editProjectId = Integer.parseInt(request.getParameter("hidden3"));
+		
+		List<BuildFound> builds = new ArrayList<BuildFound>();
+		List<User> managers = new ArrayList<User>();
+		
+		try {
+			// get project from db
+			ITableDataDAOHib tableDataDAO = TableDataFactoryHib.getClassFromFactory();
+			Project project = tableDataDAO.getProjectById(editProjectId);
+			session.setAttribute(ServletConstants.JSP_EDIT_PROJECT, project);
+			
+			// get project's builds from db
+			builds = tableDataDAO.getBuildsByProjectId(project.getId());
+			session.setAttribute(ServletConstants.JSP_EDIT_PROJECT_BUILDS, builds);
+			
+			// get managers from db
+			IUserDAOHib userDAO = UserFactoryHib.getClassFromFactory();
+			managers = userDAO.getExistUsers();
+			session.setAttribute(ServletConstants.JSP_EDIT_PROJECT_MANAGERS, managers);
+			
+			jump(ServletConstants.JUMP_EDIT_PROJECT_PAGE, request, response);
+		} catch (DaoException e) {
+			jumpError(e.getMessage(), request, response);
+		}
+	}
+
+	protected void jump(String url, String message, HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute(ServletConstants.KEY_ERROR_MESSAGE, message);
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
+		rd.forward(request, response);
+	}
+
+	protected void jumpPage(String url, HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		jump(url, ServletConstants.KEY_EMPTY, request, response);
+	}
+
+	protected void jumpError(String message, HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		jump(ServletConstants.JUMP_INDEX_PAGE, message, request, response);
+	}
+}
