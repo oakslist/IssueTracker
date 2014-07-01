@@ -15,7 +15,7 @@
 		<c:when test="${empty user.emailAddress}">
 			<form method="POST" action="<c:url value='/LoginController'/>">
 				<div class="enter-login-header">
-				just USE email: ad@ad.ad pass: ad OR email: us@us.us pass: us
+				just USE email: <b>ad@ad.ad</b> pass: <b>ad</b> OR email: <b>us@us.us</b> pass: <b>us</b>
 					<span class="input-name">email:</span><input type="text"
 						name=<%= ServletConstants.JSP_EMAIL_ADDRESS%> size="15">
 					<span class="input-name">password:</span><input type="password"
@@ -30,7 +30,7 @@
 					<a href="<c:url value='/pages/userMenu.jsp'/>">User Menu</a>
 				</div>
 				<div class="first-name-header">
-					<span>Hello, <a href="#">${user.firstName}</a>!</span>
+					<span>Hello, <a href="<c:url value='/pages/userMenu.jsp'/>">${user.firstName}</a>!</span>
 				</div>
 				<div class="logout-header">
 					<a href="<c:url value='/LogoutController'/>">Logout</a>

@@ -1,6 +1,10 @@
 package org.training.controllers;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +15,8 @@ import javax.servlet.http.HttpSession;
 import org.training.constants.ServletConstants;
 import org.training.ifaces.AbstractBaseController;
 import org.training.ifaces.hib.ITableDataDAOHib;
+import org.training.model.beans.hibbeans.BuildFound;
+import org.training.model.beans.hibbeans.Project;
 import org.training.model.factories.hib.TableDataFactoryHib;
 import org.training.model.impls.DaoException;
 
@@ -50,9 +56,17 @@ public class BeforeSubmitIssueController extends AbstractBaseController {
 			session.setAttribute(ServletConstants.JSP_STATUSES_LIST, tableDAO.getStatuses());
 			session.setAttribute(ServletConstants.JSP_RESOLUTIONS_LIST, tableDAO.getResolutions());
 			session.setAttribute(ServletConstants.JSP_PRIORITIES_LIST, tableDAO.getPriorities());
-			session.setAttribute(ServletConstants.JSP_PROJECTS_LIST, tableDAO.getProjects());
 			session.setAttribute(ServletConstants.JSP_PROJECT_BUILDS_LIST, tableDAO.getBuildFounds());
 			session.setAttribute(ServletConstants.JSP_ASSIGNEES_LIST, tableDAO.getUsers());
+			//get all projects
+			List<Project> projects = tableDAO.getProjects();
+			// set a Map builds depend on project. For javaScript functionality
+			Map<Integer, Set<BuildFound>> buildsMapList = new HashMap<Integer,Set<BuildFound>>();
+			for (Project project : projects) {
+				buildsMapList.put(project.getId(), project.getBuilds());
+			}			
+			session.setAttribute(ServletConstants.JSP_PROJECTS_LIST, projects);
+			session.setAttribute(ServletConstants.JSP_PROJECTS_CURRENT_BUILDS_LIST, buildsMapList);
 			jumpPage(ServletConstants.JUMP_SUBMIT_ISSUE_PAGE, request, response);
 		} catch (DaoException e) {
 			jumpError(e.getMessage(), request, response);

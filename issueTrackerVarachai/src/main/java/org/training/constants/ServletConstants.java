@@ -88,6 +88,7 @@ public class ServletConstants {
 	public static final String JSP_RESOLUTIONS_LIST = "issueResolutions";
 	public static final String JSP_PRIORITIES_LIST = "issuePriorities";
 	public static final String JSP_PROJECTS_LIST = "issueProjects";
+	public static final String JSP_PROJECTS_CURRENT_BUILDS_LIST = "issueProjectsCurrentBuilds";
 	public static final String JSP_PROJECT_BUILDS_LIST = "issueProjectBuilds";
 	public static final String JSP_ASSIGNEES_LIST = "issueAssignees";
 	

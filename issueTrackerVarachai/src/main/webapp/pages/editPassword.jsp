@@ -27,6 +27,7 @@
 			<h1>Change password</h1>
 			<c:choose>
 				<c:when test="${user.role.roleName eq 'ADMINISTRATOR' || user.role.roleName eq 'USER'}">
+					<p>Current user: <b>${user.firstName} ${user.lastName} : ${user.emailAddress}</b></p>
 					<form method="POST" action="<c:url value='/EditPasswordController'/>">
 							<table class="add-user-table">
 								<tr>
