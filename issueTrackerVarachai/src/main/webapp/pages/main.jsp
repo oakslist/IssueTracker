@@ -55,9 +55,9 @@
 							<p>Pages:</p>
 							<a href="<c:url value='#'/>">Projects</a> 
 							<a href="<c:url value='/BeforeShowStatusesController'/>">Statuses</a> 
-							<a href="<c:url value='#'/>">Resolutions</a> 
+							<a href="<c:url value='/BeforeShowResolutionsController'/>">Resolutions</a> 
 							<a href="<c:url value='#'/>">Priorities</a> 
-							<a href="<c:url value='#'/>">Types</a>
+							<a href="<c:url value='/BeforeShowTypesController'/>">Types</a>
 						</div>
 						<div class="add-pages-link-admin">
 							<p>Add Pages:</p>

@@ -11,15 +11,14 @@ import javax.servlet.http.HttpSession;
 import org.training.constants.ServletConstants;
 import org.training.ifaces.AbstractBaseController;
 import org.training.ifaces.hib.ITableDataDAOHib;
-import org.training.model.beans.hibbeans.Status;
 import org.training.model.factories.hib.TableDataFactoryHib;
 import org.training.model.impls.DaoException;
 
 /**
- * Servlet implementation class EditStatusController
+ * Servlet implementation class BeforeShowTypesController
  */
 
-public class BeforeEditStatusController extends AbstractBaseController {
+public class BeforeShowTypesController extends AbstractBaseController {
 	
 	private static final long serialVersionUID = 1L;
     
@@ -44,18 +43,18 @@ public class BeforeEditStatusController extends AbstractBaseController {
 			jumpError(ServletConstants.ERROR_NULL_SESSION, request, response);
 			return;
 		}
-				
-		int editStatusId = Integer.parseInt(request.getParameter("hidden3"));
-		
+
+		// get data from db
 		try {
-			// get status from db
-			ITableDataDAOHib tableDataDAO = TableDataFactoryHib.getClassFromFactory();
-			Status status = tableDataDAO.getStatusById(editStatusId);
-			session.setAttribute(ServletConstants.JSP_EDIT_STATUS, status);
-			jump(ServletConstants.JUMP_EDIT_STATUS_PAGE, request, response);
+			ITableDataDAOHib tableDAO = TableDataFactoryHib
+					.getClassFromFactory();
+			session.setAttribute(ServletConstants.JSP_TYPES_LIST,
+					tableDAO.getTypes());
+			jumpPage(ServletConstants.JUMP_SHOW_TYPE_PAGE, request, response);
 		} catch (DaoException e) {
 			jumpError(e.getMessage(), request, response);
 		}
+
 	}
 
 	protected void jump(String url, String message, HttpServletRequest request,
@@ -72,7 +71,7 @@ public class BeforeEditStatusController extends AbstractBaseController {
 
 	protected void jumpError(String message, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		jump(ServletConstants.JUMP_INDEX_PAGE, message, request, response);
+		jump(ServletConstants.JUMP_MAIN_PAGE, message, request, response);
 	}
 
 }

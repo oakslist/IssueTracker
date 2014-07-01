@@ -11,15 +11,14 @@ import javax.servlet.http.HttpSession;
 import org.training.constants.ServletConstants;
 import org.training.ifaces.AbstractBaseController;
 import org.training.ifaces.hib.ITableDataDAOHib;
-import org.training.model.beans.hibbeans.Status;
+import org.training.model.beans.hibbeans.Type;
 import org.training.model.factories.hib.TableDataFactoryHib;
 import org.training.model.impls.DaoException;
 
 /**
- * Servlet implementation class EditStatusController
+ * Servlet implementation class EditTypeController
  */
-
-public class BeforeEditStatusController extends AbstractBaseController {
+public class EditTypeController extends AbstractBaseController {
 	
 	private static final long serialVersionUID = 1L;
     
@@ -44,15 +43,28 @@ public class BeforeEditStatusController extends AbstractBaseController {
 			jumpError(ServletConstants.ERROR_NULL_SESSION, request, response);
 			return;
 		}
-				
-		int editStatusId = Integer.parseInt(request.getParameter("hidden3"));
+		
+		String typeName = request.getParameter(ServletConstants.JSP_EDIT_TYPE);
+
+		String inputResult = getInputResult(typeName);
+		if(inputResult != null) {
+			jump(ServletConstants.JSP_EDIT_TYPE, inputResult, request, response);
+			return;
+		}
 		
 		try {
-			// get status from db
+			//update type in db
 			ITableDataDAOHib tableDataDAO = TableDataFactoryHib.getClassFromFactory();
-			Status status = tableDataDAO.getStatusById(editStatusId);
-			session.setAttribute(ServletConstants.JSP_EDIT_STATUS, status);
-			jump(ServletConstants.JUMP_EDIT_STATUS_PAGE, request, response);
+			Type type = (Type) session.getAttribute(ServletConstants.JSP_EDIT_TYPE);
+			type.setTypeName(typeName);
+			boolean isUpdated = tableDataDAO.updateType(type);
+			session.removeAttribute(ServletConstants.JSP_EDIT_TYPE);
+			if (isUpdated == true) {
+				jumpError(ServletConstants.TYPE_UPDATE_SUCCESSFULLY, request, response);
+			} else {
+				//  type not update
+				jumpError(ServletConstants.ERROR_TYPE_NOT_UPDATE, request, response);
+			}
 		} catch (DaoException e) {
 			jumpError(e.getMessage(), request, response);
 		}
@@ -72,7 +84,14 @@ public class BeforeEditStatusController extends AbstractBaseController {
 
 	protected void jumpError(String message, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		jump(ServletConstants.JUMP_INDEX_PAGE, message, request, response);
+		jump(ServletConstants.JUMP_MAIN_PAGE, message, request, response);
+	}
+
+	private String getInputResult(String typeStr) {
+		if(typeStr == null || typeStr.equals("")) {
+			return ServletConstants.ERROR_TYPE_NAME_EMPTY;
+		}
+		return null;
 	}
 
 }

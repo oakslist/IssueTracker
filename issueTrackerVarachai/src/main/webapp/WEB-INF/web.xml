@@ -93,6 +93,32 @@
 		<servlet-name>BeforeShowAllIssues</servlet-name>
 		<servlet-class>org.training.controllers.showtabs.BeforeShowAllIssues</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>BeforeEditTypeController</servlet-name>
+		<servlet-class>org.training.controllers.showtabs.BeforeEditTypeController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>EditTypeController</servlet-name>
+		<servlet-class>org.training.controllers.showtabs.EditTypeController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>BeforeShowTypesController</servlet-name>
+		<servlet-class>org.training.controllers.showtabs.BeforeShowTypesController</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>BeforeEditResolutionController</servlet-name>
+		<servlet-class>org.training.controllers.showtabs.BeforeEditResolutionController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>EditResolutionController</servlet-name>
+		<servlet-class>org.training.controllers.showtabs.EditResolutionController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>BeforeShowResolutionsController</servlet-name>
+		<servlet-class>org.training.controllers.showtabs.BeforeShowResolutionsController</servlet-class>
+	</servlet>
+	
 	
 	<servlet-mapping>
 		<servlet-name>SessionController</servlet-name>
@@ -173,6 +199,31 @@
 	<servlet-mapping>
 		<servlet-name>BeforeShowAllIssues</servlet-name>
 		<url-pattern>/BeforeShowAllIssues</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BeforeEditTypeController</servlet-name>
+		<url-pattern>/BeforeEditTypeController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EditTypeController</servlet-name>
+		<url-pattern>/EditTypeController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BeforeShowTypesController</servlet-name>
+		<url-pattern>/BeforeShowTypesController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>BeforeEditResolutionController</servlet-name>
+		<url-pattern>/BeforeEditResolutionController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EditResolutionController</servlet-name>
+		<url-pattern>/EditResolutionController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BeforeShowResolutionsController</servlet-name>
+		<url-pattern>/BeforeShowResolutionsController</url-pattern>
 	</servlet-mapping>
 	
 

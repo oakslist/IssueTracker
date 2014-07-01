@@ -24,11 +24,11 @@
 
 		<div class="main">
 		
-			<h1>Statuses:</h1>
+			<h1>Resolutions:</h1>
 				
 			<c:choose>
 				<c:when test="${user.role.roleName eq 'ADMINISTRATOR'}">
-					<form method="POST" action="<c:url value='/BeforeEditStatusController'/>">
+					<form method="POST" action="<c:url value='/BeforeEditResolutionController'/>">
 							<table class="users-table">
 							<thead>
 								<tr>
@@ -37,10 +37,10 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${issueStatuses}" var="status">
+								<c:forEach items="${issueResolutions}" var="resolution">
 									<tr>
-										<td><c:out value="${status.id}"/></td>
-										<td><a href="javascript:editParams('${status.id}')"><c:out value="${status.statusName}"/></a></td>
+										<td><c:out value="${resolution.id}"/></td>
+										<td><a href="javascript:editParams('${resolution.id}')"><c:out value="${resolution.resolutionName}"/></a></td>
         							</tr>
     							</c:forEach>
     						</tbody>
@@ -49,7 +49,7 @@
 						</form>
 				</c:when>
 				<c:otherwise>
-					<p><font color=&quot#AABBCC&quot>Your are in IssueTracker Statuses page now<br>
+					<p><font color=&quot#AABBCC&quot>Your are in IssueTracker Resolutions page now<br>
 					Please login or go to the <a href="<c:url value='/index.jsp'/>">main page</a>.</font></p>
 				</c:otherwise>
 			</c:choose>

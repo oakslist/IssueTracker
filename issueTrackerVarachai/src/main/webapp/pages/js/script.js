@@ -23,13 +23,10 @@ function edit(id, curLink) {
 	document.forms[0].submit();
 }
 
-function editStatus(id) {
-//	var statusId = statusId;
-//	var link = "BeforeEditStatusController";
-//	edit(statusId, link);
-	var statusId = id;
-	var curStatus = document.getElementById("hidden3");
-	curStatus.value = statusId;
+function editParams(id) {
+	var paramId = id;
+	var curParam = document.getElementById("hidden3");
+	curParam.value = paramId;
 	document.forms[0].submit();
 }
 

@@ -11,16 +11,15 @@ import javax.servlet.http.HttpSession;
 import org.training.constants.ServletConstants;
 import org.training.ifaces.AbstractBaseController;
 import org.training.ifaces.hib.ITableDataDAOHib;
-import org.training.model.beans.hibbeans.Status;
+import org.training.model.beans.hibbeans.Type;
 import org.training.model.factories.hib.TableDataFactoryHib;
 import org.training.model.impls.DaoException;
 
 /**
- * Servlet implementation class EditStatusController
+ * Servlet implementation class BeforeShowStatusController
  */
+public class BeforeEditTypeController extends AbstractBaseController {
 
-public class BeforeEditStatusController extends AbstractBaseController {
-	
 	private static final long serialVersionUID = 1L;
     
 	protected void doGet(HttpServletRequest request, 
@@ -45,14 +44,14 @@ public class BeforeEditStatusController extends AbstractBaseController {
 			return;
 		}
 				
-		int editStatusId = Integer.parseInt(request.getParameter("hidden3"));
+		int editTypeId = Integer.parseInt(request.getParameter("hidden3"));
 		
 		try {
-			// get status from db
+			// get type from db
 			ITableDataDAOHib tableDataDAO = TableDataFactoryHib.getClassFromFactory();
-			Status status = tableDataDAO.getStatusById(editStatusId);
-			session.setAttribute(ServletConstants.JSP_EDIT_STATUS, status);
-			jump(ServletConstants.JUMP_EDIT_STATUS_PAGE, request, response);
+			Type type = tableDataDAO.getTypeById(editTypeId);
+			session.setAttribute(ServletConstants.JSP_EDIT_TYPE, type);
+			jump(ServletConstants.JUMP_EDIT_TYPE_PAGE, request, response);
 		} catch (DaoException e) {
 			jumpError(e.getMessage(), request, response);
 		}
@@ -74,5 +73,4 @@ public class BeforeEditStatusController extends AbstractBaseController {
 			HttpServletResponse response) throws ServletException, IOException {
 		jump(ServletConstants.JUMP_INDEX_PAGE, message, request, response);
 	}
-
 }

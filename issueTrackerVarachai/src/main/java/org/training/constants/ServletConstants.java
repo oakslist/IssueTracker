@@ -106,6 +106,8 @@ public class ServletConstants {
 	public static final String ERROR_COMMENT_EMPTY = "Comment is empty.";
 	public static final String ERROR_ADD_PARAMS_EMPTY = "All necessary params is empty.";
 	public static final String ERROR_STATUS_NAME_EMPTY = "Status name is empty.";
+	public static final String ERROR_TYPE_NAME_EMPTY = "Type name is empty.";
+	public static final String ERROR_RESOLUTION_NAME_EMPTY = "Resolution name is empty.";
 	
 	public static final String ERROR_ISSUE_NOT_ADD = "Issue not add.";
 	public static final String ERROR_USER_NOT_ADD = "User not add.";
@@ -114,12 +116,16 @@ public class ServletConstants {
 	public static final String ERROR_PASSWORD_NOT_UPDATE = "Password not update.";
 	public static final String ERROR_COMMENT_NOT_ADD = "Comment not add.";
 	public static final String ERROR_STATUS_NOT_UPDATE = "Status not update.";
+	public static final String ERROR_TYPE_NOT_UPDATE = "Type not update.";
+	public static final String ERROR_RESOLUTION_NOT_UPDATE = "Resolution not update.";
 	
 	public static final String ISSUE_ADD_SUCCESSFULLY = "Issue was added successfully.";
 	public static final String USER_ADD_SUCCESSFULLY = "USER was added successfully.";
 	public static final String ISSUE_UPDATE_SUCCESSFULLY = "Issue was updated successfully.";
 	public static final String USER_UPDATE_SUCCESSFULLY = "User was updated successfully.";
 	public static final String STATUS_UPDATE_SUCCESSFULLY = "Status was updated successfully.";
+	public static final String TYPE_UPDATE_SUCCESSFULLY = "Type was updated successfully.";
+	public static final String RESOLUTION_UPDATE_SUCCESSFULLY = "Resolution was updated successfully.";
 	public static final String PASSWORD_UPDATE_SUCCESSFULLY = "Password was updated successfully.";
 	public static final String COMMENT_ADD_SUCCESSFULLY = "Comment was added successfully.";
 	public static final String PARAMS_ADD_SUCCESSFULLY = "Params was added successfully.";
@@ -146,8 +152,12 @@ public class ServletConstants {
 	public static final String JUMP_SEARCH_USER_PAGE = "/pages/searchUser.jsp";
 	public static final String JUMP_BEFORE_EDIT_ISSUE_CONTROLLER = "/BeforeEditIssueController";
 	public static final String JUMP_SHOW_STATUS_PAGE = "/pages/show/showStatuses.jsp";
+	public static final String JUMP_SHOW_TYPE_PAGE = "/pages/show/showTypes.jsp";
+	public static final String JUMP_SHOW_RESOLUTION_PAGE = "/pages/show/showResolutions.jsp";
 	public static final String JUMP_SHOW_ALL_ISSUES_PAGE = "/pages/show/showIssues.jsp";
 	public static final String JUMP_EDIT_STATUS_PAGE = "/pages/show/editStatus.jsp";
+	public static final String JUMP_EDIT_TYPE_PAGE = "/pages/show/editType.jsp";
+	public static final String JUMP_EDIT_RESOLUTION_PAGE = "/pages/show/editResolution.jsp";
 
 
 }

@@ -21,7 +21,7 @@ import org.training.model.impls.DaoException;
 
 public class EditStatusController extends AbstractBaseController {
 	
-private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
     
 	protected void doGet(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
@@ -49,7 +49,7 @@ private static final long serialVersionUID = 1L;
 
 		String inputResult = getInputResult(statusName);
 		if(inputResult != null) {
-			jump(ServletConstants.JUMP_EDIT_USER_PAGE, inputResult, request, response);
+			jump(ServletConstants.JUMP_EDIT_STATUS_PAGE, inputResult, request, response);
 			return;
 		}
 		

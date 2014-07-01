@@ -11,9 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.training.constants.ServletConstants;
 import org.training.ifaces.AbstractBaseController;
 import org.training.ifaces.hib.IIssueDAOHib;
-import org.training.ifaces.hib.ITableDataDAOHib;
 import org.training.model.factories.hib.IssueFactoryHib;
-import org.training.model.factories.hib.TableDataFactoryHib;
 import org.training.model.impls.DaoException;
 
 /**

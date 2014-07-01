@@ -11,15 +11,15 @@ import javax.servlet.http.HttpSession;
 import org.training.constants.ServletConstants;
 import org.training.ifaces.AbstractBaseController;
 import org.training.ifaces.hib.ITableDataDAOHib;
-import org.training.model.beans.hibbeans.Status;
+import org.training.model.beans.hibbeans.Resolution;
 import org.training.model.factories.hib.TableDataFactoryHib;
 import org.training.model.impls.DaoException;
 
 /**
- * Servlet implementation class EditStatusController
+ * Servlet implementation class BeforeEditResolutionController
  */
 
-public class BeforeEditStatusController extends AbstractBaseController {
+public class BeforeEditResolutionController extends AbstractBaseController {
 	
 	private static final long serialVersionUID = 1L;
     
@@ -45,14 +45,14 @@ public class BeforeEditStatusController extends AbstractBaseController {
 			return;
 		}
 				
-		int editStatusId = Integer.parseInt(request.getParameter("hidden3"));
+		int editResolutionId = Integer.parseInt(request.getParameter("hidden3"));
 		
 		try {
-			// get status from db
+			// get type from db
 			ITableDataDAOHib tableDataDAO = TableDataFactoryHib.getClassFromFactory();
-			Status status = tableDataDAO.getStatusById(editStatusId);
-			session.setAttribute(ServletConstants.JSP_EDIT_STATUS, status);
-			jump(ServletConstants.JUMP_EDIT_STATUS_PAGE, request, response);
+			Resolution resolution = tableDataDAO.getResolutionById(editResolutionId);
+			session.setAttribute(ServletConstants.JSP_EDIT_RESOLUTION, resolution);
+			jump(ServletConstants.JUMP_EDIT_RESOLUTION_PAGE, request, response);
 		} catch (DaoException e) {
 			jumpError(e.getMessage(), request, response);
 		}
