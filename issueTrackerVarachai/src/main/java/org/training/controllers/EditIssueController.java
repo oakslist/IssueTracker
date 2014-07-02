@@ -15,6 +15,7 @@ import org.training.ifaces.hib.IIssueDAOHib;
 import org.training.model.beans.hibbeans.Issue;
 import org.training.model.beans.hibbeans.Priority;
 import org.training.model.beans.hibbeans.Project;
+import org.training.model.beans.hibbeans.Resolution;
 import org.training.model.beans.hibbeans.Status;
 import org.training.model.beans.hibbeans.Type;
 import org.training.model.beans.hibbeans.User;
@@ -99,8 +100,11 @@ public class EditIssueController extends AbstractBaseController {
 			Status curStatus = commonService.getStatusByName(status);
 			issue.setStatus(curStatus);
 			
-//			Resolution
-
+			if (!resolution.equals("") || resolution != null) {
+				Resolution curResolution = commonService.getResolutionByName(resolution);
+				issue.setResolution(curResolution);
+			}
+			
 			Priority curPriority = commonService.getPriorityByName(priority);
 			issue.setPriority(curPriority);
 
