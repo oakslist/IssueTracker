@@ -62,6 +62,14 @@ public class SubmitIssueController extends AbstractBaseController {
 		int assignee = Integer.parseInt(request
 				.getParameter(ServletConstants.JSP_ASSIGNEE));
 		
+		String inputResult = getInputResult(summary, description, status, type,
+				priority, project, buildFound);
+		if (inputResult != null) {
+			jump(ServletConstants.JUMP_SUBMIT_ISSUE_PAGE, inputResult, request,
+					response);
+			return;
+		}
+		
 		try {
 			// set issue
 			Issue issue = new Issue();
@@ -127,6 +135,33 @@ public class SubmitIssueController extends AbstractBaseController {
 	protected void jumpError(String message, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		jump(ServletConstants.JUMP_INDEX_PAGE, message, request, response);
+	}
+	
+	private String getInputResult(String summary, String description,
+			String status, String type, String priority, String project,
+			String buildFound) {
+		if (summary == null || summary.equals("")) {
+			return ServletConstants.ERROR_SUMMARY_EMPTY;
+		}
+		if (description == null || description.equals("")) {
+			return ServletConstants.ERROR_DESCRIPTION_EMPTY;
+		}
+		if (status == null || status.equals("")) {
+			return ServletConstants.ERROR_STATUS_EMPTY;
+		}
+		if (type == null || type.equals("")) {
+			return ServletConstants.ERROR_STATUS_EMPTY;
+		}
+		if (priority == null || priority.equals("")) {
+			return ServletConstants.ERROR_PRIORITY_EMPTY;
+		}
+		if (project == null || project.equals("")) {
+			return ServletConstants.ERROR_PROJECT_EMPTY;
+		}
+		if (buildFound == null || buildFound.equals("")) {
+			return ServletConstants.ERROR_BUILD_FOUND_EMPTY;
+		}
+		return null;
 	}
 
 }
