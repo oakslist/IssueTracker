@@ -22,7 +22,7 @@ public class CommonService implements ITableDataDAOHib {
 	private static final Logger LOG = Logger.getLogger(CommonService.class);
 
 	private Session openSession() {
-		return HibernateUtil.getSessionFactory().openSession();
+		return HibernateUtil.getHibSessionFactory().openSession();
 	}
 
 	private void closeSession(Session session) {
@@ -40,7 +40,7 @@ public class CommonService implements ITableDataDAOHib {
 			session.getTransaction().commit();
 			isSet = true;
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in set status " + e);
 		}
@@ -60,7 +60,7 @@ public class CommonService implements ITableDataDAOHib {
 			session.getTransaction().commit();
 			isSet = true;
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in set type " + e);
 		}
@@ -80,7 +80,7 @@ public class CommonService implements ITableDataDAOHib {
 			session.getTransaction().commit();
 			isSet = true;
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in set resolution " + e);
 		}
@@ -100,7 +100,7 @@ public class CommonService implements ITableDataDAOHib {
 			session.getTransaction().commit();
 			isSet = true;
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in set priority " + e);
 		}
@@ -120,7 +120,7 @@ public class CommonService implements ITableDataDAOHib {
 			session.getTransaction().commit();
 			isSet = true;
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Set in project " + e);
 		}
@@ -138,7 +138,7 @@ public class CommonService implements ITableDataDAOHib {
 			isSet = session.contains(arg);
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in check is exist " + arg + " " + e);
 		}
@@ -162,7 +162,7 @@ public class CommonService implements ITableDataDAOHib {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get data from " + arg + " " + e);
 		}
@@ -188,7 +188,7 @@ public class CommonService implements ITableDataDAOHib {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get data from status " + e);
 		}
@@ -214,7 +214,7 @@ public class CommonService implements ITableDataDAOHib {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get data by id from status " + e);
 		}
@@ -239,7 +239,7 @@ public class CommonService implements ITableDataDAOHib {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get data from type " + e);
 		}
@@ -265,7 +265,7 @@ public class CommonService implements ITableDataDAOHib {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get data by id from type " + e);
 		}
@@ -290,7 +290,7 @@ public class CommonService implements ITableDataDAOHib {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get data from priority " + e);
 		}
@@ -316,7 +316,7 @@ public class CommonService implements ITableDataDAOHib {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get data by id from type " + e);
 		}
@@ -341,7 +341,7 @@ public class CommonService implements ITableDataDAOHib {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get data from resolution " + e);
 		}
@@ -367,7 +367,7 @@ public class CommonService implements ITableDataDAOHib {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get data by id from resolution " + e);
 		}
@@ -392,7 +392,7 @@ public class CommonService implements ITableDataDAOHib {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get data from project " + e);
 		}
@@ -418,7 +418,7 @@ public class CommonService implements ITableDataDAOHib {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get data by id from project " + e);
 		}
@@ -443,7 +443,7 @@ public class CommonService implements ITableDataDAOHib {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get data by name and build value from project " + e);
 		}
@@ -467,7 +467,7 @@ public class CommonService implements ITableDataDAOHib {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get all statuses " + e);
 		}
@@ -491,7 +491,7 @@ public class CommonService implements ITableDataDAOHib {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get all types " + e);
 		}
@@ -515,7 +515,7 @@ public class CommonService implements ITableDataDAOHib {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get all resolutions " + e);
 		}
@@ -539,7 +539,7 @@ public class CommonService implements ITableDataDAOHib {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get all priorities " + e);
 		}
@@ -563,7 +563,7 @@ public class CommonService implements ITableDataDAOHib {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get all projects " + e);
 		}
@@ -587,7 +587,7 @@ public class CommonService implements ITableDataDAOHib {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get all buildFounds " + e);
 		}
@@ -611,7 +611,7 @@ public class CommonService implements ITableDataDAOHib {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get all users " + e);
 		}
@@ -631,7 +631,7 @@ public class CommonService implements ITableDataDAOHib {
 			buildFound = (BuildFound) session.createQuery("from BuildFound b").list();
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get project's buildFound " + e);
 		}
@@ -652,7 +652,7 @@ public class CommonService implements ITableDataDAOHib {
 			session.getTransaction().commit();
 			isUpdate = true;
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Update status " + e);
 		}
@@ -691,7 +691,7 @@ public class CommonService implements ITableDataDAOHib {
 			session.getTransaction().commit();
 			isUpdate = true;
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Update " + temp.getClass().getSimpleName() 
 					+ " " + e);
@@ -718,7 +718,7 @@ public class CommonService implements ITableDataDAOHib {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Get all buildFounds by project " + e);
 		}
@@ -742,7 +742,7 @@ public class CommonService implements ITableDataDAOHib {
 			session.getTransaction().commit();
 			isSet = true;
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in Set build " + buildValue + " in " 
 					+ project.getProjectName() + " " + e);

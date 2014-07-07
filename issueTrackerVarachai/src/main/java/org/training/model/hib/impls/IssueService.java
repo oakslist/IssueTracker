@@ -16,7 +16,7 @@ public class IssueService implements IIssueDAOHib {
 	private static final Logger LOG = Logger.getLogger(IssueService.class);
 
 	private Session openSession() {
-		return HibernateUtil.getSessionFactory().openSession();
+		return HibernateUtil.getHibSessionFactory().openSession();
 	}
 
 	private void closeSession(Session session) {
@@ -34,7 +34,7 @@ public class IssueService implements IIssueDAOHib {
 			issues = (List<Issue>) session.createQuery("from Issue").list();
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in get All Issues " + e);
 		}
@@ -54,7 +54,7 @@ public class IssueService implements IIssueDAOHib {
 					.setInteger(0, userId).list();
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in get user Issues by id " + e);
 		}
@@ -81,7 +81,7 @@ public class IssueService implements IIssueDAOHib {
 					.setInteger(0, issueId).uniqueResult();
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in get issue by id " + e);
 		}
@@ -101,7 +101,7 @@ public class IssueService implements IIssueDAOHib {
 			session.getTransaction().commit();
 			isSet = true;
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in create new issue " + e);
 		}
@@ -121,7 +121,7 @@ public class IssueService implements IIssueDAOHib {
 			session.getTransaction().commit();
 			isUpdate = true;
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in update issue " + e);
 		}

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+                       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+                       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+    <context:annotation-config />
+    
+	<context:component-scan base-package="org.trainig" />
+	
+    <aop:config>
+        <aop:pointcut id="myPointcut"
+            expression="execution(* org.trainig.*.*(..))" />
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="myPointcut" />
+    </aop:config>
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" propagation="REQUIRED" read-only="true" />
+            <tx:method name="find*" propagation="REQUIRED" read-only="true" />
+            <tx:method name="save*" propagation="REQUIRED" />
+        </tx:attributes>
+    </tx:advice>
+
+    <bean id="transactionManager"
+        class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName">
+            <value>org.h2.Driver</value>
+        </property>
+        <property name="url">
+            <value>jdbc:h2:./src/main/resources/h2db/issueTrackerDBissueTrackerDB</value>
+        </property>
+        <property name="username">
+            <value>issueTrackerDB</value>
+        </property>
+        <property name="password">
+            <value></value>
+        </property>
+    </bean>
+
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:/hibernateNew.cfg.xml" />
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="userDao" class="org.training.model.beans.hibbeans.User">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="commentDao" class="org.training.model.beans.hibbeans.Comment">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="issueDao" class="org.training.model.beans.hibbeans.Issue">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="priorityDao" class="org.training.model.beans.hibbeans.Priority">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="projectDao" class="org.training.model.beans.hibbeans.Project">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="resolutionDao" class="org.training.model.beans.hibbeans.Resolution">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="roleDao" class="org.training.model.beans.hibbeans.Role">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="statusDao" class="org.training.model.beans.hibbeans.Status">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="typeDao" class="org.training.model.beans.hibbeans.Type">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="buildDao" class="org.training.model.beans.hibbeans.BuildFound">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+</beans>

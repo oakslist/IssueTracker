@@ -49,11 +49,11 @@
 			<version>4.3.5.Final</version>
 		</dependency>
 		<!-- Hibernate library dependecy start -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>dom4j</groupId> -->
-<!-- 			<artifactId>dom4j</artifactId> -->
-<!-- 			<version>1.6.1</version> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>dom4j</groupId> -->
+		<!-- <artifactId>dom4j</artifactId> -->
+		<!-- <version>1.6.1</version> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>javax.transaction</groupId>
 			<artifactId>jta</artifactId>
@@ -67,13 +67,49 @@
 		<!-- Hibernate library dependecy end -->
 
 		<!-- Hibernate query library dependency start -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>antlr</groupId> -->
-<!-- 			<artifactId>antlr</artifactId> -->
-<!-- 			<version>2.7.7</version> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>antlr</groupId> -->
+		<!-- <artifactId>antlr</artifactId> -->
+		<!-- <version>2.7.7</version> -->
+		<!-- </dependency> -->
 		<!-- Hibernate query library dependency end -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>4.0.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>4.0.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>4.0.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>4.0.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>4.0.5.RELEASE</version>
+		</dependency>
 
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>1.0</version>
+		</dependency>
 	</dependencies>
 
 

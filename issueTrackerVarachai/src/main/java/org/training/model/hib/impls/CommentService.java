@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.training.ifaces.hib.ICommentDAOHib;
 import org.training.model.beans.hibbeans.Comment;
 import org.training.model.impls.DaoException;
@@ -15,8 +16,12 @@ public class CommentService implements ICommentDAOHib {
 	private static final Logger LOG = Logger.getLogger(CommonService.class);
 
 	private Session openSession() {
-		return HibernateUtil.getSessionFactory().openSession();
+		return HibernateUtil.getHibSessionFactory().openSession();
 	}
+	
+//	private ClassPathXmlApplicationContext getContext() {
+//		return HibernateUtil.getContext();
+//	}
 
 	private void closeSession(Session session) {
 		session.close();
@@ -36,7 +41,7 @@ public class CommentService implements ICommentDAOHib {
 				   .setInteger(0, issueId).list();
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in get comment by issue id " + e);
 		}
@@ -57,7 +62,7 @@ public class CommentService implements ICommentDAOHib {
 			session.getTransaction().commit();
 			isSet = true;
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in set comment " + e);
 		}

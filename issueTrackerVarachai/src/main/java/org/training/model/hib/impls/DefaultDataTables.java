@@ -128,7 +128,7 @@ public class DefaultDataTables {
 		try {
 			System.out.println("=== Create default data in the Issue ===");
 			LOG.info("=== Create default data in the Issue ===");
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getHibSessionFactory().openSession();
 			
 			//issue for user
 			Issue issue = new Issue();
@@ -208,7 +208,7 @@ public class DefaultDataTables {
 			LOG.info("Issue default was saved into the Issue table");
 
 		} catch (Exception ex) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in create data Project === " + ex);
 		}
@@ -219,7 +219,7 @@ public class DefaultDataTables {
 			System.out.println("=== Create default data in the trables ===");
 			LOG.info("=== Create default data in the trables ===");
 
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getHibSessionFactory().openSession();
 			
 			rolesList.clear();
 			for (UserRoleEnum role : UserRoleEnum.values()) {
@@ -244,7 +244,7 @@ public class DefaultDataTables {
 			}
 			session.close();
 		} catch (Exception ex) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in create data tables");
 		}
@@ -254,7 +254,7 @@ public class DefaultDataTables {
 		try {
 			System.out.println("=== Create default data in the Project ===");
 			LOG.info("=== Create default data in the Project ===");
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getHibSessionFactory().openSession();
 
 			//add project1
 			BuildFound buildFound = new BuildFound();
@@ -296,7 +296,7 @@ public class DefaultDataTables {
 			LOG.info("Project default was saved into the Project table");
 
 		} catch (Exception ex) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in create data Project === " + ex);
 		}
@@ -307,7 +307,7 @@ public class DefaultDataTables {
 			System.out.println("=== Create default data in the user ===");
 			LOG.info("=== Create default data in the user ===");
 
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getHibSessionFactory().openSession();
 
 			//ad admin
 			User userDef = new User();
@@ -342,7 +342,7 @@ public class DefaultDataTables {
 			LOG.info("User default was saved into the USER table");
 			session.close();
 		} catch (Exception ex) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in create data users");
 		}
@@ -354,7 +354,7 @@ public class DefaultDataTables {
 					+ tableClassName + " ===");
 			LOG.info("=== Create default data in the " + tableClassName
 					+ " ===");
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getHibSessionFactory().openSession();
 			if (!values.isEmpty()) {
 				session.beginTransaction();
 				Collection<String> instances = values.values();
@@ -393,7 +393,7 @@ public class DefaultDataTables {
 					+ tableClassName + " table");
 			session.close();
 		} catch (Exception ex) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in create data " + tableClassName);
 		}
@@ -401,7 +401,7 @@ public class DefaultDataTables {
 
 	private boolean ifExistData(String tableClassName) {
 		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getHibSessionFactory().openSession();
 			try {
 				session.beginTransaction();
 				List list = session.createQuery("from " + tableClassName)
@@ -421,7 +421,7 @@ public class DefaultDataTables {
 			session.close();
 
 		} catch (Exception ex) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in checking data data table "
 					+ tableClassName);
@@ -431,14 +431,14 @@ public class DefaultDataTables {
 
 	private boolean ifExistDataRole() {
 		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getHibSessionFactory().openSession();
 
 			for (UserRoleEnum role : UserRoleEnum.values()) {
 				rolesList.add(role.getUserRole());
 			}
 
 			if (rolesList != null) {
-				session = HibernateUtil.getSessionFactory().openSession();
+				session = HibernateUtil.getHibSessionFactory().openSession();
 				try {
 					session.beginTransaction();
 					for (String curRole : rolesList) {
@@ -460,7 +460,7 @@ public class DefaultDataTables {
 			}
 
 		} catch (Exception ex) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in create data tables");
 		}

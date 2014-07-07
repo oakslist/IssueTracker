@@ -16,7 +16,7 @@ public class RoleService implements IRoleDAOHib {
 	private static final Logger LOG = Logger.getLogger(RoleService.class);
 
 	private Session openSession() {
-		return HibernateUtil.getSessionFactory().openSession();
+		return HibernateUtil.getHibSessionFactory().openSession();
 	}
 
 	private void closeSession(Session session) {
@@ -37,7 +37,7 @@ public class RoleService implements IRoleDAOHib {
 				   .uniqueResult();
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("error in get exist Role");
 		}
@@ -56,7 +56,7 @@ public class RoleService implements IRoleDAOHib {
 			roles = (List<Role>) session.createQuery("from Role").list();
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("error in get exist roles");
 		}

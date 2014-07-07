@@ -17,7 +17,6 @@ import org.training.model.beans.hibbeans.User;
 import org.training.model.factories.hib.RoleFactoryHib;
 import org.training.model.factories.hib.UserFactoryHib;
 import org.training.model.impls.DaoException;
-import org.training.persistence.HibernateUtil;
 
 /**
  * Servlet implementation class EditUserController
@@ -80,9 +79,7 @@ public class EditUserController extends AbstractBaseController {
 				IRoleDAOHib roleDAO = RoleFactoryHib.getClassFromFactory();
 				editUser.setRole(roleDAO.getExistRole(UserRoleEnum.valueOf(role)));
 			} catch (Exception e) {
-				HibernateUtil.getSessionFactory().getCurrentSession()
-						.getTransaction().rollback();
-				System.out.println("eror in get role in edit User controller");
+				System.out.println("eror in get role in edit User controller " + e);
 			}
 			
 		}

@@ -15,7 +15,7 @@ public class UserService implements IUserDAOHib {
 	private static final Logger LOG = Logger.getLogger(UserService.class);
 
 	private Session openSession() {
-		return HibernateUtil.getSessionFactory().openSession();
+		return HibernateUtil.getHibSessionFactory().openSession();
 	}
 
 	private void closeSession(Session session) {
@@ -35,7 +35,7 @@ public class UserService implements IUserDAOHib {
 				   .uniqueResult();
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in getting user by email");
 		}
@@ -54,7 +54,7 @@ public class UserService implements IUserDAOHib {
 			users = (List<User>) session.createQuery("from User").list();
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in get all exist users");
 		}
@@ -81,7 +81,7 @@ public class UserService implements IUserDAOHib {
 			System.out.println(user);			
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in getting user by email and password");
 		}
@@ -102,7 +102,7 @@ public class UserService implements IUserDAOHib {
 				   .setInteger(0, id).uniqueResult();
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in getting user by id");
 		}
@@ -122,7 +122,7 @@ public class UserService implements IUserDAOHib {
 			session.getTransaction().commit();
 			isAdded = true;
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in add new user");
 		}
@@ -153,7 +153,7 @@ public class UserService implements IUserDAOHib {
 			session.getTransaction().commit();
 			isUpdate = true;
 		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
+			HibernateUtil.getHibSessionFactory().getCurrentSession()
 					.getTransaction().rollback();
 			System.out.println("eror in update user data");
 		}
