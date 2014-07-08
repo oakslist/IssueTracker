@@ -5,12 +5,15 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.training.ifaces.hib.IRoleDAOHib;
 import org.training.model.beans.enums.UserRoleEnum;
 import org.training.model.beans.hibbeans.Role;
 import org.training.model.impls.DaoException;
 import org.training.persistence.HibernateUtil;
 
+@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 public class RoleService implements IRoleDAOHib {
 
 	private static final Logger LOG = Logger.getLogger(RoleService.class);

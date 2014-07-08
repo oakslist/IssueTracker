@@ -5,11 +5,14 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.training.ifaces.hib.IIssueDAOHib;
 import org.training.model.beans.hibbeans.Issue;
 import org.training.model.impls.DaoException;
 import org.training.persistence.HibernateUtil;
 
+@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 public class IssueService implements IIssueDAOHib {
 
 	

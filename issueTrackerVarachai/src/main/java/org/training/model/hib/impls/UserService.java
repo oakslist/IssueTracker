@@ -5,11 +5,14 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.training.ifaces.hib.IUserDAOHib;
 import org.training.model.beans.hibbeans.User;
 import org.training.model.impls.DaoException;
 import org.training.persistence.HibernateUtil;
 
+@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 public class UserService implements IUserDAOHib {
 
 	private static final Logger LOG = Logger.getLogger(UserService.class);

@@ -9,8 +9,8 @@ import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 public class HibernateUtil extends HibernateDaoSupport {
 
 	private static final SessionFactory sessionFactory = buildSessionFactory();
-//	private static final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-//			new String[] { "springContext.xml" }, true);
+	private static final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+			new String[] { "springContext.xml" }, true);
 
 	private static SessionFactory buildSessionFactory() {
 		try {
@@ -19,6 +19,7 @@ public class HibernateUtil extends HibernateDaoSupport {
 					.applySettings(configuration.getProperties());
 			SessionFactory factory = configuration.buildSessionFactory(builder
 					.build());
+			
 			return factory;
 		} catch (Throwable e) {
 			System.err.println("Initial SessionFactory creation failed. " + e);

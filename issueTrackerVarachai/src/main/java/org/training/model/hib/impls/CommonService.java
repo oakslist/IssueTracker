@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.training.ifaces.hib.ITableDataDAOHib;
 import org.training.model.beans.hibbeans.BuildFound;
 import org.training.model.beans.hibbeans.Priority;
@@ -16,6 +18,7 @@ import org.training.model.beans.hibbeans.User;
 import org.training.model.impls.DaoException;
 import org.training.persistence.HibernateUtil;
 
+@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 public class CommonService implements ITableDataDAOHib {
 
 	
@@ -29,6 +32,7 @@ public class CommonService implements ITableDataDAOHib {
 		session.close();
 	}
 
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 	public boolean setStatus(Status status) {
 		boolean isSet = false;
 		System.out.println("Set in status");

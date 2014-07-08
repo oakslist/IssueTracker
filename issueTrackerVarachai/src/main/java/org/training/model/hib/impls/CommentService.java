@@ -5,12 +5,14 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.training.ifaces.hib.ICommentDAOHib;
 import org.training.model.beans.hibbeans.Comment;
 import org.training.model.impls.DaoException;
 import org.training.persistence.HibernateUtil;
 
+@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 public class CommentService implements ICommentDAOHib {
 	
 	private static final Logger LOG = Logger.getLogger(CommonService.class);
@@ -28,6 +30,7 @@ public class CommentService implements ICommentDAOHib {
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 	public List<Comment> getExistCommentsByIssueId(
 			int issueId) throws DaoException {
 		System.out.println("Set in get comment by issue id");
@@ -50,6 +53,7 @@ public class CommentService implements ICommentDAOHib {
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 	public boolean addComment(Comment comment)
 			throws DaoException {
 		boolean isSet = false;
