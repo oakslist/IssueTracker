@@ -12,7 +12,7 @@ import org.training.model.beans.hibbeans.User;
 import org.training.model.impls.DaoException;
 import org.training.persistence.HibernateUtil;
 
-@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+@Transactional(propagation=Propagation.REQUIRED)
 public class UserService implements IUserDAOHib {
 
 	private static final Logger LOG = Logger.getLogger(UserService.class);

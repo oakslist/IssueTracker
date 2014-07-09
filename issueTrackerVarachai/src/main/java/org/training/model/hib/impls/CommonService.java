@@ -18,7 +18,7 @@ import org.training.model.beans.hibbeans.User;
 import org.training.model.impls.DaoException;
 import org.training.persistence.HibernateUtil;
 
-@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+@Transactional(propagation=Propagation.REQUIRED)
 public class CommonService implements ITableDataDAOHib {
 
 	
@@ -32,7 +32,7 @@ public class CommonService implements ITableDataDAOHib {
 		session.close();
 	}
 
-	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public boolean setStatus(Status status) {
 		boolean isSet = false;
 		System.out.println("Set in status");

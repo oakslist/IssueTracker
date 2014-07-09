@@ -12,7 +12,7 @@ import org.training.model.beans.hibbeans.Issue;
 import org.training.model.impls.DaoException;
 import org.training.persistence.HibernateUtil;
 
-@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+@Transactional(propagation=Propagation.REQUIRED)
 public class IssueService implements IIssueDAOHib {
 
 	

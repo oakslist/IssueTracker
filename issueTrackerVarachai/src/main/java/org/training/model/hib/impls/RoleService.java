@@ -13,7 +13,7 @@ import org.training.model.beans.hibbeans.Role;
 import org.training.model.impls.DaoException;
 import org.training.persistence.HibernateUtil;
 
-@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+@Transactional(propagation=Propagation.REQUIRED)
 public class RoleService implements IRoleDAOHib {
 
 	private static final Logger LOG = Logger.getLogger(RoleService.class);

@@ -12,7 +12,7 @@ import org.training.model.beans.hibbeans.Comment;
 import org.training.model.impls.DaoException;
 import org.training.persistence.HibernateUtil;
 
-@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+@Transactional(propagation=Propagation.REQUIRED)
 public class CommentService implements ICommentDAOHib {
 	
 	private static final Logger LOG = Logger.getLogger(CommonService.class);
@@ -30,7 +30,6 @@ public class CommentService implements ICommentDAOHib {
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 	public List<Comment> getExistCommentsByIssueId(
 			int issueId) throws DaoException {
 		System.out.println("Set in get comment by issue id");
@@ -53,7 +52,6 @@ public class CommentService implements ICommentDAOHib {
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 	public boolean addComment(Comment comment)
 			throws DaoException {
 		boolean isSet = false;

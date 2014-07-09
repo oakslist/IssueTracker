@@ -9,7 +9,7 @@
 
     <context:annotation-config />
     
-	<context:component-scan base-package="org.trainig" />
+	<context:component-scan base-package="org.training" />
 	
     <aop:config>
         <aop:pointcut id="myPointcut"
@@ -51,9 +51,9 @@
     </bean>
 
     <bean id="sessionFactory"
-        class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="configLocation" value="classpath:/hibernateNew.cfg.xml" />
+        <property name="configLocation" value="classpath:/hibernateSpring.cfg.xml" />
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
@@ -63,44 +63,44 @@
         </property>
     </bean>
 
-    <bean id="userDao" class="org.training.model.beans.hibbeans.User">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
+<!--     <bean id="userDao" class="org.training.model.beans.hibbeans.User"> -->
+<!--         <property name="sessionFactory" ref="sessionFactory" /> -->
+<!--     </bean> -->
     
-    <bean id="commentDao" class="org.training.model.beans.hibbeans.Comment">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
+<!--     <bean id="commentDao" class="org.training.model.beans.hibbeans.Comment"> -->
+<!--         <property name="sessionFactory" ref="sessionFactory" /> -->
+<!--     </bean> -->
     
-    <bean id="issueDao" class="org.training.model.beans.hibbeans.Issue">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
+<!--     <bean id="issueDao" class="org.training.model.beans.hibbeans.Issue"> -->
+<!--         <property name="sessionFactory" ref="sessionFactory" /> -->
+<!--     </bean> -->
     
-    <bean id="priorityDao" class="org.training.model.beans.hibbeans.Priority">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
+<!--     <bean id="priorityDao" class="org.training.model.beans.hibbeans.Priority"> -->
+<!--         <property name="sessionFactory" ref="sessionFactory" /> -->
+<!--     </bean> -->
     
-    <bean id="projectDao" class="org.training.model.beans.hibbeans.Project">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
+<!--     <bean id="projectDao" class="org.training.model.beans.hibbeans.Project"> -->
+<!--         <property name="sessionFactory" ref="sessionFactory" /> -->
+<!--     </bean> -->
     
-    <bean id="resolutionDao" class="org.training.model.beans.hibbeans.Resolution">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
+<!--     <bean id="resolutionDao" class="org.training.model.beans.hibbeans.Resolution"> -->
+<!--         <property name="sessionFactory" ref="sessionFactory" /> -->
+<!--     </bean> -->
     
-    <bean id="roleDao" class="org.training.model.beans.hibbeans.Role">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
+<!--     <bean id="roleDao" class="org.training.model.beans.hibbeans.Role"> -->
+<!--         <property name="sessionFactory" ref="sessionFactory" /> -->
+<!--     </bean> -->
     
-    <bean id="statusDao" class="org.training.model.beans.hibbeans.Status">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
+<!--     <bean id="statusDao" class="org.training.model.beans.hibbeans.Status"> -->
+<!--         <property name="sessionFactory" ref="sessionFactory" /> -->
+<!--     </bean> -->
     
-    <bean id="typeDao" class="org.training.model.beans.hibbeans.Type">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
+<!--     <bean id="typeDao" class="org.training.model.beans.hibbeans.Type"> -->
+<!--         <property name="sessionFactory" ref="sessionFactory" /> -->
+<!--     </bean> -->
     
-    <bean id="buildDao" class="org.training.model.beans.hibbeans.BuildFound">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
+<!--     <bean id="buildDao" class="org.training.model.beans.hibbeans.BuildFound"> -->
+<!--         <property name="sessionFactory" ref="sessionFactory" /> -->
+<!--     </bean> -->
 
 </beans>
