@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ page import="org.training.constants.ServletConstants"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"%>
@@ -9,7 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
 <script src="<c:url value="/resources/js/script.js" />"></script>
-<title>IssueTracker</title>
+<title><spring:message code="label.issueTracker"/></title>
 </head>
 <body>
 	<div class="error-message">
@@ -24,54 +25,50 @@
 		</div>
 
 		<div class="main">
-			<%-- 			<h1>Message : ${msg}</h1> --%>
-			<h1>Issue Tracker</h1>
+			<h1><spring:message code="label.issueTracker"/></h1>
 			<div class="search-btn">
-				<input value="Search" onclick="#'" type="button">
+				<input value="<spring:message code='label.search'/>" onclick="#'" type="button">
 			</div>
 			<c:choose>
 				<c:when test="${user.role.roleName eq 'GUEST'}">
 					<p>
-						<font color=&quot#AABBCC&quot>Your are in IssueTracker now<br>
-							Please login or work as a guest.
+						<font color=&quot#AABBCC&quot><spring:message code='label.pleaseLogin'/>
 						</font>
 					</p>
 				</c:when>
 				<c:when test="${user.role.roleName eq 'USER'}">
 					<div class="submit-issue-btn">
-						<input value="Submit Issue"
+						<input value="<spring:message code='label.submitIssue'/>"
 							onclick="location.href='<c:url value='/issue/add'/>'"
 							type="button">
 					</div>
 				</c:when>
 				<c:when test="${user.role.roleName eq 'ADMINISTRATOR'}">
 					<div class="submit-issue-btn">
-						<input value="Submit Issue"
+						<input value="<spring:message code='label.submitIssue'/>"
 							onclick="location.href='<c:url value='/issue/add'/>'"
 							type="button">
 					</div>
 					<div class="admin-links">
 						<div class="pages-link-admin">
-							<p>Pages:</p>
-							<a href="<c:url value='/project/all'/>">Projects</a>
-							<a href="<c:url value='/status/all'/>">Statuses</a>
-							<a href="<c:url value='/resolution/all'/>">Resolutions</a>
-							<a href="<c:url value='/priority/all'/>">Priorities</a>
-							<a href="<c:url value='/type/all'/>">Types</a>
+							<p><spring:message code='label.links'/></p>
+							<a href="<c:url value='/project/all'/>"><spring:message code='label.projects'/></a>
+							<a href="<c:url value='/status/all'/>"><spring:message code='label.statuses'/></a>
+							<a href="<c:url value='/resolution/all'/>"><spring:message code='label.resolutions'/></a>
+							<a href="<c:url value='/priority/all'/>"><spring:message code='label.priorities'/></a>
+							<a href="<c:url value='/type/all'/>"><spring:message code='label.types'/></a>
 						</div>
 						<div class="add-pages-link-admin">
-							<p>Add Pages:</p>
-							<a href="<c:url value='/project/add'/>">Add
-								Project</a> <a href="<c:url value='/resolution/add'/>">Add
-								Resolution</a> <a href="<c:url value='/priority/add'/>">Add
-								Priority</a> <a href="<c:url value='/type/add'/>">Add
-								Type</a>
+							<p><spring:message code='label.addLinks'/></p>
+							<a href="<c:url value='/project/add'/>"><spring:message code='label.addProject'/></a> 
+							<a href="<c:url value='/resolution/add'/>"><spring:message code='label.addResolution'/></a>
+							<a href="<c:url value='/priority/add'/>"><spring:message code='label.addPriority'/></a> 
+							<a href="<c:url value='/type/add'/>"><spring:message code='label.addType'/></a>
 						</div>
 						<div class="pages-link-user-admin">
-							<p>Work with User:</p>
-							<a href="<c:url value='/user/all'/>">Search
-								User</a>
-							 <a href="<c:url value='/user/add'/>" title="Add User">Add User</a>
+							<p><spring:message code='label.workWithUser'/></p>
+							<a href="<c:url value='/user/all'/>"><spring:message code='label.searchUser'/></a>
+							 <a href="<c:url value='/user/add'/>" title="Add User"><spring:message code='label.addUser'/></a>
 						</div>
 					</div>
 				</c:when>
@@ -84,12 +81,12 @@
 				<table class="table-issues">
 					<thead>
 						<tr>
-							<th class="table-id-name">Id</th>
-							<th>Priority</th>
-							<th>Assignee</th>
-							<th>Type</th>
-							<th>Status</th>
-							<th>Summary</th>
+							<th class="table-id-name"><spring:message code='label.tableId'/></th>
+							<th><spring:message code='label.tablePriority'/></th>
+							<th><spring:message code='label.tableAssignee'/></th>
+							<th><spring:message code='label.tableType'/></th>
+							<th><spring:message code='label.tableStatus'/></th>
+							<th><spring:message code='label.tableSummary'/></th>
 						</tr>
 					</thead>
 					<tbody>
