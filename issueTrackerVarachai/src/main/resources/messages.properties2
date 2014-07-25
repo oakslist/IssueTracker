@@ -1,0 +1,7 @@
+Size=the {0} field must be between {2} and {1} characters long
+Size.subscriber.name=Name must be between {2} and {1} characters
+Email=Email address not valid
+NotEmpty=Field cannot be left blank
+NotNull=Field cannot be left blank
+typeMismatch=Invalid format
+methodInvocation.myRequest.amount=Invalid format

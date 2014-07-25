@@ -8,11 +8,15 @@
 	<name>issueTrackerVarachai Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
+	<properties>
+		<spring.version>4.0.5.RELEASE</spring.version>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
+			<version>4.8.1</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -48,12 +52,20 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>4.3.5.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.0.1.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.3.5.Final</version>
+		</dependency>
+
 		<!-- Hibernate library dependecy start -->
-		<!-- <dependency> -->
-		<!-- <groupId>dom4j</groupId> -->
-		<!-- <artifactId>dom4j</artifactId> -->
-		<!-- <version>1.6.1</version> -->
-		<!-- </dependency> -->
+
 		<dependency>
 			<groupId>javax.transaction</groupId>
 			<artifactId>jta</artifactId>
@@ -66,13 +78,17 @@
 		</dependency>
 		<!-- Hibernate library dependecy end -->
 
-		<!-- Hibernate query library dependency start -->
-		<!-- <dependency> -->
-		<!-- <groupId>antlr</groupId> -->
-		<!-- <artifactId>antlr</artifactId> -->
-		<!-- <version>2.7.7</version> -->
-		<!-- </dependency> -->
-		<!-- Hibernate query library dependency end -->
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>4.0.5.RELEASE</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -100,6 +116,43 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>4.0.5.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>4.0.5.RELEASE</version>
+		</dependency>
+
+
+		<!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>3.2.4.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>3.2.4.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>3.2.4.RELEASE</version>
+		</dependency>
+		<!-- Spring Security end -->
+		
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.1.0.Final</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
 			<version>1.6.2</version>
@@ -110,6 +163,14 @@
 			<artifactId>persistence-api</artifactId>
 			<version>1.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>3.1</version>
+		</dependency>
+
+
 	</dependencies>
 
 

@@ -113,6 +113,9 @@ public class ServletConstants {
 	public static final String ERROR_BUILD_FOUND_EMPTY = "Build Found is empty.";
 	public static final String ERROR_COMMENT_EMPTY = "Comment is empty.";
 	public static final String ERROR_ADD_PARAMS_EMPTY = "All necessary params is empty.";
+	public static final String ERROR_ADD_PROJECT_NAME_EMPTY = "Project name is empty.";
+	public static final String ERROR_ADD_PROJECT_DESCR_EMPTY = "Project description is empty.";
+	public static final String ERROR_ADD_PROJECT_BUILD_EMPTY = "Project build is empty.";
 	public static final String ERROR_STATUS_NAME_EMPTY = "Status name is empty.";
 	public static final String ERROR_TYPE_NAME_EMPTY = "Type name is empty.";
 	public static final String ERROR_RESOLUTION_NAME_EMPTY = "Resolution name is empty.";
@@ -161,30 +164,58 @@ public class ServletConstants {
 	public static final String KEY_EMPTY = "";
 	
 	public static final String JUMP_INDEX_PAGE = "/index.jsp";
-	public static final String JUMP_LOGIN = "/pages/login.jsp";
-	public static final String JUMP_MAIN_PAGE = "/pages/main.jsp";
-	public static final String JUMP_SUBMIT_ISSUE_PAGE = "/pages/submitIssue.jsp";
-	public static final String JUMP_EDIT_USER_PAGE = "/pages/editUser.jsp";
-	public static final String JUMP_EDIT_PASSWORD_PAGE = "/pages/editPassword.jsp";
-	public static final String JUMP_ADD_USER_PAGE = "/pages/addUser.jsp";
-	public static final String JUMP_EDIT_ISSUE_PAGE = "/pages/editIssue.jsp";
-	public static final String JUMP_ADD_PARAMS_PAGE = "/pages/addParams.jsp";
-	public static final String JUMP_SHOW_STATUSES_PAGE = "/pages/show/showStatuses.jsp";
-	public static final String JUMP_SEARCH_USER_PAGE = "/pages/searchUser.jsp";
+	public static final String JUMP_LOGIN = "/WEB-INF/pages/login.jsp";
+	public static final String JUMP_MAIN_PAGE = "/WEB-INF/pages/main.jsp";
+	public static final String JUMP_SUBMIT_ISSUE_PAGE = "/WEB-INF/pages/submitIssue.jsp";
+	public static final String JUMP_EDIT_USER_PAGE = "/WEB-INF/pages/editUser.jsp";
+	public static final String JUMP_EDIT_PASSWORD_PAGE = "/WEB-INF/pages/editPassword.jsp";
+	public static final String JUMP_ADD_USER_PAGE = "/WEB-INF/pages/addUser.jsp";
+	public static final String JUMP_EDIT_ISSUE_PAGE = "/WEB-INF/pages/editIssue.jsp";
+	public static final String JUMP_ADD_PARAMS_PAGE = "/WEB-INF/pages/addParams.jsp";
+	public static final String JUMP_SHOW_STATUSES_PAGE = "/WEB-INF/pages/show/showStatuses.jsp";
+	public static final String JUMP_SEARCH_USER_PAGE = "/WEB-INF/pages/searchUser.jsp";
 	public static final String JUMP_BEFORE_EDIT_ISSUE_CONTROLLER = "/BeforeEditIssueController";
-	public static final String JUMP_SHOW_STATUS_PAGE = "/pages/show/showStatuses.jsp";
-	public static final String JUMP_SHOW_TYPE_PAGE = "/pages/show/showTypes.jsp";
-	public static final String JUMP_SHOW_RESOLUTION_PAGE = "/pages/show/showResolutions.jsp";
-	public static final String JUMP_SHOW_PRIORITY_PAGE = "/pages/show/showPriorities.jsp";
-	public static final String JUMP_SHOW_PROJECT_PAGE = "/pages/show/showProjects.jsp";
-	public static final String JUMP_SHOW_ALL_ISSUES_PAGE = "/pages/show/showIssues.jsp";
-	public static final String JUMP_EDIT_STATUS_PAGE = "/pages/show/editStatus.jsp";
-	public static final String JUMP_EDIT_TYPE_PAGE = "/pages/show/editType.jsp";
-	public static final String JUMP_EDIT_RESOLUTION_PAGE = "/pages/show/editResolution.jsp";
-	public static final String JUMP_EDIT_PRIORITY_PAGE = "/pages/show/editPriority.jsp";
-	public static final String JUMP_EDIT_PROJECT_PAGE = "/pages/show/editProject.jsp";
-	public static final String JUMP_ADD_BUILD_PAGE = "/pages/show/addProjectBuild.jsp";
+	public static final String JUMP_SHOW_STATUS_PAGE = "/WEB-INF/pages/show/showStatuses.jsp";
+	public static final String JUMP_SHOW_TYPE_PAGE = "/WEB-INF/pages/show/showTypes.jsp";
+	public static final String JUMP_SHOW_RESOLUTION_PAGE = "/WEB-INF/pages/show/showResolutions.jsp";
+	public static final String JUMP_SHOW_PRIORITY_PAGE = "/WEB-INF/pages/show/showPriorities.jsp";
+	public static final String JUMP_SHOW_PROJECT_PAGE = "/WEB-INF/pages/show/showProjects.jsp";
+	public static final String JUMP_SHOW_ALL_ISSUES_PAGE = "/WEB-INF/pages/show/showIssues.jsp";
+	public static final String JUMP_EDIT_STATUS_PAGE = "/WEB-INF/pages/show/editStatus.jsp";
+	public static final String JUMP_EDIT_TYPE_PAGE = "/WEB-INF/pages/show/editType.jsp";
+	public static final String JUMP_EDIT_RESOLUTION_PAGE = "/WEB-INF/pages/show/editResolution.jsp";
+	public static final String JUMP_EDIT_PRIORITY_PAGE = "/WEB-INF/pages/show/editPriority.jsp";
+	public static final String JUMP_EDIT_PROJECT_PAGE = "/WEB-INF/pages/show/editProject.jsp";
+	public static final String JUMP_ADD_BUILD_PAGE = "/WEB-INF/pages/show/addProjectBuild.jsp";
 	public static final String JUMP_BEFORE_EDIT_PROJECT_PAGE = "/BeforeEditProjectController";
 
+	
+	/* Spring pages */
+	
+	public static final String MAIN_PAGE = "main";
+	public static final String INDEX_PAGE = "index";
+	public static final String ALL_ISSUES_PAGE = "show/showIssues";
+	public static final String USER_MENU_PAGE = "userMenu";
+	public static final String EDIT_USER_PAGE = "editUser";
+	public static final String EDIT_PASSWORD_PAGE = "editPassword";
+	public static final String PROJECTS_PAGE = "show/showProjects";
+	public static final String STATUSES_PAGE = "show/showStatuses";
+	public static final String RESOLUTIONS_PAGE = "show/showResolutions";
+	public static final String PRIORITIES_PAGE = "show/showPriorities";
+	public static final String TYPES_PAGE = "show/showTypes";
+	public static final String EDIT_PROJECT_PAGE = "show/editProject";
+	public static final String EDIT_STATUS_PAGE = "show/editStatus";
+	public static final String EDIT_RESOLUTION_PAGE = "show/editResolution";
+	public static final String EDIT_PRIORITY_PAGE = "show/editPriority";
+	public static final String EDIT_TYPE_PAGE = "show/editType";
+	public static final String ADD_PROJECT_BUILD_PAGE = "show/addProjectBuild";
+	public static final String ADD_USER_PAGE = "addUser";
+	public static final String ADD_NEW_TYPE_PAGE = "add/addType";
+	public static final String ADD_NEW_PROJECT_PAGE = "add/addProject";
+	public static final String ADD_NEW_PRIORITY_PAGE = "add/addPriority";
+	public static final String ADD_NEW_RESOLUTION_PAGE = "add/addResolution";
+	public static final String SEARCH_USER_PAGE = "searchUser";
+	public static final String SUBMIT_ISSUE_PAGE = "submitIssue";
+	public static final String EDIT_ISSUE_PAGE = "editIssue";
 
 }

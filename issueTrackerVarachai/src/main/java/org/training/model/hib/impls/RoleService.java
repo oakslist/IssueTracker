@@ -1,69 +1,42 @@
 package org.training.model.hib.impls;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-import org.hibernate.Session;
-import org.springframework.transaction.annotation.Propagation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.training.ifaces.hib.IRoleDAOHib;
 import org.training.model.beans.enums.UserRoleEnum;
 import org.training.model.beans.hibbeans.Role;
+import org.training.model.hib.dao.impls.ifaces.IRoleDAO;
+import org.training.model.hib.ifaces.IRoleService;
 import org.training.model.impls.DaoException;
-import org.training.persistence.HibernateUtil;
 
-@Transactional(propagation=Propagation.REQUIRED)
-public class RoleService implements IRoleDAOHib {
+@Service(value="roleService")
+public class RoleService implements IRoleService {
 
-	private static final Logger LOG = Logger.getLogger(RoleService.class);
-
-	private Session openSession() {
-		return HibernateUtil.getHibSessionFactory().openSession();
-	}
-
-	private void closeSession(Session session) {
-		session.close();
-	}
+	@Autowired
+	// (required=false)
+	private IRoleDAO roleDAOImpl;
 
 	@Override
+	@Transactional
 	public Role getExistRole(UserRoleEnum role) throws DaoException {
-		Role userRole = null;
-		System.out.println("Get exist role");
-		LOG.info("Get exist role");
-		Session session = openSession();
-		try {
-			session.getTransaction().begin();
-			userRole = (Role) session.createQuery(
-				    "from Role r where r.roleName = ?")
-				   .setString(0, role.toString())
-				   .uniqueResult();
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			HibernateUtil.getHibSessionFactory().getCurrentSession()
-					.getTransaction().rollback();
-			System.out.println("error in get exist Role");
-		}
-		closeSession(session);
-		return userRole;
+		return roleDAOImpl.getExistRole(role);
 	}
 
 	@Override
+	@Transactional
 	public List<Role> getExistRoles() throws DaoException {
-		List<Role> roles = new ArrayList<Role>();
-		System.out.println("Get exist roles");
-		LOG.info("Get exist roles");
-		Session session = openSession();
-		try {
-			session.getTransaction().begin();
-			roles = (List<Role>) session.createQuery("from Role").list();
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			HibernateUtil.getHibSessionFactory().getCurrentSession()
-					.getTransaction().rollback();
-			System.out.println("error in get exist roles");
-		}
-		closeSession(session);
-		return roles;
+		return roleDAOImpl.getExistRoles();
+	}
+	
+	@Transactional
+	public boolean addNewRole(Role role) throws DaoException {
+		return roleDAOImpl.addNewRole(role);
+	}
+	
+	@Transactional
+	public boolean checkRole(Role role) throws DaoException {
+		return roleDAOImpl.checkRole(role);
 	}
 }
