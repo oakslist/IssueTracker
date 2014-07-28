@@ -14,5 +14,6 @@
 		<mapping class="org.training.model.beans.hibbeans.Priority"></mapping>
 		<mapping class="org.training.model.beans.hibbeans.Comment"></mapping>
 		<mapping class="org.training.model.beans.hibbeans.BuildFound"></mapping>
+		<mapping class="org.training.model.beans.hibbeans.Attachment"></mapping>
 	</session-factory>
 </hibernate-configuration>

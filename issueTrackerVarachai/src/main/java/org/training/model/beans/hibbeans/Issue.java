@@ -69,11 +69,6 @@ public class Issue extends DefaultTableClass implements Serializable {
 		this.description = description;
 	}
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@ManyToOne
-//	@JoinColumn(name = "STATUS_ID")
-//	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "STATUS_ID", nullable = false)
 	public Status getStatus() {
@@ -84,11 +79,6 @@ public class Issue extends DefaultTableClass implements Serializable {
 		this.status = status;
 	}
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "RESOLUTION", nullable = false)
-//	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	@ManyToOne
-//	@JoinColumn(name = "RESOLUTION_ID")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "RESOLUTION_ID", nullable = true)
 	public Resolution getResolution() {
@@ -99,11 +89,6 @@ public class Issue extends DefaultTableClass implements Serializable {
 		this.resolution = resolution;
 	}
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "TYPE", nullable = false)
-//	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	@ManyToOne
-//	@JoinColumn(name = "TYPE_ID")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "TYPE_ID", nullable = false)
 	public Type getType() {
@@ -114,11 +99,6 @@ public class Issue extends DefaultTableClass implements Serializable {
 		this.type = type;
 	}
 	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "PRIORITY", nullable = false)
-//	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	@ManyToOne
-//	@JoinColumn(name = "PRIORITY_ID")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PRIORITY_ID", nullable = false)
 	public Priority getPriority() {
@@ -129,11 +109,6 @@ public class Issue extends DefaultTableClass implements Serializable {
 		this.priority = priority;
 	}
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "PROJECT_ID", nullable = false)
-//	@ManyToOne
-//	@JoinColumn(name = "PROJECT_ID")
-//	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PROJECT_ID", nullable = false)
 	public Project getProject() {
@@ -144,8 +119,6 @@ public class Issue extends DefaultTableClass implements Serializable {
 		this.project = project;
 	}
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "PROJECT_ID", nullable = false)
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID", nullable = true)
 	public User getAssignee() {
@@ -156,9 +129,6 @@ public class Issue extends DefaultTableClass implements Serializable {
 		this.assignee = assignee;
 	}
 
-//	@Column(name = "CREATED_DATE", nullable = false, updatable = false, columnDefinition = "date default sysdate")
-//  @Temporal(TemporalType.DATE)
-//	@Temporal(TemporalType.DATE)
 	@Column(name = "CREATED_DATE", updatable = false, nullable = false)
 	public Date getCreateDate() {
 		return createDate;
@@ -179,7 +149,6 @@ public class Issue extends DefaultTableClass implements Serializable {
 	}
 
 	@Column(name = "MODIFY_DATE", nullable = true)
-//    @Temporal(TemporalType.DATE)
 	public Date getModifyDate() {
 		return modifyDate;
 	}

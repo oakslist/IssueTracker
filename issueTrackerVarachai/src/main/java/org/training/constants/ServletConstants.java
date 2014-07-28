@@ -30,6 +30,7 @@ public class ServletConstants {
 	public static final String JSP_USER = "user";
 	public static final String JSP_USER_LIST = "userList";
 	public static final String JSP_COMMENT_LIST = "commentList";
+	public static final String JSP_ATTACHMENT_LIST = "attachmentList";
 	public static final String JSP_FIRST_NAME = "firstName";
 	public static final String JSP_LAST_NAME = "lastName";
 	public static final String JSP_EMAIL_ADDRESS = "emailAddress";
@@ -57,6 +58,7 @@ public class ServletConstants {
 	public static final String JSP_EDIT_PASSWORD_BY_ID = "editPassword";
 	public static final String JSP_COMMENT = "comment";
 	public static final String JSP_COMMENT_ISSUE_ID = "commentIssueId";
+	public static final String JSP_ATTACHMENT_ISSUE_ID = "attachmentIssueId";
 	public static final String JSP_EDIT_STATUS = "editStatus";
 	public static final String JSP_EDIT_TYPE = "editType";
 	public static final String JSP_EDIT_PRIORITY = "editPriority";
@@ -132,6 +134,8 @@ public class ServletConstants {
 	public static final String ERROR_USER_NOT_UPDATE = "User not update.";
 	public static final String ERROR_PASSWORD_NOT_UPDATE = "Password not update.";
 	public static final String ERROR_COMMENT_NOT_ADD = "Comment not add.";
+	public static final String ERROR_ATTACHMENT_NOT_ADD = "Attachment not add.";
+	public static final String ERROR_ATTACHMENT_IS_EMPTY = "Attachment is empty.";
 	public static final String ERROR_STATUS_NOT_UPDATE = "Status not update.";
 	public static final String ERROR_TYPE_NOT_UPDATE = "Type not update.";
 	public static final String ERROR_RESOLUTION_NOT_UPDATE = "Resolution not update.";
@@ -151,6 +155,7 @@ public class ServletConstants {
 	public static final String PROJECT_EDIT_DATA_EQUAL = "Didn't update. Project name, description and manager are the same.";
 	public static final String PASSWORD_UPDATE_SUCCESSFULLY = "Password was updated successfully.";
 	public static final String COMMENT_ADD_SUCCESSFULLY = "Comment was added successfully.";
+	public static final String ATTACHMENT_ADD_SUCCESSFULLY = "Attachment was added successfully.";
 	public static final String PARAMS_ADD_SUCCESSFULLY = "Params was added successfully.";
 	public static final String BUILD_ADD_SUCCESSFULLY = "Build was added successfully.";
 		

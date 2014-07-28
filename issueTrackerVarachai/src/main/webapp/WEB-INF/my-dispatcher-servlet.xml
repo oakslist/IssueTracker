@@ -70,6 +70,15 @@
 		<constructor-arg value="-web,-webPort,11111" />
 	</bean>
 
+	<!-- upload file beans -->
+	<bean id="fileValidator" class="org.training.model.file.FileValidator" />
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- max file size in bytes -->
+		<property name="maxUploadSize" value="2000000" />
+	</bean>
+
 	<!-- <bean id="dataSourcePopulator" class="org.apache.rave.jdbc.util.DataSourcePopulator"> -->
 	<!-- <property name="executeScriptQuery" value="SELECT * FROM country" /> -->
 	<!-- <property name="scriptLocations"> -->

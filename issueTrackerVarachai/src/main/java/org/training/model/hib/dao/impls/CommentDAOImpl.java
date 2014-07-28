@@ -18,7 +18,6 @@ public class CommentDAOImpl implements ICommentDAO {
 	private static final Logger LOG = Logger.getLogger(CommentDAOImpl.class);
 	
 	@Autowired
-	// (required=false)
 	private SessionFactory sessionFactory;
 	
 	@SuppressWarnings("unchecked")

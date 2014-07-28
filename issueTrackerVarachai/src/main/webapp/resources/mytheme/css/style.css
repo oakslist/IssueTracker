@@ -238,4 +238,14 @@ span.comment {
 	border: 30px;
 }
 
+/*======= file upload ========*/
+
+.upload-file span.upload-left {
+	text-align: left;
+}
+
+.upload-file span.upload-right {
+	text-align: right;
+}
+
 

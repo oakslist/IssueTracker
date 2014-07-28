@@ -1,5 +1,12 @@
 package org.training.controllers.spring;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -7,17 +14,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.training.constants.ServletConstants;
+import org.training.model.beans.hibbeans.Attachment;
 import org.training.model.beans.hibbeans.BuildFound;
 import org.training.model.beans.hibbeans.Comment;
 import org.training.model.beans.hibbeans.Issue;
@@ -27,6 +40,9 @@ import org.training.model.beans.hibbeans.Resolution;
 import org.training.model.beans.hibbeans.Status;
 import org.training.model.beans.hibbeans.Type;
 import org.training.model.beans.hibbeans.User;
+import org.training.model.file.FileValidator;
+import org.training.model.file.UploadedFile;
+import org.training.model.hib.ifaces.IAttachmentService;
 import org.training.model.hib.ifaces.ICommentService;
 import org.training.model.hib.ifaces.IIssueService;
 import org.training.model.hib.ifaces.ITableDataService;
@@ -48,6 +64,12 @@ public class IssueController {
 
 	@Autowired
 	private ICommentService commentService;
+
+	@Autowired
+	private IAttachmentService attachmentService;
+
+	@Autowired
+	FileValidator fileValidator;
 
 	@RequestMapping(value = "/all")
 	public String allIssuesPage(HttpServletRequest request, Model model) {
@@ -192,7 +214,9 @@ public class IssueController {
 
 	@RequestMapping(value = "/{id}/edit")
 	public String issueEdit(@PathVariable("id") int id,
-			HttpServletRequest request, Model model) {
+			HttpServletRequest request, Model model,
+			@ModelAttribute("uploadedFile") UploadedFile uploadedFile,
+			BindingResult result) {
 
 		HttpSession session = request.getSession(false);
 
@@ -223,8 +247,13 @@ public class IssueController {
 			// get all comments relate to issue
 			List<Comment> comments = new ArrayList<Comment>();
 			comments = commentService.getExistCommentsByIssueId(id);
-
 			model.addAttribute(ServletConstants.JSP_COMMENT_LIST, comments);
+
+			// get all attachments relate to issue
+			List<Attachment> attachments = new ArrayList<Attachment>();
+			attachments = attachmentService.getExistAttachmentsByIssueId(id);
+			model.addAttribute(ServletConstants.JSP_ATTACHMENT_LIST,
+					attachments);
 
 			return jumpPage(ServletConstants.EDIT_ISSUE_PAGE, model);
 		} catch (DaoException e) {
@@ -243,7 +272,9 @@ public class IssueController {
 			@RequestParam(ServletConstants.JSP_PROJECT) String project,
 			@RequestParam(ServletConstants.JSP_BUILD_FOUND) String buildFound,
 			@RequestParam(ServletConstants.JSP_ASSIGNEE) int assigneeId,
-			HttpServletRequest request, Model model) {
+			HttpServletRequest request, Model model,
+			@ModelAttribute("uploadedFile") UploadedFile uploadedFile,
+			BindingResult result) {
 
 		HttpSession session = request.getSession(false);
 
@@ -252,7 +283,6 @@ public class IssueController {
 					ServletConstants.ERROR_NULL_SESSION, model);
 		}
 
-		
 		String inputResult = getInputResult(summary, description, status, type,
 				priority, project, buildFound);
 		if (inputResult != null) {
@@ -317,10 +347,11 @@ public class IssueController {
 	}
 
 	@RequestMapping(value = "/{id}/edit/addComment", method = RequestMethod.POST)
-	public String issueAddComment(
-			@PathVariable("id") int id,
+	public String issueAddComment(@PathVariable("id") int id,
 			@RequestParam(ServletConstants.JSP_COMMENT) String commentStr,
-			HttpServletRequest request, Model model) {
+			HttpServletRequest request, Model model,
+			@ModelAttribute("uploadedFile") UploadedFile uploadedFile,
+			BindingResult result) {
 
 		HttpSession session = request.getSession(false);
 
@@ -352,15 +383,172 @@ public class IssueController {
 					.getIssue().getId());
 			getEditIssue(model, id);
 			if (isSet == true) {
-				return jump(ServletConstants.EDIT_ISSUE_PAGE, ServletConstants.COMMENT_ADD_SUCCESSFULLY, model);
+				return jump(ServletConstants.EDIT_ISSUE_PAGE,
+						ServletConstants.COMMENT_ADD_SUCCESSFULLY, model);
 			} else {
 				// user not add
-				return jump(ServletConstants.EDIT_ISSUE_PAGE, ServletConstants.ERROR_COMMENT_NOT_ADD, model);
+				return jump(ServletConstants.EDIT_ISSUE_PAGE,
+						ServletConstants.ERROR_COMMENT_NOT_ADD, model);
 			}
 		} catch (DaoException e) {
 			getEditIssue(model, id);
 			return jump(ServletConstants.EDIT_ISSUE_PAGE, e.getMessage(), model);
 		}
+	}
+
+	@RequestMapping(value = "/{id}/file/upload", method = RequestMethod.POST)
+	public String setFile(@PathVariable("id") int id,
+			@RequestParam("file") MultipartFile file,
+			HttpServletRequest request, Model model) {
+
+		HttpSession session = request.getSession(false);
+
+		if (session == null) {
+			return jump(ServletConstants.INDEX_PAGE,
+					ServletConstants.ERROR_NULL_SESSION, model);
+		}
+
+		String name = null;
+		boolean isUploaded = false;
+		File dir = null;
+
+		if (!file.isEmpty()) {
+			try {
+				name = file.getOriginalFilename();
+				byte[] bytes = file.getBytes();
+				// Creating the directory to store file
+				String rootPath = System.getProperty("catalina.home");
+				dir = new File(rootPath + File.separator + id + File.separator
+						+ "tmpFiles");
+				if (!dir.exists())
+					dir.mkdirs();
+				// Create the file on serve
+				File serverFile = new File(dir.getAbsolutePath()
+						+ File.separator + name);
+				BufferedOutputStream stream = new BufferedOutputStream(
+						new FileOutputStream(serverFile));
+				stream.write(bytes);
+				stream.close();
+				isUploaded = true;
+			} catch (Exception e) {
+				getEditIssue(model, id);
+				return jump(ServletConstants.EDIT_ISSUE_PAGE,
+						ServletConstants.ERROR_ATTACHMENT_NOT_ADD, model);
+			}
+		} else {
+			getEditIssue(model, id);
+			return jump(ServletConstants.EDIT_ISSUE_PAGE,
+					ServletConstants.ERROR_ATTACHMENT_IS_EMPTY, model);
+		}
+
+		// update attachment
+		if (isUploaded == true) {
+			try {
+				User user = (User) session
+						.getAttribute(ServletConstants.JSP_USER);
+				Attachment attachment = new Attachment();
+				attachment.setAddedBy(user);
+				Calendar calendar = Calendar.getInstance();
+				attachment.setAddedDate(calendar.getTime());
+
+				attachment.setLink(dir.toString());
+				attachment.setName(file.getOriginalFilename());
+				Issue issue = issueService.getIssueById(id);
+				attachment.setIssue(issue);
+
+				// set comment in db
+				boolean isSet = attachmentService.addAttachment(attachment);
+				model.addAttribute(ServletConstants.JSP_ATTACHMENT_ISSUE_ID,
+						attachment.getIssue().getId());
+				getEditIssue(model, id);
+				if (isSet == true) {
+					return jump(ServletConstants.EDIT_ISSUE_PAGE,
+							ServletConstants.ATTACHMENT_ADD_SUCCESSFULLY, model);
+				} else {
+					// user not add
+					return jump(ServletConstants.EDIT_ISSUE_PAGE,
+							ServletConstants.ERROR_ATTACHMENT_NOT_ADD, model);
+				}
+			} catch (DaoException e) {
+				getEditIssue(model, id);
+				return jump(ServletConstants.EDIT_ISSUE_PAGE, e.getMessage(),
+						model);
+			}
+		} else {
+			getEditIssue(model, id);
+			return jump(ServletConstants.EDIT_ISSUE_PAGE,
+					ServletConstants.ERROR_ATTACHMENT_NOT_ADD, model);
+		}
+
+	}
+
+	@RequestMapping(value = "/{id}/file/{idFile}/download", method = RequestMethod.GET)
+	public void getFile(@PathVariable("id") int id,
+			@PathVariable("idFile") int idFile, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		final int BUFFER_SIZE = 4096;
+
+		Attachment attachment = null;
+		try {
+			attachment = attachmentService.getAttachmentBuId(idFile);
+		} catch (DaoException e) {
+			e.printStackTrace();
+		}
+
+		String rootPath = System.getProperty("catalina.home");
+		File dir = new File(rootPath + File.separator + id + File.separator
+				+ "tmpFiles");
+
+		String filePath = dir.toString();
+
+		// get absolute path of the application
+		ServletContext context = request.getSession().getServletContext();
+		String appPath = context.getRealPath("");
+		System.out.println("appPath = " + appPath);
+
+		// construct the complete absolute path of the file
+//		String fullPath = appPath + filePath;
+		String fullPath = dir.toString() + File.separator + attachment.getName();
+		File downloadFile = new File(fullPath);
+		FileInputStream inputStream;
+		try {
+			inputStream = new FileInputStream(downloadFile);
+			// get MIME type of the file
+			String mimeType = context.getMimeType(fullPath);
+			if (mimeType == null) {
+				// set to binary type if MIME mapping not found
+				mimeType = "application/octet-stream";
+			}
+			System.out.println("MIME type: " + mimeType);
+
+			// set content attributes for the response
+			response.setContentType(mimeType);
+			response.setContentLength((int) downloadFile.length());
+
+			// set headers for the response
+			String headerKey = "Content-Disposition";
+			String headerValue = String.format("attachment; filename=\"%s\"",
+					downloadFile.getName());
+			response.setHeader(headerKey, headerValue);
+
+			// get output stream of the response
+			OutputStream outStream;
+			outStream = response.getOutputStream();
+			byte[] buffer = new byte[BUFFER_SIZE];
+			int bytesRead = -1;
+
+			// write bytes read from the input stream into the output stream
+			while ((bytesRead = inputStream.read(buffer)) != -1) {
+				outStream.write(buffer, 0, bytesRead);
+			}
+			inputStream.close();
+			outStream.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	private void getDefaultData(Model model) {
@@ -417,8 +605,13 @@ public class IssueController {
 			// get all comments relate to issue
 			List<Comment> comments = new ArrayList<Comment>();
 			comments = commentService.getExistCommentsByIssueId(id);
-
 			model.addAttribute(ServletConstants.JSP_COMMENT_LIST, comments);
+
+			// get all attachments relate to issue
+			List<Attachment> attachments = new ArrayList<Attachment>();
+			attachments = attachmentService.getExistAttachmentsByIssueId(id);
+			model.addAttribute(ServletConstants.JSP_ATTACHMENT_LIST,
+					attachments);
 
 			jumpPage(ServletConstants.EDIT_ISSUE_PAGE, model);
 		} catch (DaoException e) {
@@ -467,7 +660,7 @@ public class IssueController {
 		}
 		return null;
 	}
-	
+
 	private String getInputResultComment(String comment) {
 		if (comment == null || comment.equals("")) {
 			return ServletConstants.ERROR_COMMENT_EMPTY;
