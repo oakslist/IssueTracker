@@ -3,7 +3,6 @@ package org.training.controllers.spring;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -422,7 +421,7 @@ public class IssueController {
 						+ "tmpFiles");
 				if (!dir.exists())
 					dir.mkdirs();
-				// Create the file on serve
+				// Create the file on server
 				File serverFile = new File(dir.getAbsolutePath()
 						+ File.separator + name);
 				BufferedOutputStream stream = new BufferedOutputStream(
@@ -500,15 +499,12 @@ public class IssueController {
 		File dir = new File(rootPath + File.separator + id + File.separator
 				+ "tmpFiles");
 
-		String filePath = dir.toString();
-
 		// get absolute path of the application
 		ServletContext context = request.getSession().getServletContext();
 		String appPath = context.getRealPath("");
 		System.out.println("appPath = " + appPath);
 
 		// construct the complete absolute path of the file
-//		String fullPath = appPath + filePath;
 		String fullPath = dir.toString() + File.separator + attachment.getName();
 		File downloadFile = new File(fullPath);
 		FileInputStream inputStream;

@@ -250,9 +250,8 @@
 										</div>
 									</div>
 								</div>
-								<div class="footer-comment">
-								<a href="<c:url value='/issue/${issue.id}/file/${attachment.id}/download'/>"><c:out value="${attachment.name}"/></a>
-									<hr>
+								<div class="footer-attachment">
+								<p>${attachment.id}.&nbsp;&nbsp;&nbsp;<a href="<c:url value='/issue/${issue.id}/file/${attachment.id}/download'/>"><c:out value="${attachment.name}"/></a>
 								</div>
 							</c:forEach>
 						</div>
