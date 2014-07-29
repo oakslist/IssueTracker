@@ -2,15 +2,18 @@ package org.training.controllers.spring;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.training.constants.ServletConstants;
+import org.training.form.AddSimpleNameForm;
 import org.training.model.beans.hibbeans.Status;
 import org.training.model.hib.ifaces.ITableDataService;
 import org.training.model.impls.DaoException;
@@ -45,7 +48,7 @@ public class StatusController {
 
 	@RequestMapping(value = "/{id}/edit")
 	public String statusEdit(@PathVariable("id") int id,
-			HttpServletRequest request, Model model) {
+			HttpServletRequest request, Model model,  ModelMap modelMap) {
 
 		HttpSession session = request.getSession(false);
 
@@ -53,6 +56,9 @@ public class StatusController {
 			return jump(ServletConstants.INDEX_PAGE,
 					ServletConstants.ERROR_NULL_SESSION, model);
 		}
+		
+		AddSimpleNameForm addSimpleNameForm = new AddSimpleNameForm();
+		modelMap.put("addSimpleNameForm", addSimpleNameForm);
 		
 		try {
 			// get status from db
@@ -65,9 +71,9 @@ public class StatusController {
 		}
 	}
 	
-	@RequestMapping(value = "/{id}/save", method = RequestMethod.POST)
-	public String statusSave(@PathVariable("id") int id,
-			@RequestParam(ServletConstants.JSP_EDIT_STATUS) String statusName,
+	@RequestMapping(value = "/{id}/edit/save", method = RequestMethod.POST)
+	public String statusSave(@Valid AddSimpleNameForm addSimpleNameForm,
+			BindingResult result, @PathVariable("id") int id,
 			HttpServletRequest request, Model model) {
 
 		HttpSession session = request.getSession(false);
@@ -76,16 +82,15 @@ public class StatusController {
 			return jump(ServletConstants.INDEX_PAGE, ServletConstants.ERROR_NULL_SESSION, model);
 		}
 		
-		String inputResult = getInputResultSave(statusName);
-		if(inputResult != null) {
+		if (result.hasErrors()) {
 			getEditStatus(id, model);
-			return jump(ServletConstants.EDIT_STATUS_PAGE, inputResult, model);
+			return ServletConstants.EDIT_STATUS_PAGE;
 		}
 		
 		try {
 			//update status in db
 			Status status = getEditStatus(id, model);
-			status.setStatusName(statusName);
+			status.setStatusName(addSimpleNameForm.getName());
 			boolean isUpdated = commonService.updateStatus(status);
 			if (isUpdated == true) {
 				return jump(ServletConstants.EDIT_STATUS_PAGE, ServletConstants.STATUS_UPDATE_SUCCESSFULLY, model);
@@ -123,11 +128,4 @@ public class StatusController {
 		return jump(url, ServletConstants.KEY_EMPTY, model);
 	}
 
-	private String getInputResultSave(String statusStr) {
-		if(statusStr == null || statusStr.equals("")) {
-			return ServletConstants.ERROR_STATUS_NAME_EMPTY;
-		}
-		return null;
-	}
-	
 }

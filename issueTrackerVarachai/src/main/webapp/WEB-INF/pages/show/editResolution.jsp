@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page import="org.training.constants.ServletConstants" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"%>
@@ -29,8 +30,9 @@
 				
 			<c:choose>
 				<c:when test="${user.role.roleName eq 'ADMINISTRATOR'}">
-					<form method="POST" action="<c:url value='/resolution/${editResolution.id}/save'/>">
-							<table class="users-table">
+					<c:url var="addUrl" value="/resolution/${editResolution.id}/edit/save"/>
+					<form:form method="post" commandName="addSimpleNameForm" action="${addUrl}">
+						<table class="users-table">
 							<thead>
 								<tr>
 									<th class="table-id-name">Id</th>
@@ -39,17 +41,24 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td><c:out value="${editResolution.id}"/></td>
-									<td><c:out value="${editResolution.resolutionName}"/></td>
-       							</tr>
-    						</tbody>
-							</table>
-							<p>New Resolution:
-							<input type="text" class="param-name"
-									name=<%= ServletConstants.JSP_EDIT_RESOLUTION%> size="15">
-							</p>
-							<input class="add-btn" type="submit" value="Change status name">
-						</form>
+									<td><c:out value="${editResolution.id}" /></td>
+									<td><c:out value="${editResolution.resolutionName}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						<table class="add-user-table">
+								<tr>
+									<td>New Resolution:</td>
+									<td><form:input path="name" /></td>
+									<td class="red-text"><span class="error"><form:errors
+												path="name" /></span></td>
+								</tr>
+								<tr>
+									<td colspan="3"><input class="add-btn" type="submit"
+										value="Add Resolution" /></td>
+								</tr>
+						</table>
+					</form:form>
 				</c:when>
 				<c:otherwise>
 					<p><font color=&quot#AABBCC&quot>Your are in IssueTracker edit resolution page now<br>

@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page import="org.training.constants.ServletConstants" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"%>
@@ -29,8 +30,9 @@
 				
 			<c:choose>
 				<c:when test="${user.role.roleName eq 'ADMINISTRATOR'}">
-					<form method="POST" action="<c:url value='/status/${editStatus.id}/save'/>">
-							<table class="users-table">
+				<c:url var="addUrl" value="/status/${editStatus.id}/edit/save"/>
+				<form:form method="post" commandName="addSimpleNameForm" action="${addUrl}">
+						<table class="users-table">
 							<thead>
 								<tr>
 									<th class="table-id-name">Id</th>
@@ -41,15 +43,22 @@
 								<tr>
 									<td><c:out value="${editStatus.id}"/></td>
 									<td><c:out value="${editStatus.statusName}"/></td>
-       							</tr>
-    						</tbody>
-							</table>
-							<p>New Status:
-							<input type="text" class="param-name"
-									name=<%= ServletConstants.JSP_EDIT_STATUS%> size="15">
-							</p>
-							<input class="add-btn" type="submit" value="Change status name">
-						</form>
+								</tr>
+							</tbody>
+						</table>
+						<table class="add-user-table">
+								<tr>
+									<td>New Status:</td>
+									<td><form:input path="name" /></td>
+									<td class="red-text"><span class="error"><form:errors
+												path="name" /></span></td>
+								</tr>
+								<tr>
+									<td colspan="3"><input class="add-btn" type="submit"
+										value="Add Status" /></td>
+								</tr>
+						</table>
+					</form:form>				
 				</c:when>
 				<c:otherwise>
 					<p><font color=&quot#AABBCC&quot>Your are in IssueTracker Search user page now<br>

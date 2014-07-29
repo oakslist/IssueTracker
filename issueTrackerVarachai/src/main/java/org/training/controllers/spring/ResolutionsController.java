@@ -2,15 +2,18 @@ package org.training.controllers.spring;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.training.constants.ServletConstants;
+import org.training.form.AddSimpleNameForm;
 import org.training.model.beans.hibbeans.Resolution;
 import org.training.model.hib.ifaces.ITableDataService;
 import org.training.model.impls.DaoException;
@@ -44,7 +47,7 @@ public class ResolutionsController {
 
 	@RequestMapping(value = "/{id}/edit")
 	public String resolutionEdit(@PathVariable("id") int id,
-			HttpServletRequest request, Model model) {
+			HttpServletRequest request, Model model, ModelMap modelMap) {
 
 		HttpSession session = request.getSession(false);
 
@@ -52,6 +55,9 @@ public class ResolutionsController {
 			return jump(ServletConstants.INDEX_PAGE,
 					ServletConstants.ERROR_NULL_SESSION, model);
 		}
+		
+		AddSimpleNameForm addSimpleNameForm = new AddSimpleNameForm();
+		modelMap.put("addSimpleNameForm", addSimpleNameForm);
 
 		try {
 			// get status from db
@@ -64,10 +70,9 @@ public class ResolutionsController {
 		}
 	}
 
-	@RequestMapping(value = "/{id}/save", method = RequestMethod.POST)
-	public String resolutionChangeSave(
-			@PathVariable("id") int id,
-			@RequestParam(ServletConstants.JSP_EDIT_RESOLUTION) String resolutionName,
+	@RequestMapping(value = "/{id}/edit/save", method = RequestMethod.POST)
+	public String resolutionChangeSave(@Valid AddSimpleNameForm addSimpleNameForm,
+			BindingResult result, @PathVariable("id") int id,
 			HttpServletRequest request, Model model) {
 
 		HttpSession session = request.getSession(false);
@@ -76,18 +81,17 @@ public class ResolutionsController {
 			return jump(ServletConstants.INDEX_PAGE,
 					ServletConstants.ERROR_NULL_SESSION, model);
 		}
+		
+		if (result.hasErrors()) {
+			getEditResolution(id, model);
+			return ServletConstants.EDIT_RESOLUTION_PAGE;
+		}
 
 		Resolution resolution = getEditResolution(id, model);
 
-		String inputResult = getInputResultSave(resolutionName);
-		if (inputResult != null) {
-			return jump(ServletConstants.EDIT_RESOLUTION_PAGE, inputResult,
-					model);
-		}
-
 		try {
 			// update status in db
-			resolution.setResolutionName(resolutionName);
+			resolution.setResolutionName(addSimpleNameForm.getName());
 			boolean isUpdated = commonService.updateResolution(resolution);
 			if (isUpdated == true) {
 				return jump(ServletConstants.EDIT_RESOLUTION_PAGE,
@@ -104,7 +108,7 @@ public class ResolutionsController {
 	}
 
 	@RequestMapping(value = "/add")
-	public String resolutionAddNew(HttpServletRequest request, Model model) {
+	public String resolutionAddNew(HttpServletRequest request, Model model, ModelMap modelMap) {
 
 		HttpSession session = request.getSession(false);
 
@@ -112,14 +116,16 @@ public class ResolutionsController {
 			return jump(ServletConstants.INDEX_PAGE,
 					ServletConstants.ERROR_NULL_SESSION, model);
 		}
+		
+		AddSimpleNameForm addSimpleNameForm = new AddSimpleNameForm();
+		modelMap.put("addSimpleNameForm", addSimpleNameForm);
 
 		return jumpPage(ServletConstants.ADD_NEW_RESOLUTION_PAGE, model);
 	}
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String resolutionSave(
-			@RequestParam(ServletConstants.JSP_ADD_RESOLUTION) String resolutionName,
-			HttpServletRequest request, Model model) {
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String resolutionSave(@Valid AddSimpleNameForm addSimpleNameForm,
+			BindingResult result, HttpServletRequest request, Model model) {
 
 		HttpSession session = request.getSession(false);
 
@@ -128,16 +134,14 @@ public class ResolutionsController {
 					ServletConstants.ERROR_NULL_SESSION, model);
 		}
 
-		String inputResult = getInputResultSave(resolutionName);
-		if (inputResult != null) {
-			return jump(ServletConstants.ADD_NEW_RESOLUTION_PAGE, inputResult,
-					model);
+		if (result.hasErrors()) {
+			return ServletConstants.ADD_NEW_RESOLUTION_PAGE;
 		}
 
 		try {
 			// set type in db
 			Resolution resolution = new Resolution();
-			resolution.setResolutionName(resolutionName);
+			resolution.setResolutionName(addSimpleNameForm.getName());
 			boolean isSet = commonService.setResolution(resolution);
 			if (isSet == true) {
 				return jump(ServletConstants.ADD_NEW_RESOLUTION_PAGE,
@@ -175,13 +179,6 @@ public class ResolutionsController {
 	// jump to the next valid page
 	protected String jumpPage(String url, Model model) {
 		return jump(url, ServletConstants.KEY_EMPTY, model);
-	}
-
-	private String getInputResultSave(String resolutionName) {
-		if (resolutionName == null || resolutionName.equals("")) {
-			return ServletConstants.ERROR_RESOLUTION_NAME_EMPTY;
-		}
-		return null;
 	}
 
 }

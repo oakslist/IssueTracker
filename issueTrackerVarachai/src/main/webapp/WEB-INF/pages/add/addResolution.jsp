@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page import="org.training.constants.ServletConstants"%>
 <%@ page import="org.training.model.beans.enums.UserRoleEnum"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -40,17 +41,21 @@
 				<c:when
 					test="${user.role.roleName eq 'USER' || user.role.roleName eq 'ADMINISTRATOR'}">
 					<div class="add-params">
-						<form method="POST" action="<c:url value='/resolution/save'/>">
+						<form:form method="post" commandName="addSimpleNameForm">
 							<h3>Add New Resolution:</h3>
 							<table class="add-user-table">
 								<tr>
 									<td>Resolution Name:</td>
-									<td><input type="text" class="resolution-name"
-										name=<%=ServletConstants.JSP_ADD_RESOLUTION%> size="15"></td>
+									<td><form:input path="name" /></td>
+									<td class="red-text"><span class="error"><form:errors
+												path="name" /></span></td>
+								</tr>
+								<tr>
+									<td colspan="3"><input class="add-btn" type="submit"
+										value="Add Resolution" /></td>
 								</tr>
 							</table>
-							<input class="add-btn" type="submit" value="Add Resolution">
-						</form>
+						</form:form>
 					</div>
 				</c:when>
 				<c:otherwise>

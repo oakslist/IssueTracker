@@ -2,15 +2,18 @@ package org.training.controllers.spring;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.training.constants.ServletConstants;
+import org.training.form.AddSimpleNameForm;
 import org.training.model.beans.hibbeans.Priority;
 import org.training.model.hib.ifaces.ITableDataService;
 import org.training.model.impls.DaoException;
@@ -44,7 +47,7 @@ public class PriorityController {
 
 	@RequestMapping(value = "/{id}/edit")
 	public String priorityEdit(@PathVariable("id") int id,
-			HttpServletRequest request, Model model) {
+			HttpServletRequest request, Model model, ModelMap modelMap) {
 
 		HttpSession session = request.getSession(false);
 
@@ -52,6 +55,9 @@ public class PriorityController {
 			return jump(ServletConstants.INDEX_PAGE,
 					ServletConstants.ERROR_NULL_SESSION, model);
 		}
+		
+		AddSimpleNameForm addSimpleNameForm = new AddSimpleNameForm();
+		modelMap.put("addSimpleNameForm", addSimpleNameForm);
 
 		try {
 			// get status from db
@@ -63,10 +69,9 @@ public class PriorityController {
 		}
 	}
 
-	@RequestMapping(value = "/{id}/save", method = RequestMethod.POST)
-	public String priorityChangeSave(
-			@PathVariable("id") int id,
-			@RequestParam(ServletConstants.JSP_EDIT_PRIORITY) String priorityName,
+	@RequestMapping(value = "/{id}/edit/save", method = RequestMethod.POST)
+	public String priorityChangeSave(@Valid AddSimpleNameForm addSimpleNameForm,
+			BindingResult result, @PathVariable("id") int id,
 			HttpServletRequest request, Model model) {
 
 		HttpSession session = request.getSession(false);
@@ -75,17 +80,18 @@ public class PriorityController {
 			return jump(ServletConstants.INDEX_PAGE,
 					ServletConstants.ERROR_NULL_SESSION, model);
 		}
+		
+		if (result.hasErrors()) {
+			getEditPriority(id, model);
+			return ServletConstants.EDIT_PRIORITY_PAGE;
+		}
+
 
 		Priority priority = getEditPriority(id, model);
 
-		String inputResult = getInputResultSave(priorityName);
-		if (inputResult != null) {
-			return jump(ServletConstants.EDIT_PRIORITY_PAGE, inputResult, model);
-		}
-
 		try {
 			// update status in db
-			priority.setPriorityName(priorityName);
+			priority.setPriorityName(addSimpleNameForm.getName());
 			boolean isUpdated = commonService.updatePriority(priority);
 			if (isUpdated == true) {
 				return jump(ServletConstants.EDIT_PRIORITY_PAGE,
@@ -102,7 +108,7 @@ public class PriorityController {
 	}
 
 	@RequestMapping(value = "/add")
-	public String priorityAddNew(HttpServletRequest request, Model model) {
+	public String priorityAddNew(HttpServletRequest request, Model model, ModelMap modelMap) {
 
 		HttpSession session = request.getSession(false);
 
@@ -110,14 +116,16 @@ public class PriorityController {
 			return jump(ServletConstants.INDEX_PAGE,
 					ServletConstants.ERROR_NULL_SESSION, model);
 		}
+		
+		AddSimpleNameForm addSimpleNameForm = new AddSimpleNameForm();
+		modelMap.put("addSimpleNameForm", addSimpleNameForm);
 
 		return jumpPage(ServletConstants.ADD_NEW_PRIORITY_PAGE, model);
 	}
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String prioritySave(
-			@RequestParam(ServletConstants.JSP_ADD_PRIORITY) String priorityName,
-			HttpServletRequest request, Model model) {
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String prioritySave(@Valid AddSimpleNameForm addSimpleNameForm,
+			BindingResult result, HttpServletRequest request, Model model) {
 
 		HttpSession session = request.getSession(false);
 
@@ -125,17 +133,15 @@ public class PriorityController {
 			return jump(ServletConstants.INDEX_PAGE,
 					ServletConstants.ERROR_NULL_SESSION, model);
 		}
-
-		String inputResult = getInputResultSave(priorityName);
-		if (inputResult != null) {
-			return jump(ServletConstants.ADD_NEW_PRIORITY_PAGE, inputResult,
-					model);
+		
+		if (result.hasErrors()) {
+			return ServletConstants.ADD_NEW_PRIORITY_PAGE;
 		}
 
 		try {
 			// set type in db
 			Priority priority = new Priority();
-			priority.setPriorityName(priorityName);
+			priority.setPriorityName(addSimpleNameForm.getName());
 			boolean isSet = commonService.setPriority(priority);
 			if (isSet == true) {
 				return jump(ServletConstants.ADD_NEW_PRIORITY_PAGE,
@@ -173,13 +179,6 @@ public class PriorityController {
 	// jump to the next valid page
 	protected String jumpPage(String url, Model model) {
 		return jump(url, ServletConstants.KEY_EMPTY, model);
-	}
-
-	private String getInputResultSave(String priorityName) {
-		if (priorityName == null || priorityName.equals("")) {
-			return ServletConstants.ERROR_PRIORITY_NAME_EMPTY;
-		}
-		return null;
 	}
 
 }

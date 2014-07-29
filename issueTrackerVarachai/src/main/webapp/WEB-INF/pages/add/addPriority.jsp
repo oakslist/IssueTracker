@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page import="org.training.constants.ServletConstants"%>
 <%@ page import="org.training.model.beans.enums.UserRoleEnum"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -38,22 +39,27 @@
 				<c:when
 					test="${user.role.roleName eq 'USER' || user.role.roleName eq 'ADMINISTRATOR'}">
 					<div class="add-params">
-						<form method="POST" action="<c:url value='/priority/save'/>">
+						<form:form method="post" commandName="addSimpleNameForm">
 							<h3>Add New Priority:</h3>
 							<table class="add-user-table">
 								<tr>
 									<td>Priority Name:</td>
-									<td><input type="text" class="priority-name"
-										name=<%=ServletConstants.JSP_ADD_PRIORITY%> size="15"></td>
+									<td><form:input path="name" /></td>
+									<td class="red-text"><span class="error"><form:errors
+												path="name" /></span></td>
+								</tr>
+								<tr>
+									<td colspan="3"><input class="add-btn" type="submit"
+										value="Add Priority" /></td>
 								</tr>
 							</table>
-							<input class="add-btn" type="submit" value="Add Priority">
-						</form>
+						</form:form>
 					</div>
 				</c:when>
 				<c:otherwise>
 					<p>
-						<font color=&quot#AABBCC&quot>Your are in IssueTracker Add Params page now<br> Please login or go to the <a
+						<font color=&quot#AABBCC&quot>Your are in IssueTracker Add
+							Params page now<br> Please login or go to the <a
 							href="<c:url value='/index.jsp'/>">main page</a>.
 						</font>
 					</p>
