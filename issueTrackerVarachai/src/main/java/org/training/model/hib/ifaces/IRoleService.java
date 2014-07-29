@@ -9,6 +9,7 @@ import org.training.model.impls.DaoException;
 public interface IRoleService {
 	
 	public Role getExistRole(UserRoleEnum role) throws DaoException;
+	public Role getRoleByName(String roleName) throws DaoException;
 	public List<Role> getExistRoles() throws DaoException;
 
 }

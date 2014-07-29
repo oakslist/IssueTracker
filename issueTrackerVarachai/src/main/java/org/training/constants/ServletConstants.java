@@ -11,13 +11,13 @@ public class ServletConstants {
 	public static final String DEFAULT_ADMIN_FIRST_NAME = "Siarhei";
 	public static final String DEFAULT_ADMIN_LAST_NAME = "Varachai";
 	public static final String DEFAULT_ADMIN_EMAIL_ADDRESS = "ad@ad.ad";
-	public static final String DEFAULT_ADMIN_PASSWORD = "ad";
+	public static final String DEFAULT_ADMIN_PASSWORD = "11111";
 	public static final UserRoleEnum DEFAULT_ADMIN_ROLE = UserRoleEnum.ADMINISTRATOR;
 	
 	public static final String DEFAULT_USER_FIRST_NAME = "Ivan";
 	public static final String DEFAULT_USER_LAST_NAME = "Ivanov";
 	public static final String DEFAULT_USER_EMAIL_ADDRESS = "us@us.us";
-	public static final String DEFAULT_USER_PASSWORD = "us";
+	public static final String DEFAULT_USER_PASSWORD = "22222";
 	public static final UserRoleEnum DEFAULT_USER_ROLE = UserRoleEnum.USER;
 		
 	public static final String XML_USERS_FILE = "/Users.xml";

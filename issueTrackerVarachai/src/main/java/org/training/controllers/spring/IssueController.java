@@ -17,10 +17,12 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +31,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.training.constants.ServletConstants;
+import org.training.form.LoginForm;
+import org.training.model.beans.enums.UserRoleEnum;
 import org.training.model.beans.hibbeans.Attachment;
 import org.training.model.beans.hibbeans.BuildFound;
 import org.training.model.beans.hibbeans.Comment;
@@ -71,7 +75,7 @@ public class IssueController {
 	FileValidator fileValidator;
 
 	@RequestMapping(value = "/all")
-	public String allIssuesPage(HttpServletRequest request, Model model) {
+	public String allIssuesPage(HttpServletRequest request, Model model, ModelMap modelMap) {
 
 		HttpSession session = request.getSession(false);
 
@@ -80,6 +84,60 @@ public class IssueController {
 			return jumpError(ServletConstants.ERROR_NULL_SESSION, model);
 		}
 
+		// get data from db
+		try {
+			session.setAttribute(ServletConstants.JSP_ALL_ISSUES_LIST,
+					issueService.getAllIssues());
+
+			jumpPage(ServletConstants.ALL_ISSUES_PAGE, model);
+		} catch (DaoException e) {
+			return jumpError(e.getMessage(), model);
+		}
+		
+		LoginForm loginForm = new LoginForm();
+		modelMap.put("loginForm", loginForm);
+
+		return ServletConstants.ALL_ISSUES_PAGE;
+	}
+	
+	@RequestMapping(value = "/all", method = RequestMethod.POST)
+	public String allIssuesPage(HttpServletRequest request, Model model, ModelMap modelMap,
+			@Valid LoginForm loginForm, BindingResult result) {
+
+		HttpSession session = request.getSession(false);
+
+		if (session == null) {
+			session = request.getSession(true);
+			return jumpError(ServletConstants.ERROR_NULL_SESSION, model);
+		}
+		
+		if (result.hasErrors()) {
+			getAllIssues(session, model);
+			return ServletConstants.ALL_ISSUES_PAGE;
+		}
+
+		String emailAddress = loginForm.getEmail();
+		String password = loginForm.getPassword();
+		
+		// check password and email in bd
+		try {
+			// get exist user
+			User user = userService.getExistUser(emailAddress, password);
+			if (user != null) {
+				// write data in session
+				session.setAttribute(ServletConstants.JSP_USER, user);
+			} else {
+				// user not found
+				getAllIssues(session, model);
+				return jump(ServletConstants.ALL_ISSUES_PAGE,
+						ServletConstants.ERROR_USER_NOT_FOUND, model);
+			}
+		} catch (DaoException e) {
+			getAllIssues(session, model);
+			return jump(ServletConstants.ALL_ISSUES_PAGE,
+					ServletConstants.ERROR_USER_NOT_FOUND, model);
+		}
+		
 		// get data from db
 		try {
 			session.setAttribute(ServletConstants.JSP_ALL_ISSUES_LIST,
@@ -662,6 +720,36 @@ public class IssueController {
 			return ServletConstants.ERROR_COMMENT_EMPTY;
 		}
 		return null;
+	}
+	
+	private void getAllIssues(HttpSession session, Model model) {
+		// get all issues from db
+		List<Issue> issuesList = new ArrayList<Issue>();
+		try {
+			// IIssueDAOHib issueDAO = IssueFactoryHib.getClassFromFactory();
+			System.out
+					.println("session.getAttribute(ServletConstants.JSP_USER) = "
+							+ session.getAttribute(ServletConstants.JSP_USER));
+			User curUser = (User) session
+					.getAttribute(ServletConstants.JSP_USER);
+			if (curUser == null
+					|| curUser.getRole().getRoleName()
+							.equals(UserRoleEnum.GUEST.toString())) {
+				issuesList = issueService.getAllIssues();
+			} else {
+				if (curUser.getRole().getRoleName()
+						.equals(UserRoleEnum.USER.toString())
+						|| curUser.getRole().getRoleName()
+								.equals(UserRoleEnum.ADMINISTRATOR.toString())) {
+					issuesList = issueService
+							.getUserIssues(curUser.getUserId());
+				}
+			}
+			// write data in session
+			model.addAttribute(ServletConstants.JSP_ISSUES_LIST, issuesList);
+		} catch (DaoException e) {
+			jumpError(e.getMessage(), model);
+		}
 	}
 
 }

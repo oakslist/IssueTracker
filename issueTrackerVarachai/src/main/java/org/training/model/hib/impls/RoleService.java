@@ -39,4 +39,9 @@ public class RoleService implements IRoleService {
 	public boolean checkRole(Role role) throws DaoException {
 		return roleDAOImpl.checkRole(role);
 	}
+
+	@Transactional
+	public Role getRoleByName(String roleName) throws DaoException {
+		return roleDAOImpl.getRoleByName(roleName);
+	}
 }

@@ -5,13 +5,18 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.training.constants.ServletConstants;
+import org.training.form.LoginForm;
 import org.training.model.beans.enums.UserRoleEnum;
 import org.training.model.beans.hibbeans.Issue;
 import org.training.model.beans.hibbeans.User;
@@ -37,7 +42,8 @@ public class MainController {
 	private IUserService userService;
 
 	@RequestMapping(value = "/index")
-	public String indexPage(HttpServletRequest request, Model model) {
+	public String indexPage(HttpServletRequest request, Model model,
+			ModelMap modelMap) {
 
 		HttpSession session = request.getSession(false);
 
@@ -58,12 +64,16 @@ public class MainController {
 		}
 
 		getAllIssues(session, model);
-		
+
+		LoginForm loginForm = new LoginForm();
+		modelMap.put("loginForm", loginForm);
+
 		return ServletConstants.MAIN_PAGE;
 	}
-	
-	@RequestMapping(value = "/login")
-	public String login(HttpServletRequest request, Model model) {
+
+	@RequestMapping(value = "/index", method = RequestMethod.POST)
+	public String indexPage(HttpServletRequest request, Model model,
+			ModelMap modelMap, @Valid LoginForm loginForm, BindingResult result) {
 
 		HttpSession session = request.getSession(false);
 
@@ -72,16 +82,14 @@ public class MainController {
 			return jumpError(ServletConstants.ERROR_NULL_SESSION, model);
 		}
 
-		String emailAddress = request
-				.getParameter(ServletConstants.JSP_EMAIL_ADDRESS);
-		String password = request.getParameter(ServletConstants.JSP_PASSWORD);
-
-		String inputResult = getInputResult(emailAddress, password);
-		if (inputResult != null) {
+		if (result.hasErrors()) {
 			getAllIssues(session, model);
-			return jump(ServletConstants.MAIN_PAGE, inputResult, model);
+			return ServletConstants.MAIN_PAGE;
 		}
 
+		String emailAddress = loginForm.getEmail();
+		String password = loginForm.getPassword();
+		
 		// check password and email in bd
 		try {
 			// get exist user
@@ -94,12 +102,13 @@ public class MainController {
 			} else {
 				// user not found
 				getAllIssues(session, model);
-				return jump(ServletConstants.MAIN_PAGE, ServletConstants.ERROR_USER_NOT_FOUND, model);
+				return jump(ServletConstants.MAIN_PAGE,
+						ServletConstants.ERROR_USER_NOT_FOUND, model);
 			}
 		} catch (DaoException e) {
 			return jumpError(e.getMessage(), model);
 		}
-		
+
 		return ServletConstants.INDEX_PAGE;
 	}
 
@@ -130,16 +139,6 @@ public class MainController {
 
 	protected String jumpError(String message, Model model) {
 		return jump(ServletConstants.MAIN_PAGE, message, model);
-	}
-
-	private String getInputResult(String emailAddress, String password) {
-		if (emailAddress == null || emailAddress.equals("")) {
-			return ServletConstants.ERROR_EMAIL_EMPTY;
-		}
-		if (password == null || password.equals("")) {
-			return ServletConstants.ERROR_PASSWORD_EMPTY;
-		}
-		return null;
 	}
 
 	private void getAllIssues(HttpSession session, Model model) {

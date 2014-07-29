@@ -15,5 +15,7 @@ public interface IRoleDAO {
 	public boolean addNewRole(Role role) throws DaoException;
 	
 	public boolean checkRole(Role role) throws DaoException;
+	
+	public Role getRoleByName(String roleName) throws DaoException;
 
 }

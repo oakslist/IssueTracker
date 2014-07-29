@@ -252,3 +252,26 @@ span.comment {
 	
 }
 
+/* ====== form-messages ====== */
+#loginForm {
+	width: 100%;
+}
+
+#loginForm .red-text,
+.red-text {
+	color: red;
+}
+
+#loginForm input {
+	width: 150px;
+}
+
+#loginForm .login-text {
+	width: 10%;
+}
+
+#loginForm .login-sub {
+	width: 70px;
+}
+
+

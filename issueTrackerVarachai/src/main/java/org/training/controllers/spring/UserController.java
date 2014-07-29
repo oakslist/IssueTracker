@@ -5,16 +5,19 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.training.constants.ServletConstants;
-import org.training.model.beans.enums.UserRoleEnum;
+import org.training.form.AddUserForm;
 import org.training.model.beans.hibbeans.Role;
 import org.training.model.beans.hibbeans.User;
 import org.training.model.hib.ifaces.IRoleService;
@@ -65,26 +68,24 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/add")
-	public String addUserPage(HttpServletRequest request, Model model) {
+	public String addUserPage(HttpServletRequest request, Model model,
+			ModelMap modelMap) {
 
 		HttpSession session = request.getSession(false);
 
 		if (session == null) {
 			return jumpError(ServletConstants.ERROR_NULL_SESSION, model);
 		}
+
+		AddUserForm addUserForm = new AddUserForm();
+		modelMap.put("addUserForm", addUserForm);
 
 		return ServletConstants.ADD_USER_PAGE;
 	}
 
-	@RequestMapping(value = "/add/save", method = RequestMethod.POST)
-	public String saveNewUser(
-			@RequestParam(ServletConstants.JSP_FIRST_NAME) String firstName,
-			@RequestParam(ServletConstants.JSP_LAST_NAME) String lastName,
-			@RequestParam(ServletConstants.JSP_EMAIL_ADDRESS) String emailAddress,
-			@RequestParam(ServletConstants.JSP_ROLE) String role,
-			@RequestParam(ServletConstants.JSP_PASSWORD) String password,
-			@RequestParam(ServletConstants.JSP_PASSWORD_CONFIRMATION) String passwordConfirmation,
-			HttpServletRequest request, Model model) {
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String saveNewUser(@Valid AddUserForm addUserForm,
+			BindingResult result, HttpServletRequest request, Model model) {
 
 		HttpSession session = request.getSession(false);
 
@@ -92,11 +93,15 @@ public class UserController {
 			return jumpError(ServletConstants.ERROR_NULL_SESSION, model);
 		}
 
-		String inputResult = getInputResultNewUser(firstName, lastName,
-				emailAddress, role, password, passwordConfirmation);
-		if (inputResult != null) {
-			return jump(ServletConstants.ADD_USER_PAGE, inputResult, model);
+		if (result.hasErrors()) {
+			return ServletConstants.ADD_USER_PAGE;
 		}
+
+		String firstName = addUserForm.getFirstName();
+		String lastName = addUserForm.getLastName();
+		String emailAddress = addUserForm.getEmail();
+		String role = addUserForm.getRole();
+		String password = addUserForm.getPassword();
 
 		User newUser = new User();
 
@@ -107,7 +112,7 @@ public class UserController {
 
 		try {
 			// get Role from db
-			Role curRole = roleService.getExistRole(UserRoleEnum.valueOf(role));
+			Role curRole = roleService.getRoleByName(role);
 			newUser.setRole(curRole);
 
 			// set user in db
@@ -131,7 +136,7 @@ public class UserController {
 			HttpServletRequest request, Model model) {
 
 		HttpSession session = request.getSession(false);
-		
+
 		if (session == null) {
 			return jumpError(ServletConstants.ERROR_NULL_SESSION, model);
 		}
@@ -147,7 +152,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "{id}/edit/password")
-	public String editPassword(@PathVariable("id") int id, 
+	public String editPassword(@PathVariable("id") int id,
 			HttpServletRequest request, Model model) {
 
 		HttpSession session = request.getSession(false);
@@ -155,14 +160,15 @@ public class UserController {
 		if (session == null) {
 			return jumpError(ServletConstants.ERROR_NULL_SESSION, model);
 		}
-		
+
 		try {
 			// get all users from db
 			User user = userService.getUserById(id);
 			model.addAttribute(ServletConstants.JSP_EDIT_USER_BY_ID, user);
 			return jumpPage(ServletConstants.EDIT_PASSWORD_PAGE, model);
 		} catch (DaoException e) {
-			return jump(ServletConstants.EDIT_PASSWORD_PAGE, e.getMessage(), model);
+			return jump(ServletConstants.EDIT_PASSWORD_PAGE, e.getMessage(),
+					model);
 		}
 
 	}
@@ -224,7 +230,6 @@ public class UserController {
 			return jumpError(ServletConstants.ERROR_NULL_SESSION, model);
 		}
 
-	
 		String inputResult = getInputResultPassword(password,
 				passwordConfirmation);
 		if (inputResult != null) {
@@ -252,7 +257,7 @@ public class UserController {
 		}
 
 	}
-	
+
 	private User getUserFromDB(int id, Model model) {
 		User user = null;
 		try {
@@ -308,32 +313,6 @@ public class UserController {
 		}
 		return null;
 	}
-
-	private String getInputResultNewUser(String firstName, String lastName,
-			String emailAddress, String role, String password,
-			String passwordConfirmation) {
-		if (firstName == null || firstName.equals("")) {
-			return ServletConstants.ERROR_FIRST_NAME_EMPTY;
-		}
-		if (lastName == null || lastName.equals("")) {
-			return ServletConstants.ERROR_LAST_NAME_EMPTY;
-		}
-		if (emailAddress == null || emailAddress.equals("")) {
-			return ServletConstants.ERROR_EMAIL_EMPTY;
-		}
-		if (role == null || role.equals("")) {
-			return ServletConstants.ERROR_ROLE_EMPTY;
-		}
-		if (password == null || password.equals("")) {
-			return ServletConstants.ERROR_PASSWORD_EMPTY;
-		}
-		if (passwordConfirmation == null || passwordConfirmation.equals("")) {
-			return ServletConstants.ERROR_PASSWORD_CONFIRM_EMPTY;
-		}
-		if (!password.equals(passwordConfirmation)) {
-			return ServletConstants.ERROR_PASSWORDS_NOT_EQUAL;
-		}
-		return null;
-	}
+	
 
 }

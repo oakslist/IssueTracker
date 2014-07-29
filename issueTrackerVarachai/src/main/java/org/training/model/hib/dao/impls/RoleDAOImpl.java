@@ -93,4 +93,24 @@ public class RoleDAOImpl implements IRoleDAO {
 		return isExist;
 	}
 
+	@Override
+	public Role getRoleByName(String roleName) throws DaoException {
+		Role userRole = null;
+		System.out.println("Get exist role by Name");
+		LOG.info("Get exist role by Name");
+		Session session = sessionFactory.getCurrentSession();
+		try {
+			session.getTransaction().begin();
+			userRole = (Role) session.createQuery(
+				    "from Role r where r.roleName = ?")
+				   .setString(0, roleName)
+				   .uniqueResult();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+			System.out.println("error in get exist Role by Name");
+		}
+		return userRole;
+	}
+
 }
