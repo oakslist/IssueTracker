@@ -2,15 +2,18 @@ package org.training.controllers.spring;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.training.constants.ServletConstants;
+import org.training.form.AddSimpleNameForm;
 import org.training.model.beans.hibbeans.Type;
 import org.training.model.hib.ifaces.ITableDataService;
 import org.training.model.impls.DaoException;
@@ -44,7 +47,7 @@ public class TypeController {
 
 	@RequestMapping(value = "/{id}/edit")
 	public String typeEdit(@PathVariable("id") int id,
-			HttpServletRequest request, Model model) {
+			HttpServletRequest request, Model model, ModelMap modelMap) {
 
 		HttpSession session = request.getSession(false);
 
@@ -52,6 +55,9 @@ public class TypeController {
 			return jump(ServletConstants.INDEX_PAGE,
 					ServletConstants.ERROR_NULL_SESSION, model);
 		}
+
+		AddSimpleNameForm addSimpleNameForm = new AddSimpleNameForm();
+		modelMap.put("addSimpleNameForm", addSimpleNameForm);
 
 		try {
 			// get status from db
@@ -63,9 +69,9 @@ public class TypeController {
 		}
 	}
 
-	@RequestMapping(value = "/{id}/save", method = RequestMethod.POST)
-	public String typeChangeSave(@PathVariable("id") int id,
-			@RequestParam(ServletConstants.JSP_EDIT_TYPE) String typeName,
+	@RequestMapping(value = "/{id}/edit/save", method = RequestMethod.POST)
+	public String typeChangeSave(@Valid AddSimpleNameForm addSimpleNameForm,
+			BindingResult result, @PathVariable("id") int id,
 			HttpServletRequest request, Model model) {
 
 		HttpSession session = request.getSession(false);
@@ -74,17 +80,17 @@ public class TypeController {
 			return jump(ServletConstants.INDEX_PAGE,
 					ServletConstants.ERROR_NULL_SESSION, model);
 		}
+		
+		if (result.hasErrors()) {
+			getEditType(id, model);
+			return ServletConstants.EDIT_TYPE_PAGE;
+		}
 
 		Type type = getEditType(id, model);
 
-		String inputResult = getInputResultSave(typeName);
-		if (inputResult != null) {
-			return jump(ServletConstants.EDIT_TYPE_PAGE, inputResult, model);
-		}
-
 		try {
 			// update status in db
-			type.setTypeName(typeName);
+			type.setTypeName(addSimpleNameForm.getName());
 			boolean isUpdated = commonService.updateType(type);
 			if (isUpdated == true) {
 				return jump(ServletConstants.EDIT_TYPE_PAGE,
@@ -100,7 +106,8 @@ public class TypeController {
 	}
 
 	@RequestMapping(value = "/add")
-	public String typeAddNew(HttpServletRequest request, Model model) {
+	public String typeAddNew(HttpServletRequest request, Model model,
+			ModelMap modelMap) {
 
 		HttpSession session = request.getSession(false);
 
@@ -108,14 +115,16 @@ public class TypeController {
 			return jump(ServletConstants.INDEX_PAGE,
 					ServletConstants.ERROR_NULL_SESSION, model);
 		}
+
+		AddSimpleNameForm addSimpleNameForm = new AddSimpleNameForm();
+		modelMap.put("addSimpleNameForm", addSimpleNameForm);
 
 		return jumpPage(ServletConstants.ADD_NEW_TYPE_PAGE, model);
 	}
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String typeSave(
-			@RequestParam(ServletConstants.JSP_ADD_TYPE) String typeName,
-			HttpServletRequest request, Model model) {
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String typeSave(@Valid AddSimpleNameForm addSimpleName,
+			BindingResult result, HttpServletRequest request, Model model) {
 
 		HttpSession session = request.getSession(false);
 
@@ -124,15 +133,14 @@ public class TypeController {
 					ServletConstants.ERROR_NULL_SESSION, model);
 		}
 
-		String inputResult = getInputResultSave(typeName);
-		if (inputResult != null) {
-			return jump(ServletConstants.ADD_NEW_TYPE_PAGE, inputResult, model);
+		if (result.hasErrors()) {
+			return ServletConstants.ADD_NEW_TYPE_PAGE;
 		}
 
 		try {
 			// set type in db
 			Type type = new Type();
-			type.setTypeName(typeName);
+			type.setTypeName(addSimpleName.getName());
 			boolean isSet = commonService.setType(type);
 			if (isSet == true) {
 				return jump(ServletConstants.ADD_NEW_TYPE_PAGE,
@@ -170,13 +178,6 @@ public class TypeController {
 	// jump to the next valid page
 	protected String jumpPage(String url, Model model) {
 		return jump(url, ServletConstants.KEY_EMPTY, model);
-	}
-
-	private String getInputResultSave(String typeName) {
-		if (typeName == null || typeName.equals("")) {
-			return ServletConstants.ERROR_TYPE_NAME_EMPTY;
-		}
-		return null;
 	}
 
 }

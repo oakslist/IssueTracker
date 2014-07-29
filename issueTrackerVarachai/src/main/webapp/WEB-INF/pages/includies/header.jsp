@@ -27,7 +27,7 @@
 					</tr>
 					<tr>
 						<td class="login-text"><spring:message code="label.email" /></td>
-						<td><form:input path="email"/></td>
+						<td><form:input path="email" value="ad@ad.ad"/></td>
 						<td class="red-text"><span class="error"><form:errors path="email"/></span></td>
 					</tr>
 					<tr>
