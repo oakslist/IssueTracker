@@ -11,6 +11,7 @@ public interface IUserService {
 	public List<User> getExistUsers() throws DaoException;
 	public User getExistUser(String emailAddress, String password) throws DaoException;
 	public User getUserById(int id) throws DaoException;
+	public User getUserByEmail(String email) throws DaoException;
 	public boolean addNewUser(User user) throws DaoException;
 	public boolean updateUser(User user) throws DaoException;
 	public boolean updateUserPassword(User user) throws DaoException;

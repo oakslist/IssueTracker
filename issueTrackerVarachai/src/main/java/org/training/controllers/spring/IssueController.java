@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.training.constants.ServletConstants;
+import org.training.form.IssueForm;
 import org.training.form.LoginForm;
 import org.training.model.beans.enums.UserRoleEnum;
 import org.training.model.beans.hibbeans.Attachment;
@@ -83,17 +84,14 @@ public class IssueController {
 			session = request.getSession(true);
 			return jumpError(ServletConstants.ERROR_NULL_SESSION, model);
 		}
-
 		// get data from db
 		try {
 			session.setAttribute(ServletConstants.JSP_ALL_ISSUES_LIST,
 					issueService.getAllIssues());
-
 			jumpPage(ServletConstants.ALL_ISSUES_PAGE, model);
 		} catch (DaoException e) {
 			return jumpError(e.getMessage(), model);
 		}
-		
 		LoginForm loginForm = new LoginForm();
 		modelMap.put("loginForm", loginForm);
 
@@ -152,10 +150,12 @@ public class IssueController {
 	}
 
 	@RequestMapping(value = "/add")
-	public String addIssue(HttpServletRequest request, Model model) {
+	public String addIssue(HttpServletRequest request, Model model, ModelMap modelMap) {
 
 		HttpSession session = request.getSession(false);
-
+		
+		IssueForm issueForm = new IssueForm();
+		
 		if (session == null) {
 			session = request.getSession(true);
 			return jumpError(ServletConstants.ERROR_NULL_SESSION, model);
@@ -163,18 +163,12 @@ public class IssueController {
 
 		// get data from db
 		try {
-			model.addAttribute(ServletConstants.JSP_TYPES_LIST,
-					commonService.getTypes());
-			model.addAttribute(ServletConstants.JSP_STATUSES_LIST,
-					commonService.getStatuses());
-			model.addAttribute(ServletConstants.JSP_RESOLUTIONS_LIST,
-					commonService.getResolutions());
-			model.addAttribute(ServletConstants.JSP_PRIORITIES_LIST,
-					commonService.getPriorities());
-			model.addAttribute(ServletConstants.JSP_PROJECT_BUILDS_LIST,
-					commonService.getBuildFounds());
-			model.addAttribute(ServletConstants.JSP_ASSIGNEES_LIST,
-					commonService.getUsers());
+			model.addAttribute(ServletConstants.JSP_TYPES_LIST, commonService.getTypes());
+			model.addAttribute(ServletConstants.JSP_STATUSES_LIST, commonService.getStatuses());
+			model.addAttribute(ServletConstants.JSP_RESOLUTIONS_LIST, commonService.getResolutions());
+			model.addAttribute(ServletConstants.JSP_PRIORITIES_LIST, commonService.getPriorities());
+			model.addAttribute(ServletConstants.JSP_PROJECT_BUILDS_LIST, commonService.getBuildFounds());
+			model.addAttribute(ServletConstants.JSP_ASSIGNEES_LIST, commonService.getUsers());
 			// get all projects
 			List<Project> projects = commonService.getProjects();
 			// set a Map builds depend on project. For javaScript functionality
@@ -182,27 +176,27 @@ public class IssueController {
 			for (Project project : projects) {
 				buildsMapList.put(project.getId(), project.getBuilds());
 			}
-			model.addAttribute(ServletConstants.JSP_PROJECTS_LIST, projects);
+			model.addAttribute(ServletConstants.JSP_PROJECTS_LIST, commonService.getProjects());
 			model.addAttribute(
 					ServletConstants.JSP_PROJECTS_CURRENT_BUILDS_LIST,
 					buildsMapList);
+			List<User> usersList = new ArrayList<User>();
+			// get all users from db
+			usersList = userService.getExistUsers();
+			
+			modelMap.put("assigneesList", usersList);
+			
+			modelMap.put("issueForm", issueForm);
 			return jumpPage(ServletConstants.SUBMIT_ISSUE_PAGE, model);
 		} catch (DaoException e) {
+			modelMap.put("issueForm", issueForm);
 			return jump(ServletConstants.MAIN_PAGE, e.getMessage(), model);
 		}
 	}
 
-	@RequestMapping(value = "/add/save", method = RequestMethod.POST)
-	public String saveIssue(
-			@RequestParam(ServletConstants.JSP_SUMMARY) String summary,
-			@RequestParam(ServletConstants.JSP_DESCRIPTION) String description,
-			@RequestParam(ServletConstants.JSP_STATUS) String status,
-			@RequestParam(ServletConstants.JSP_TYPE) String type,
-			@RequestParam(ServletConstants.JSP_PRIORITY) String priority,
-			@RequestParam(ServletConstants.JSP_PROJECT) String project,
-			@RequestParam(ServletConstants.JSP_BUILD_FOUND) String buildFound,
-			@RequestParam(ServletConstants.JSP_ASSIGNEE) int assignee,
-			HttpServletRequest request, Model model) {
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String saveIssue(@Valid IssueForm issueForm,
+			BindingResult result, HttpServletRequest request, Model model) {
 
 		HttpSession session = request.getSession(false);
 
@@ -211,23 +205,22 @@ public class IssueController {
 			return jump(ServletConstants.INDEX_PAGE,
 					ServletConstants.ERROR_NULL_SESSION, model);
 		}
-
+		
 		getDefaultData(model);
-
-		String inputResult = getInputResult(summary, description, status, type,
-				priority, project, buildFound);
-		if (inputResult != null) {
-			return jump(ServletConstants.SUBMIT_ISSUE_PAGE, inputResult, model);
+		
+		if (result.hasErrors()) {
+			return ServletConstants.SUBMIT_ISSUE_PAGE;
 		}
-
+		
 		try {
 			// set issue
 			Issue issue = new Issue();
 
-			issue.setSummary(summary);
-			issue.setDescription(description);
-			User curAssignee = userService.getUserById(assignee);
-			issue.setAssignee(curAssignee);
+			issue.setSummary(issueForm.getSummary());
+			issue.setDescription(issueForm.getDescription());
+			
+			User curAssignee = userService.getUserById(Integer.parseInt(issueForm.getAssignee()));
+			issue.setAssignee(curAssignee);			
 			User createdBy = (User) session
 					.getAttribute(ServletConstants.JSP_USER);
 			User createdUser = userService.getUserById(createdBy.getUserId());
@@ -235,17 +228,17 @@ public class IssueController {
 			Calendar calendar = Calendar.getInstance();
 			issue.setCreateDate(calendar.getTime());
 
-			Type curType = commonService.getTypeByName(type);
+			Type curType = commonService.getTypeByName(issueForm.getType());
 			issue.setType(curType);
 
-			Status curStatus = commonService.getStatusByName(status);
+			Status curStatus = commonService.getStatusByName(issueForm.getStatus());
 			issue.setStatus(curStatus);
 
-			Priority curPriority = commonService.getPriorityByName(priority);
+			Priority curPriority = commonService.getPriorityByName(issueForm.getPriority());
 			issue.setPriority(curPriority);
 
 			Project curProject = commonService.getProjectByNameAndBuild(
-					project, buildFound);
+					issueForm.getProject(), issueForm.getBuildFound());
 			issue.setProject(curProject);
 
 			curStatus.getIssues().add(issue);

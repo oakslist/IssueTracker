@@ -89,47 +89,6 @@
 							</table>
 							<input class="add-btn" type="submit" value="Add User">
 						</form:form>
-
-<%-- 						<form method="POST" action="<c:url value='/user/add/save'/>"> --%>
-<!-- 							<table class="add-user-table"> -->
-<!-- 								<tr> -->
-<!-- 									<td>First Name:</td> -->
-<!-- 									<td><input type="text" class="first-name" -->
-<%-- 										name=<%=ServletConstants.JSP_FIRST_NAME%> size="15"></td> --%>
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td>Last Name:</td> -->
-<!-- 									<td><input type="text" class="last-name" -->
-<%-- 										name=<%=ServletConstants.JSP_LAST_NAME%> size="15"></td> --%>
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td>Email Address:</td> -->
-<!-- 									<td><input type="text" class="email-address" -->
-<%-- 										name=<%=ServletConstants.JSP_EMAIL_ADDRESS%> size="15"></td> --%>
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td>Role:</td> -->
-<!-- 									<td><select class="role" -->
-<%-- 										name=<%=ServletConstants.JSP_ROLE%>> --%>
-<%-- 											<c:forEach items="<%=UserRoleEnum.values()%>" var="role"> --%>
-<%-- 												<option value="${role.userRole}">${role.userRole}</option> --%>
-<%-- 											</c:forEach> --%>
-<!-- 									</select></td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td>Password:</td> -->
-<!-- 									<td><input type="password" class="password" -->
-<%-- 										name=<%=ServletConstants.JSP_PASSWORD%> size="15"></td> --%>
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td>Password Confirmation:</td> -->
-<!-- 									<td><input type="password" class="password-confirmation" -->
-<%-- 										name=<%=ServletConstants.JSP_PASSWORD_CONFIRMATION%> --%>
-<!-- 										size="15"></td> -->
-<!-- 								</tr> -->
-<!-- 							</table> -->
-<!-- 							<input class="add-btn" type="submit" value="Add User"> -->
-<%-- 						</form> --%>
 					</div>
 				</c:when>
 				<c:otherwise>
